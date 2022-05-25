@@ -1,0 +1,304 @@
+.btn_home {
+    position: absolute;
+    width: 240px;
+    height: 65px;
+    top: 50px;
+    left: 100px;
+    border-radius: 52px;
+    background-color: #E6EAEF;
+    border-color: #E6EAEF;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+    font-size: 32px;
+    font-weight: 700
+}
+
+.voice_box {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    width: 1322px;
+    height: 637px;
+    transform: translate(-50%, -50%);
+    border-radius: 30px;
+    background-color: bisque;
+}
+
+.btn_reply {
+    position: absolute;
+    width: 531px;
+    height: 79px;
+    border-radius: 52px;
+    font-size: 32px;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+    border-color: #E6EAEF;
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.btn_reply_left {
+    top: 880px;
+    left: 100px;
+    background-color: rgba(255, 177, 60, 0.2);
+}
+
+.btn_reply_right {
+    top: 881px;
+    left: 789px;
+    background-color: #FFB13C;
+}
+
+/* start */
+.ticket_box {
+    position: relative;
+    width: 748px;
+    height: 651px;
+    left: 611px;
+    top: 194px;
+    border-radius: 37px;
+    background-color: bisque;
+}
+
+h3 {
+    position: absolute;
+    font-weight: 700;
+    font-size: 36px;
+    left: 350px;
+    top: 40px;
+}
+
+.red_text {
+    color: red;
+}
+
+.res_location {
+    position: absolute;
+    top: 155px;
+    left: 55px;
+    font-weight: 500;
+    font-size: 36px;
+}
+
+.res_num {
+    position: absolute;
+    top: 249px;
+    left: 73px;
+    font-weight: 500;
+    font-size: 36px;
+}
+
+.res_car {
+    position: absolute;
+    top: 343px;
+    left: 73px;
+    font-weight: 500;
+    font-size: 36px;
+}
+
+.res_type {
+    position: absolute;
+    top: 437px;
+    left: 73px;
+    font-weight: 500;
+    font-size: 36px;
+}
+
+.btn_ticket_left {
+    position: absolute;
+    border-radius: 50px;
+    width: 269px;
+    height: 100px;
+    top: 800px;
+    left: 700px;
+}
+
+.btn_ticket_right {
+    position: absolute;
+    border-radius: 50px;
+    width: 269px;
+    height: 100px;
+    top: 800px;
+    left: 900px;
+}
+
+.btn_edit {
+    position: absolute;
+    font-weight: 700;
+    font-size: 20px;
+    border-radius: 43.5px;
+    width: 120px;
+    height: 47px;
+}
+
+.btn_edit_location {
+    top: 155px;
+    left: 581px;
+}
+
+.btn_edit_num {
+    top: 255px;
+    left: 581px;
+}
+
+.btn_edit_car {
+    top: 355px;
+    left: 581px;
+}
+
+.btn_edit_type {
+    top: 455px;
+    left: 581px;
+}
+
+/* select_xxx */
+.standard_box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 740px;
+    height: 524px;
+    transform: translate(-50%, -50%);
+    border-radius: 20px;
+    background-color: bisque;
+}
+
+.small_standard_box{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 740px;
+    height: 354px;
+    transform: translate(-50%, -50%);
+    border-radius: 20px;
+    background-color: bisque;
+}
+
+h2 {
+    position: absolute;
+    font-weight: 600;
+    font-size: 36px;
+    top: 59px;
+    left: 291px;
+}
+
+.btn_close {
+    position: absolute;
+    width: 39px;
+    height: 39px;
+    top: 40px;
+    left: 666px;
+    border-radius: 50%;
+}
+
+.btn_ok {
+    position: absolute;
+    width: 104px;
+    height: 38px;
+    top: 456px;
+    left: 318px;
+    border-radius: 20px;
+}
+
+/* select_num */
+.btn_num {
+    position: absolute;
+    width: 99px;
+    height: 55px;
+    border-radius: 25px;
+}
+
+.btn_num1 {
+    top: 164px;
+    left: 115px;
+}
+
+.btn_num2 {
+    top: 164px;
+    left: 252px;
+}
+
+.btn_num3 {
+    top: 164px;
+    left: 389px;
+}
+
+.btn_num4 {
+    top: 164px;
+    left: 526px;
+}
+
+/* select_car */
+.btn_car {
+    position: absolute;
+    width: 121px;
+    height: 64px;
+    border-radius: 15px;
+}
+
+.btn_car1 {
+    top: 150px;
+    left: 30px;
+}
+
+.btn_car2 {
+    top: 150px;
+    left: 170px;
+}
+
+.btn_car3 {
+    top: 150px;
+    left: 310px;
+}
+
+.btn_car4 {
+    top: 150px;
+    left: 450px;
+}
+
+.btn_car5 {
+    top: 150px;
+    left: 590px;
+}
+
+/* select_type_num */
+.btn_type {
+    width: 196px;
+    height: 64px;
+    border-radius: 20px;
+}
+
+/* pay */
+.pay_detail1 {
+    position: absolute;
+    font-size: medium;
+}
+
+.pay_detail2 {
+    position: absolute;
+    font-size: larger;
+    left: 75px;
+    top: 200px;
+}
+
+.cash_total {
+    position: absolute;
+    top: 150px; 
+    left: 146px;
+    font-weight: 700;
+    font-size: 36px;
+}
+
+.cash_paid {
+    position: absolute;
+    top: 247px;
+    left: 146px;
+    font-weight: 700;
+    font-size: 36px;
+}
+
+.cash_change {
+    position: absolute;
+    top: 350px;
+    left: 146px;
+    font-weight: 700;
+    font-size: 36px;
+}

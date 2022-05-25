@@ -1,0 +1,20 @@
+//set var
+$("input[name='date']").attr("value", $.format.date(new Date(), 'yyyy-MM-dd'));
+$("input[name='time']").attr("value", $.format.date(new Date(), 'HH:mm'));
+
+// tool
+$.fn.serializeForm = function() {
+    var o = {};
+    var a = this.serializeArray();
+    $.each(a, function() {
+        if (o[this.name]) {
+            if (!o[this.name].push) {
+                o[this.name] = [o[this.name]];
+            }
+            o[this.name].push(this.value || '');
+        } else {
+            o[this.name] = this.value || '';
+        }
+    });
+    return o;
+};
