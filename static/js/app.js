@@ -1,6 +1,13 @@
+
 //set var
-$("input[name='date']").attr("value", $.format.date(new Date(), 'yyyy-MM-dd'));
-$("input[name='time']").attr("value", $.format.date(new Date(), 'HH:mm'));
+var today = new Date()
+var date = today.getFullYear() + "/" + (today.getMonth()+1) + "/" + today.getDate();
+var time = today.getHours() + ":" + today.getMinutes();
+document.getElementById("date").innerHTML = date;
+document.getElementById("time").innerHTML = time;
+
+// $("input[name='date']").attr("value", $.format.date(new Date(), 'yyyy-MM-dd'));
+// $("input[name='time']").attr("value", $.format.date(new Date(), 'HH:mm'));
 
 // tool
 $.fn.serializeForm = function() {
@@ -18,3 +25,7 @@ $.fn.serializeForm = function() {
     });
     return o;
 };
+
+document.querySelector(".second").addEventListener('click', function(){
+    Swal.fire("Our First Alert");
+  });

@@ -19,17 +19,22 @@
     <a href="/">
         <input type="button" class="btn_home" value="回首頁">
     </a>
-    <input name="time" class="time" type="time" value="13:10">
-   
+    <div class="date" id="date"></div>
+    <div class="time" id="time"></div>
+    
     <div class="container">
         <form id="form">
-            <div class="voice_box">
-                <img class="" src="" alt="cash_total">
-                <div class="pay_detail1">應付金額：
+            <div class="speech_bubble_ai speech_bubble_ai_welcome">
+                <div>應付金額：
                     <totalMoney></totalMoney>
                 </div>
-                <div class="pay_detail2">請放入鈔票或投入硬幣</div>
-            <div>
+                <div class="red_text">已付金額：
+                    <paidMoney></paidMoney>
+                </div>
+                <div>找回金額：
+                    <changeMoney></changeMoney>
+                </div>
+            </div>
         </form>
     </div>
 

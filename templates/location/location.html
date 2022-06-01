@@ -19,15 +19,22 @@
     <a href="/">
         <input type="button" class="btn_home" value="回首頁">
     </a>
-    <input name="time" class="time" type="time" value="13:10">
-   
-    <img class="" src="" alt="ask_location">
-    請問你要去哪裏呢？
+    <div class="date" id="date"></div>
+    <div class="time" id="time"></div>
+    
+    <img class="pic_in_page" src="../../../static/img/003 004 005 目的地.png" alt="ask_location">
+    <div class="speech_bubble_ai speech_bubble_ai_page">
+        請問你要去哪裏呢？
+    </div>
+
+    <div class="speech_bubble_user speech_bubble_user_page">
+        blablabla
+    </div>
 
     <div class="container">
         <form id="form">
             <div class="ticket_box">
-                <h3>車票</h3>
+                <h3>台灣鐵路局</h3>
                 
                 <div class="res_location red_text">目的地</div>
                 <location></location>
@@ -41,12 +48,12 @@
             </div>
         </form>
     </div>
-
+    
     <a href="/buy_ticket_confirm">
-        <input type="button" class="btn_ticket_left" value="上一頁">
+        <input type="button" class="btn_ticket btn_ticket_left btn_yellow" value="上一頁">
     </a>
-    <a href="/location/select_location">
-        <input type="button" class="btn_ticket_right" value="輸入地點">
+    <a href="/num/num">
+        <input type="button" class="btn_ticket btn_ticket_right btn_orange" value="確定">
     </a>
 
 <!-- Bootstrap core JS cdn 5.1.3 -->

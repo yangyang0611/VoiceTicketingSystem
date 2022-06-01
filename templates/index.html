@@ -19,24 +19,32 @@
     <a href="/">
         <input type="button" class="btn_home" value="回首頁">
     </a>
-    <input name="time" class="time" type="time" value="13:10">
-    <img src="../static/img/001 002 台鐵歡迎.png" class="" alt="welcome">
+    
+    <div class="date" id="date"></div>
+    <div class="time" id="time"></div>
 
-    <div class="container">
+    <img src="../static/img/001 002 台鐵歡迎.png" class="pic_welcome" alt="welcome">
+
+    <div class="container-fluid">
         <form id="form">
-            <div class="voice_box">
+            <div class="speech_bubble_ai speech_bubble_ai_welcome">
                 請問需要購票嗎？
-                
-                <a href="/">
-                    <input type="button" class="btn_reply btn_reply_left" value="否">
-                </a>
-                <a href="/buy_ticket_confirm">
-                    <input type="button" class="btn_reply btn_reply_right" value="是">
-                </a>
             </div>
+
+            <div class="speech_bubble_user speech_bubble_user_welcome">
+                blablabla
+            </div>
+                
+            <a href="/">
+                <input type="button" class="btn_reply btn_reply_left" value="否">
+            </a>
+            <a href="/buy_ticket_confirm">
+                <input type="button" class="btn_reply btn_reply_right" value="是">
+            </a>
         </form>
     </div>
 
+    
     
 
 <!-- Bootstrap core JS cdn 5.1.3 -->
