@@ -19,10 +19,17 @@
     <a href="/">
         <input type="button" class="btn_home" value="回首頁">
     </a>
-    <input name="time" class="time" type="time" value="13:10">
-   
-    <img class="" src="" alt="confirm_num">
-    一共是x張票對嗎？
+    <div class="date" id="date"></div>
+    <div class="time" id="time"></div>
+    
+    <img class="pic_in_page" src="../../../static/img/006 007張數.png" alt="ask_location">
+    <div class="speech_bubble_ai speech_bubble_ai_page">
+        一共是x張票對嗎？
+    </div>
+    
+    <div class="speech_bubble_user speech_bubble_user_page">
+        blablabla
+    </div>
 
     <div class="container">
         <form id="form">
@@ -48,10 +55,10 @@
     </div>
 
     <a href="/num/select_num">
-        <input type="button" class="btn_ticket_left" value="否">
+        <input type="button" class="btn_ticket btn_ticket_left btn_yellow" value="上一頁">
     </a>
     <a href="/car/car">
-        <input type="button" class="btn_ticket_right" value="是">
+        <input type="button" class="btn_ticket btn_ticket_right btn_orange" value="確認">
     </a>
 
 <!-- Bootstrap core JS cdn 5.1.3 -->

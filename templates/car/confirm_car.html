@@ -19,16 +19,24 @@
     <a href="/">
         <input type="button" class="btn_home" value="回首頁">
     </a>
-    <input name="time" class="time" type="time" value="13:10">
-   
-    <img class="" src="" alt="ask_car">
-    xx有一班xxx，座位？相鄰<br>
-    你要訂購這班嗎？
+    <div class="date" id="date"></div>
+    <div class="time" id="time"></div>
+
+    <img class="pic_in_page" src="../../../static/img/008 009 010 011 012車次.png" alt="ask_location">
+    <div class="speech_bubble_ai speech_bubble_ai_page">
+        xx有一班xxx，座位？相鄰<br>
+        你要訂購這班嗎？
+      </div>
+    
+    <div class="speech_bubble_user speech_bubble_user_page">
+        blablabla
+    </div>
 
     <div class="container">
         <form id="form">
             <div class="ticket_box">
                 <h3>車票</h3>
+                
                 
                 <div class="res_location">目的地</div>
                 <location></location>
@@ -44,7 +52,7 @@
 
                 <div class="res_car red_text">車次</div>
                 <car></car>
-                <a href="/car/select_time">
+                <a href="/car/select_car_time">
                     <input type="button" class="btn_edit btn_edit_car" value="編輯">
                 </a>
 
@@ -54,10 +62,10 @@
     </div>
 
     <a href="#">
-        <input type="button" class="btn_ticket_left" value="否">
+        <input type="button" class="btn_ticket btn_ticket_left btn_yellow" value="否，繼續搜索">
     </a>
     <a href="/type/type">
-        <input type="button" class="btn_ticket_right" value="是">
+        <input type="button" class="btn_ticket btn_ticket_right btn_orange" value="確定">
     </a>
 
 <!-- Bootstrap core JS cdn 5.1.3 -->
@@ -68,6 +76,7 @@ crossorigin="anonymous"></script>
 <!-- jQuery cdn 3.6.0 -->
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-dateFormat/1.0/jquery.dateFormat.min.js"></script>
+<srcipt src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <!-- local js -->
 <script src="../../../static/js/app.js"></script>

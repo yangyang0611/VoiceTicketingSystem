@@ -58,14 +58,9 @@ def car():
     return render_template("car/car.html")
 
 
-@app.route("/car/select_time")
-def select_time():
-    return render_template("car/select_time.html")
-
-
-@app.route("/car/select_car")
-def select_car():
-    return render_template("car/select_car.html")
+@app.route("/car/select_car_time")
+def select_car_time():
+    return render_template("car/select_car_time.html")
 
 
 @app.route("/car/confirm_car")
@@ -126,9 +121,14 @@ def cash_change():
 # e_pay or card_pay
 
 
-@app.route("/pay/payment_type")
+@app.route("/pay/payment_type_ask")
 def payment_type():
     return render_template("pay/payment_type.html")
+
+
+@app.route("/pay/payment_type_e")
+def payment_type_e():
+    return render_template("pay/payment_type_e.html")
 
 # card
 

@@ -17,25 +17,21 @@
 
 <body>
     <a href="/">
-        <input type="button" class="btn_home" value="回首頁">
+        <input type="button" class="btn_home" value="取消購票">
     </a>
-    <input name="time" class="time" type="time" value="13:10">
-   
+    <div class="date" id="date"></div>
+    <div class="time" id="time"></div>
+    
     <div class="container">
         <form id="form">
-            <div class="voice_box">
-                <img class="" src="" alt="payment_type_e">
-                <div class="pay_detail1">應付金額：
+            <div class="speech_bubble_ai speech_bubble_ai_welcome">
+                <div class="red_text">應付金額：
                     <totalMoney></totalMoney>
                 </div>
-                <div class="pay_detail2">請將電子支付靠近感應處</div>
+                請將電子支付靠近<br>燈光下方感應處
             <div>
         </form>
     </div>
-    
-    <a href="/">
-        <input type="button" class="btn_cancel" value="取消">
-    </a>
         
 
 <!-- Bootstrap core JS cdn 5.1.3 -->

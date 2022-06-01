@@ -19,10 +19,18 @@
     <a href="/">
         <input type="button" class="btn_home" value="回首頁">
     </a>
-    <input name="time" class="time" type="time" value="13:10">
-   
-    <img class="" src="" alt="ask_location">
-    請問有需要幫您訂敬老票、孩童票或愛心票嗎？
+    <div class="date" id="date"></div>
+    <div class="time" id="time"></div>
+    
+    <img class="pic_in_page" src="../../../static/img/013 014 015票種.png" alt="ask_location">
+    <div class="speech_bubble_ai speech_bubble_ai_page">
+        請問敬老票、孩童票、愛心票分別需要幾張？
+        請問有需要幫您訂敬老票、孩童票或愛心票嗎？
+    </div>
+    
+    <div class="speech_bubble_user speech_bubble_user_page">
+        blablabla
+    </div>
 
     <div class="container">
         <form id="form">
@@ -57,10 +65,10 @@
     </div>
 
     <a href="/pay/cash_pay">
-        <input type="button" class="btn_ticket_left" value="否">
+        <input type="button" class="btn_ticket btn_ticket_left btn_yellow" value="不需要">
     </a>
     <a href="/type/type_num">
-        <input type="button" class="btn_ticket_right" value="是">
+        <input type="button" class="btn_ticket btn_ticket_right btn_orange" value="需要">
     </a>
 
 <!-- Bootstrap core JS cdn 5.1.3 -->
