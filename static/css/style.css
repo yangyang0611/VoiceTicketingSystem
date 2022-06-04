@@ -436,6 +436,27 @@ h2 {
 }
 
 /* pay */
+.pic_pay {
+    position: absolute;
+    top: 200px;
+    left: 200px;
+}
+
+.speech_bubble_pay {
+    position: absolute;
+    top: 350px;
+    left: 1000px;
+}
+
+.pay_detail {
+    position: absolute;
+    top: 650px;
+    left: 1100px;
+    font-size: 36px;
+    font-weight: 700;
+    color: #FFB13C;
+}
+
 /* .pay_detail1 {
     position: absolute;
     font-size: medium;
@@ -473,16 +494,22 @@ h2 {
 } */
 
 /* finish */
-.pic_finish {
+.pic_pls_come_again {
     position: absolute;
-    top: 400px;
-    left: 600px;
+    top: 100px;
+    left: 700px;
 }
 
-.finish {
+.pic_finish {
     position: absolute;
-    top: 699px;
-    left: 600px;
+    top: 300px;
+    left: 730px;
+}
+
+.finish_detail {
+    position: absolute;
+    top: 750px;
+    left: 680px;
     font-size: 48px;
     font-weight: 700;
 }

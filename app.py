@@ -96,12 +96,13 @@ def confirm_type():
 
 
 # pay
+# e_pay or card_pay
+
+@app.route("/pay/payment_type_ask")
+def payment_type_ask():
+    return render_template("pay/payment_type_ask.html")
+
 # cash
-
-
-@app.route("/pay/cash/payment_cash")
-def payment_cash():
-    return render_template("pay/cash/payment_cash.html")
 
 
 @app.route("/pay/cash/cash_total")
@@ -118,12 +119,7 @@ def cash_pay():
 def cash_change():
     return render_template("pay/cash/cash_change.html")
 
-# e_pay or card_pay
-
-
-@app.route("/pay/payment_type_ask")
-def payment_type():
-    return render_template("pay/payment_type.html")
+# e_pay
 
 
 @app.route("/pay/payment_type_e")
