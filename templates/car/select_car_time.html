@@ -17,56 +17,69 @@
 
 <body>
     <div class="standard_box">
-        <form id="form_time">
+        <div id="form_time">
             <h2>指定時間</h2>
-                <button name="time6" type="button" class="btn_select_time " onClick="timebtn_click(this.name)">06:00</button>
-                <button name="time7" type="button" class="btn_select_time " onClick="timebtn_click(this.name)">07:00</button>
-                <button name="time8" type="button" class="btn_select_time " onClick="timebtn_click(this.name)">08:00</button>
-                <button name="time9" type="button" class="btn_select_time " onClick="timebtn_click(this.name)">09:00</button>
-                <button name="time10" type="button" class="btn_select_time " onClick="timebtn_click(this.name)">10:00</button>
-                <button name="time11" type="button" class="btn_select_time " onClick="timebtn_click(this.name)">11:00</button>
-                <button name="time12" type="button" class="btn_select_time " onClick="timebtn_click(this.name)">12:00</button>
-                <button name="time13" type="button" class="btn_select_time " onClick="timebtn_click(this.name)">13:00</button>
-                <button name="time14" type="button" class="btn_select_time " onClick="timebtn_click(this.name)">14:00</button>
-                <button name="time15" type="button" class="btn_select_time " onClick="timebtn_click(this.name)">15:00</button>
-                <button name="time16" type="button" class="btn_select_time " onClick="timebtn_click(this.name)">16:00</button>
-                <button name="time17" type="button" class="btn_select_time " onClick="timebtn_click(this.name)">17:00</button>
-                <button name="time18" type="button" class="btn_select_time " onClick="timebtn_click(this.name)">18:00</button>
-                <button name="time19" type="button" class="btn_select_time " onClick="timebtn_click(this.name)">19:00</button>
-                <button name="time20" type="button" class="btn_select_time " onClick="timebtn_click(this.name)">20:00</button>
-                <button name="time21" type="button" class="btn_select_time " onClick="timebtn_click(this.name)">21:00</button>
-                <button name="time22" type="button" class="btn_select_time " onClick="timebtn_click(this.name)">22:00</button>
-                <button name="time23" type="button" class="btn_select_time " onClick="timebtn_click(this.name)">23:00</button>
-        </form>
+        </div>
 
-        <form id="form_car">
+        <div id="form_car">
             <h2>指定車種</h2>
-            <button type="button" class="btn_select_car " onclick="carbtn_click(this.textContent)">自强</button>
-            <button type="button" class="btn_select_car " onclick="carbtn_click(this.textContent)">莒光</button>
-            <button type="button" class="btn_select_car " onclick="carbtn_click(this.textContent)">復興</button>
-            <button type="button" class="btn_select_car " onclick="carbtn_click(this.textContent)">普悠瑪</button>
-            <button type="button" class="btn_select_car " onclick="carbtn_click(this.textContent)">太魯閣</button>
-        </form>
-    
+            <button type="button" name="car_0" class="btn_select_car " onclick="carbtn_click(this.name)">自强</button>
+            <button type="button" name="car_1" class="btn_select_car " onclick="carbtn_click(this.name)">莒光</button>
+            <button type="button" name="car_2" class="btn_select_car " onclick="carbtn_click(this.name)">復興</button>
+            <button type="button" name="car_3" class="btn_select_car " onclick="carbtn_click(this.name)">普悠瑪</button>
+            <button type="button" name="car_4" class="btn_select_car " onclick="carbtn_click(this.name)">太魯閣</button>
+        </div>
+
         <a href="/car/car">
             <input type="button" class="btn_ok_cancel btn_cancel_select btn_yellow" value="取消">
         </a>
-        <a href="/car/confirm_car">
-            <input type="button" class="btn_ok_cancel btn_ok_select btn_orange" value="確認">
-        </a>
+        <!-- <a href="/car/confirm_car"> -->
+        <button name="confirm_car" type="button" class="btn_ok_cancel btn_ok_select btn_orange">確認</button>
+        <!-- </a> -->
     </div>
 
     <!-- Bootstrap core JS cdn 5.1.3 -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
 
-<!-- jQuery cdn 3.6.0 -->
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-dateFormat/1.0/jquery.dateFormat.min.js"></script>
+    <!-- jQuery cdn 3.6.0 -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-dateFormat/1.0/jquery.dateFormat.min.js"></script>
 
-<!-- local js -->
-<script src="../../../static/js/app.js"></script>
+    <!-- local js -->
+    <script src="../../../static/js/app.js"></script>
+    <script>
+        time_init();
+        timebtn_click("time_0");
+        carbtn_click("car_0")
+        $("button[name='confirm_car']").click(function () {
+            $.ajax({
+                method: "POST",
+                url: "/car/select_car_time",
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    "hour": window.sessionStorage.getItem("hour"),
+                    "min": window.sessionStorage.getItem("min"),
+                    "car": window.sessionStorage.getItem("car")
+                }),
+                dataType: "json",
+            })
+                .done(function (result) {
+                    console.log(result);
+                    if (result["status"] == "success")
+                        window.location.href = "/car/confirm_car";
+                })
+                .fail(function () {
+                })
+                .always(function () {
+                });
+        })
+    window.sessionStorage.getItem("hour")
+    window.sessionStorage.getItem("min")
+    window.sessionStorage.getItem("car")
+
+    </script>
 
 </body>
 

@@ -58,9 +58,18 @@ def car():
     return render_template("car/car.html")
 
 
-@app.route("/car/select_car_time")
+@app.route("/car/select_car_time", methods=["GET"])
 def select_car_time():
     return render_template("car/select_car_time.html")
+
+
+@app.route("/car/select_car_time", methods=["POST"])
+def select_car_time_post():
+    """
+    """
+    obj = request.get_json()
+    print(obj)
+    return {"status": "success"}
 
 
 @app.route("/car/confirm_car")
