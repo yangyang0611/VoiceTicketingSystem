@@ -122,17 +122,6 @@ def cash_change():
 # e_pay
 
 
-<<<<<<< HEAD
-@app.route("/pay/payment_type_e")
-def payment_type_e():
-    return render_template("pay/payment_type_e.html")
-=======
-@app.route("/pay/payment_type_ask")
-def payment_type():
-    return render_template("pay/payment_type.html")
->>>>>>> 86b0592adb697c1c92408c3b1dcbb9c64294a3f9
-
-
 @app.route("/pay/payment_type_e")
 def payment_type_e():
     return render_template("pay/payment_type_e.html")

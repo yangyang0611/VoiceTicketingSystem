@@ -335,7 +335,6 @@ h2 {
     left: 666px;
     border-radius: 50%;
 } */
-<<<<<<< HEAD
 
 .btn_ok_cancel {
     position: absolute;
@@ -458,109 +457,6 @@ h2 {
     color: #FFB13C;
 }
 
-=======
-
-.btn_ok_cancel {
-    position: absolute;
-    width: 120px;
-    height: 42px;
-    border-radius: 20px;
-    border-color: #E6EAEF;
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
-    font-weight: 700;
-    font-size: 24px;
-}
-
-.btn_cancel {
-    top: 456px;
-    left: 250px;
-}
-
-.btn_ok {
-    top: 456px;
-    left: 320px;
-}
-
-.btn_cancel_select {
-    margin-top: 70px;
-    margin-left: 300px;
-}
-
-.btn_ok_select {
-    margin-top: 70px;
-    margin-left: 570px;
-}
-
-/* select_num */
-.btn_num {
-    position: absolute;
-    width: 99px;
-    height: 55px;
-    border-radius: 25px;
-    background-color: #EFF5FB;
-    border-color: #E6EAEF;
-    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
-}
-
-/* select_car */
-.btn_select_car {
-    margin-left: 50px;
-    margin-right: 20px;
-    margin-top: 20px;
-    width: 121px;
-    height: 64px;
-    border-color: grey;
-    border-radius: 20px;
-    background-color: #EFF5FB;
-    text-align: center;
-    color: gray;
-    font-size: 24px;
-    font-weight: 700;
-    padding-top: 5px;
-    padding-bottom: 5px;
-}
-
-.btn_select_car:hover {
-    background-color: #74B8F2;
-}
-
-/* select_type_num */
-.type {
-    margin-top: 80px;
-    margin-left: 250px;
-}
-
-.ticket_type {
-    font-size: 32px;
-    font-weight: 700;
-}
-
-.btn_type {
-    width: 39px;
-    height: 39px;
-    border-radius: 50%;
-    font-size: 24px;
-    font-weight: 700;
-    text-align: center;
-}
-
-.btn_type_minus {
-    margin-left: 200px;
-    margin-right: 20px;
-    background-color: #D9D9D9;
-}
-
-.btn_type_plus {
-    margin-left: 20px;
-    background-color: #74B8F2;
-}
-
-.num {
-    font-size: 32px;
-}
-
-/* pay */
->>>>>>> 86b0592adb697c1c92408c3b1dcbb9c64294a3f9
 /* .pay_detail1 {
     position: absolute;
     font-size: medium;
@@ -598,7 +494,6 @@ h2 {
 } */
 
 /* finish */
-<<<<<<< HEAD
 .pic_pls_come_again {
     position: absolute;
     top: 100px;
@@ -615,18 +510,6 @@ h2 {
     position: absolute;
     top: 750px;
     left: 680px;
-=======
-.pic_finish {
-    position: absolute;
-    top: 400px;
-    left: 600px;
-}
-
-.finish {
-    position: absolute;
-    top: 699px;
-    left: 600px;
->>>>>>> 86b0592adb697c1c92408c3b1dcbb9c64294a3f9
     font-size: 48px;
     font-weight: 700;
 }

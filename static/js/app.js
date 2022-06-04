@@ -1,7 +1,4 @@
-<<<<<<< HEAD
 const { default: swal } = require("sweetalert");
-=======
->>>>>>> 86b0592adb697c1c92408c3b1dcbb9c64294a3f9
 
 //set var
 var today = new Date()
@@ -30,12 +27,6 @@ $.fn.serializeForm = function() {
     return o;
 };
 
-<<<<<<< HEAD
 $("button[name='second']").click(function(){
     swal("Hi");
 });
-=======
-document.querySelector(".second").addEventListener('click', function(){
-    Swal.fire("Our First Alert");
-  });
->>>>>>> 86b0592adb697c1c92408c3b1dcbb9c64294a3f9
