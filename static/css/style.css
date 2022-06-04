@@ -378,6 +378,28 @@ h2 {
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
 }
 
+/* select_loc */
+#form_loc div[name="city"] {
+    height: 200px;
+    overflow-y: scroll;
+}
+#form_loc div[name="station"] {
+    height: 200px;
+    overflow-y: scroll;
+}
+.btn_loc {
+    width: 99px;
+    height: 55px;
+    border-radius: 25px;
+    background-color: #EFF5FB;
+    border-color: #E6EAEF;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+}
+.btn_loc_enable {
+    background-color: #74B8F2;
+}
+
+
 /* select_car */
 .btn_select_car {
     margin-left: 50px;

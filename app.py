@@ -24,9 +24,18 @@ def location():
     return render_template("location/location.html")
 
 
-@app.route("/location/select_location")
+@app.route("/location/select_location", methods=["GET"])
 def select_location():
     return render_template("location/select_location.html")
+
+
+@app.route("/location/select_location", methods=["POST"])
+def select_location_post():
+    """
+    """
+    obj = request.get_json()
+    print(obj)
+    return {"status": "success"}
 
 
 @app.route("/location/confirm_location")
