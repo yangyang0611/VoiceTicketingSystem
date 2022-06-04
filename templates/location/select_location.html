@@ -17,36 +17,57 @@
 
 <body>
     <div class="standard_box">
-        <form id="form">
+        <div id="form_loc">
             <h2>輸入地點</h2>
-            <button type="button" onclick="locbtn_click(this.textContent">基隆市</button>
-        </form>
-    
+            <div class="d-flex">
+                <div class="w-50" name="city"></div>
+                <div class="w-50" name="station">123</div>
+            </div>
+
+        </div>
+
         <a href="#">
             <input type="button" class="btn_close" value="X">
         </a>
+        <button name="confirm_loc" type="button" class="btn_ok_cancel btn_ok btn_orange">確認</button>
 
-        
-        <a href="/location/location">
-            <input type="button" class="btn_ok_cancel btn_cancel btn_yellow" value="取消">
-        </a>
-        <a href="/location/confirm_location">
-            <input type="button" class="btn_ok_cancel btn_ok btn_orange" value="確認">
-        </a>
-         
     </div>
 
     <!-- Bootstrap core JS cdn 5.1.3 -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
 
-<!-- jQuery cdn 3.6.0 -->
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-dateFormat/1.0/jquery.dateFormat.min.js"></script>
+    <!-- jQuery cdn 3.6.0 -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-dateFormat/1.0/jquery.dateFormat.min.js"></script>
 
-<!-- local js -->
-<script src="../../../static/js/app.js"></script>
+    <!-- local js -->
+    <script src="../../../static/js/app.js"></script>
+    <script>
+        loc_init();
+        locbtn_click("city_0");
+        $("button[name='confirm_loc']").click(function () {
+            $.ajax({
+                method: "POST",
+                url: "/location/select_location",
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    "station": window.sessionStorage.getItem("station"),
+                }),
+                dataType: "json",
+            })
+                .done(function (result) {
+                    console.log(result);
+                    if (result["status"] == "success")
+                        window.location.href = "/location/confirm_location";
+                })
+                .fail(function () {
+                })
+                .always(function () {
+                });
+        })
+    </script>
 
 </body>
 

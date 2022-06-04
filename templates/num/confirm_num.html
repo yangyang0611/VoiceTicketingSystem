@@ -12,6 +12,8 @@
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <!-- local style -->
     <link rel="stylesheet" type="text/css" href="../../../static/css/style.css">
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
+
 </head>
 
 
@@ -38,16 +40,13 @@
                 
                 <div class="res_location">目的地</div>
                 <location></location>
-                <a href="/location/select_location">
-                    <input type="button" class="btn_edit btn_edit_location" value="編輯">
-                </a>
+                <button type="button" name="btn_edit_loc" class="btn_edit btn_edit_location">編輯</button>
+
 
                 <div class="res_num red_text">張數</div>
                 <num></num>
-                <a href="/num/select_num">
-                    <input type="button" class="btn_edit btn_edit_num" value="編輯">
-                </a>
-
+                <button type="button" name="btn_edit_num" class="btn_edit btn_edit_num">編輯</button>
+                
                 <div class="res_car">車次</div>
                 <div class="res_type">票種</div>
             </div>
@@ -69,6 +68,8 @@ crossorigin="anonymous"></script>
 <!-- jQuery cdn 3.6.0 -->
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-dateFormat/1.0/jquery.dateFormat.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <!-- local js -->
 <script src="../../../static/js/app.js"></script>

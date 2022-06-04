@@ -24,9 +24,18 @@ def location():
     return render_template("location/location.html")
 
 
-@app.route("/location/select_location")
+@app.route("/location/select_location", methods=["GET"])
 def select_location():
     return render_template("location/select_location.html")
+
+
+@app.route("/location/select_location", methods=["POST"])
+def select_location_post():
+    """
+    """
+    obj = request.get_json()
+    print(obj)
+    return {"status": "success"}
 
 
 @app.route("/location/confirm_location")
@@ -58,9 +67,18 @@ def car():
     return render_template("car/car.html")
 
 
-@app.route("/car/select_car_time")
+@app.route("/car/select_car_time", methods=["GET"])
 def select_car_time():
     return render_template("car/select_car_time.html")
+
+
+@app.route("/car/select_car_time", methods=["POST"])
+def select_car_time_post():
+    """
+    """
+    obj = request.get_json()
+    print(obj)
+    return {"status": "success"}
 
 
 @app.route("/car/confirm_car")
@@ -94,9 +112,21 @@ def select_type_num():
 def confirm_type():
     return render_template("type/confirm_type.html")
 
+# confirm
+
+
+@app.route("/confirm/confirm_everything")
+def confirm_everything():
+    return render_template("confirm/confirm_everything.html")
+
+
+@app.route("/confirm/modified_before_confirm")
+def modified_before_confirm():
+    return render_template("confirm/modified_before_confirm.html")
 
 # pay
 # e_pay or card_pay
+
 
 @app.route("/pay/payment_type_ask")
 def payment_type_ask():
