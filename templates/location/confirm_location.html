@@ -21,8 +21,10 @@
     <a href="/">
         <input type="button" class="btn_home" value="回首頁">
     </a>
-    <div class="date" id="date"></div>
-    <div class="time" id="time"></div>
+    <div class="date_time">
+        <div id="date"></div>
+        <div id="time"></div>
+    </div>
     
     <img class="pic_in_page" src="../../../static/img/003 004 005 目的地.png" alt="ask_location">
     <div class="speech_bubble_ai speech_bubble_ai_page">
@@ -38,9 +40,8 @@
             <div class="ticket_box">
                 <h3>車票</h3>
 
-                <div class="res_location">目的地</div>
+                <div class="res_location red_text">目的地</div>
                 <location></location>
-                <button type="button" name="btn_edit_loc" class="btn_edit btn_edit_location">編輯</button>
 
                 <div class="res_num">張數</div>
                 <div class="res_car">車次</div>
@@ -50,10 +51,10 @@
     </div>
 
     <a href="/location/select_location">
-        <input type="button" class="btn_ticket btn_ticket_left btn_yellow" value="否">
+        <input type="button" class="btn_ticket btn_ticket_left btn_yellow" value="否，回上一步">
     </a>
     <a href="/num/num">
-        <input type="button" class="btn_ticket btn_ticket_right btn_orange" value="是">
+        <input type="button" class="btn_ticket btn_ticket_right btn_orange" value="確認">
     </a>
 
 <!-- Bootstrap core JS cdn 5.1.3 -->

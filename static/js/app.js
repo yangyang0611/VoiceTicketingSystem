@@ -77,7 +77,7 @@ function carbtn_click(name){
 }
 function carbtn_css(index){
     for(var i = 0; i < 5; i++) {
-        $(`button[name='car_${i}']`).removeClass("btn_select_car_enable");
+        $(`button[name='car_${i}']`).removeClass("btn_select_enable");
         if (i == index) $(`button[name='car_${i}']`).addClass("btn_select_enable");
     }
 }
@@ -156,6 +156,9 @@ function locsbtn_css(index_c, index_s){
     }
 }
 
+// pls_come_again.html
+
+
 // tool
 $.fn.serializeForm = function() {
     var o = {};
@@ -174,15 +177,19 @@ $.fn.serializeForm = function() {
 };
 
 $("button[name='btn_edit_loc']").click(function(){
-    swal({
+    Swal.fire({
         title: "警告",
         text: "請問是否要重新輸入目的地？",
         icon: "warning",
-        buttons: true,
-        dangerMode: true,
+        showCancelButton: true,
+        confirmButtonText: '刪除',
+        confirmButtonColor: '#FFEFD8',
+        confirmButtonTextColor: 'black',
+        cancelButtonText: '取消',
+        cancelButtonColor: '#FFB13C'
       })
-      .then((willDelete) => {
-        if (willDelete) {
+      .then((result) => {
+        if (result.isConfirmed) {
           
         } else {
           
@@ -228,6 +235,23 @@ $("button[name='btn_edit_type']").click(function(){
     swal({
         title: "警告",
         text: "請問是否要重新輸入票種？",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+          
+        } else {
+          
+        }
+      });
+});
+
+$("button[name='btn_cancel_everything']").click(function(){
+    swal({
+        title: "警告",
+        text: "請問是否要取消購票？",
         icon: "warning",
         buttons: true,
         dangerMode: true,

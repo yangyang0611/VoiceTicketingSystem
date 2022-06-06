@@ -21,8 +21,10 @@
     <a href="/">
         <input type="button" class="btn_home" value="回首頁">
     </a>
-    <div class="date" id="date"></div>
-    <div class="time" id="time"></div>
+    <div class="date_time">
+        <div id="date"></div>
+        <div id="time"></div>
+    </div>
     
     <img class="pic_in_page" src="../../../static/img/008 009 010 011 012車次.png" alt="ask_location">
     <div class="speech_bubble_ai speech_bubble_ai_page">
@@ -50,9 +52,7 @@
 
             <div class="res_car red_text">車次</div>
             <car></car>
-            <a href="/car/select_car_time">
-                <input type="button" class="btn_edit btn_edit_car" value="編輯">
-            </a>
+            
 
             <div class="res_type">票種</div>
         </div>
@@ -61,7 +61,7 @@
     <a href="/car/select_car_time">
         <input type="button" class="btn_ticket btn_ticket_left btn_yellow" value="指定時間/車次">
     </a>
-    <a href="/car/select_car">
+    <a href="#">
         <input type="button" class="btn_ticket btn_ticket_right btn_orange" value="搜素最近一班">
     </a>
 
