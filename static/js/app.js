@@ -1,5 +1,9 @@
 // const { default: swal } = require("sweetalert");
 
+// ##############################
+//           show args
+// ##############################
+
 // set time
 let today, year, month, date, hr, min;
 update_time();
@@ -14,6 +18,17 @@ function update_time() {
     $("#date").text(`${year}/${month}/${date}`);
     $("#time").text(`${hr} : ${min}`);
 }
+
+// set location, num, car, type
+if (window.sessionStorage.getItem("station") != null)
+    $("location").text(window.sessionStorage.getItem("station"));
+if (window.sessionStorage.getItem("num") != null)
+    $("num").text(window.sessionStorage.getItem("num"));
+if (window.sessionStorage.getItem("car") != null)
+    $("car").text(`${window.sessionStorage.getItem("hour")}:${window.sessionStorage.getItem("min")} ${window.sessionStorage.getItem("car")}`);
+if (window.sessionStorage.getItem("type") != null)
+    $("type").html(window.sessionStorage.getItem("type"));
+
 
 // ##############################
 //      select_num.html
@@ -154,6 +169,33 @@ function locsbtn_css(index_c, index_s){
         $(`button[name='stat_${index_c}_${i}']`).removeClass("btn_loc_enable");
         if (i == index_s) $(`button[name='stat_${index_c}_${i}']`).addClass("btn_loc_enable");
     }
+}
+
+// ##############################
+//    select_type_num.html
+// ##############################
+function typebtn_click(name){
+    console.log("numbtn_click: ",name);
+    var type = name.split('_')[0];
+    var opt = name.split('_')[1];
+    var num = parseInt(window.sessionStorage.getItem(type));
+    console.log(type, opt, typeof(num), num);
+    if (opt == "add") {
+        if (num+1 <= 4) window.sessionStorage.setItem(type, num+1);
+    }
+    else {
+        if (num-1 >= 0) window.sessionStorage.setItem(type, num-1);
+    }
+    $("#numOld").text(window.sessionStorage.getItem("old"));
+    $("#numChild").text(window.sessionStorage.getItem("child"));
+    $("#numLove").text(window.sessionStorage.getItem("love"));
+
+    var temp = "";
+    if (window.sessionStorage.getItem("old") != "0") temp+= `老人票:${window.sessionStorage.getItem("old")}<br>`
+    if (window.sessionStorage.getItem("child") != "0") temp+= `孩童票:${window.sessionStorage.getItem("child")}<br>`
+    if (window.sessionStorage.getItem("love") != "0") temp+= `愛心票:${window.sessionStorage.getItem("love")}<br>`;
+    window.sessionStorage.setItem("type", temp);
+    console.log(window.sessionStorage.getItem("type"));
 }
 
 // pls_come_again.html

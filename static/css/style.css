@@ -174,10 +174,26 @@ h3 {
     font-size: 36px;
 }
 
+location {
+    position: absolute;
+    top: 155px;
+    left: 200px;
+    font-weight: 700;
+    font-size: 36px;
+}
+
 .res_num {
     position: absolute;
     top: 249px;
     left: 73px;
+    font-weight: 700;
+    font-size: 36px;
+}
+
+num {
+    position: absolute;
+    top: 249px;
+    left: 200px;
     font-weight: 700;
     font-size: 36px;
 }
@@ -190,10 +206,26 @@ h3 {
     font-size: 36px;
 }
 
+car {
+    position: absolute;
+    top: 343px;
+    left: 200px;
+    font-weight: 700;
+    font-size: 36px;
+}
+
 .res_type {
     position: absolute;
     top: 437px;
     left: 73px;
+    font-weight: 700;
+    font-size: 36px;
+}
+
+type {
+    position: absolute;
+    top: 437px;
+    left: 200px;
     font-weight: 700;
     font-size: 36px;
 }
