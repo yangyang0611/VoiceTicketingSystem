@@ -178,22 +178,53 @@ function typebtn_click(name){
     console.log("numbtn_click: ",name);
     var type = name.split('_')[0];
     var opt = name.split('_')[1];
-    var num = parseInt(window.sessionStorage.getItem(type));
-    console.log(type, opt, typeof(num), num);
+    var cur_num = parseInt(window.sessionStorage.getItem(type));
+    var old = parseInt(window.sessionStorage.getItem("old"));
+    var child = parseInt(window.sessionStorage.getItem("child"));
+    var love = parseInt(window.sessionStorage.getItem("love"));
+    var total = old + child + love;
+
     if (opt == "add") {
-        if (num+1 <= 4) window.sessionStorage.setItem(type, num+1);
+        if (total+1 <= 4) {
+            if (type == "old") {
+                old++;
+                window.sessionStorage.setItem(type, old);
+            }
+            else if (type == "child") {
+                child++;
+                window.sessionStorage.setItem(type, child);
+            }
+            else if (type == "love") {
+                love++;
+                window.sessionStorage.setItem(type, love);
+            }
+        }
     }
     else {
-        if (num-1 >= 0) window.sessionStorage.setItem(type, num-1);
+        if (total-1 >= 0 && cur_num-1 >= 0) {
+            if (type == "old") {
+                old--;
+                window.sessionStorage.setItem(type, old);
+            }
+            else if (type == "child") {
+                child--;
+                window.sessionStorage.setItem(type, child);
+            }
+            else if (type == "love") {
+                love--;
+                window.sessionStorage.setItem(type, love);
+            }
+        }
     }
-    $("#numOld").text(window.sessionStorage.getItem("old"));
-    $("#numChild").text(window.sessionStorage.getItem("child"));
-    $("#numLove").text(window.sessionStorage.getItem("love"));
+
+    $("#numOld").text(old);
+    $("#numChild").text(child);
+    $("#numLove").text(love);
 
     var temp = "";
-    if (window.sessionStorage.getItem("old") != "0") temp+= `老人票:${window.sessionStorage.getItem("old")}<br>`
-    if (window.sessionStorage.getItem("child") != "0") temp+= `孩童票:${window.sessionStorage.getItem("child")}<br>`
-    if (window.sessionStorage.getItem("love") != "0") temp+= `愛心票:${window.sessionStorage.getItem("love")}<br>`;
+    if (old != 0) temp+= `老人票:${old}<br>`
+    if (child != 0) temp+= `孩童票:${child}<br>`
+    if (love != 0) temp+= `愛心票:${love}<br>`
     window.sessionStorage.setItem("type", temp);
     console.log(window.sessionStorage.getItem("type"));
 }

@@ -4,8 +4,21 @@ import json
 from datetime import datetime, timedelta
 from dateutil.parser import parse
 
+from flask_cors import CORS
 app = Flask(__name__)
+CORS(app, resources={r"/*": {"origins": "*"}})
 
+from util.stt_service_client import stt
+
+
+@app.route("/audioUpload", methods=["POST"])
+def form():
+    print(request.files)
+    afile = request.files.get("audio-file")
+    afile.save(f"static/audio/{afile.filename}")
+
+    result = stt(f"static/audio/{afile.filename}", "ishianTW")
+    return "success", 200
 
 @app.route("/")
 def index():

@@ -48,6 +48,7 @@
 	position: absolute;
 	background: #B2DBFE;
 	border-radius: .4em;
+    height: 100px;
     width: 400px;
     font-size: 32px;
     padding-top: 10px;
