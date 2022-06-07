@@ -1,12 +1,16 @@
 let mic, recorder, soundFile;
 let state = 0, start_stopf=false, stop_count = 0;
+let bglevel = 0;
 
 $("#start").click(function () {
     start_record();
 });
 
 $(document).ready(function(){
-    start_record();
+    const audio = document.getElementById("player");
+    console.log(audio.duration);
+    setTimeout(start_record, audio.duration * 1000);
+    setTimeout(getbglevel, audio.duration * 1000-500);
 });
 
 function setup() {
@@ -27,6 +31,15 @@ function setup() {
     fft.setInput(mic);
 }
 
+function getbglevel() {
+    var total = 0;
+    for(var i = 0; i < 1000; i++) {
+        total += mic.getLevel();
+    }
+    bglevel = total / 1000
+    console.log(bglevel);
+}
+
 function start_record() {
     stop_count = 0;
     start_stopf = false;
@@ -40,13 +53,13 @@ function start_record() {
 function stop_record() {
     userStartAudio();
     if (state == 1) {
-        if (!start_stopf && mic.getLevel() > 0.001) {
+        if (!start_stopf && mic.getLevel() > bglevel*2) {
             console.log("START");
             recorder.record(soundFile);
             start_stopf = true;
         }
 
-        if (start_stopf && mic.getLevel() < 0.001) stop_count += 1;
+        if (start_stopf && mic.getLevel() < bglevel*2) stop_count += 1;
 
         if (stop_count > 100) {
             state = 2;
