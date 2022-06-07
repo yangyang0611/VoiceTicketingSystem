@@ -1,3 +1,4 @@
+from util.stt_service_client import stt
 from flask import Flask, render_template, request
 import os
 import json
@@ -8,8 +9,6 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
 
-from util.stt_service_client import stt
-
 
 @app.route("/audioUpload", methods=["POST"])
 def form():
@@ -19,6 +18,7 @@ def form():
 
     result = stt(f"static/audio/{afile.filename}", "ishianTW")
     return "success", 200
+
 
 @app.route("/")
 def index():
@@ -102,6 +102,11 @@ def confirm_car():
 @app.route("/car/full_car")
 def full_car():
     return render_template("car/full_car.html")
+
+
+@app.route("/car/no_car")
+def no_car():
+    return render_template("car/no_car.html")
 
 # type
 

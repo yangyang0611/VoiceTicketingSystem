@@ -22,12 +22,20 @@ function update_time() {
 // set location, num, car, type
 if (window.sessionStorage.getItem("station") != null)
     $("location").text(window.sessionStorage.getItem("station"));
+    $("locationSpeech").text(window.sessionStorage.getItem("station"));
 if (window.sessionStorage.getItem("num") != null)
     $("num").text(window.sessionStorage.getItem("num"));
+    $("numSpeech").text(window.sessionStorage.getItem("num"));
 if (window.sessionStorage.getItem("car") != null)
     $("car").text(`${window.sessionStorage.getItem("hour")}:${window.sessionStorage.getItem("min")} ${window.sessionStorage.getItem("car")}`);
+    $("carSpeech").text(`${window.sessionStorage.getItem("hour")}:${window.sessionStorage.getItem("min")} ${window.sessionStorage.getItem("car")}`);
 if (window.sessionStorage.getItem("type") != null)
     $("type").html(window.sessionStorage.getItem("type"));
+    $("typeSpeech").html(window.sessionStorage.getItem("type"));
+    $("adultSpeech").html(window.sessionStorage.getItem("adultSpeech"));
+    $("oldSpeech").html(window.sessionStorage.getItem("oldSpeech"));
+    $("childSpeech").html(window.sessionStorage.getItem("childSpeech"));
+    $("loveSpeech").html(window.sessionStorage.getItem("loveSpeech"));
 
 
 // ##############################
@@ -179,13 +187,18 @@ function typebtn_click(name){
     var type = name.split('_')[0];
     var opt = name.split('_')[1];
     var cur_num = parseInt(window.sessionStorage.getItem(type));
+    var adult = parseInt(window.sessionStorage.getItem("adult"));
     var old = parseInt(window.sessionStorage.getItem("old"));
     var child = parseInt(window.sessionStorage.getItem("child"));
     var love = parseInt(window.sessionStorage.getItem("love"));
-    var total = old + child + love;
+    var total = adult + old + child + love;
 
     if (opt == "add") {
         if (total+1 <= 4) {
+            if (type == "adult"){
+                adult++;
+                window.sessionStorage.setItem(type, adult);
+            }
             if (type == "old") {
                 old++;
                 window.sessionStorage.setItem(type, old);
@@ -202,6 +215,10 @@ function typebtn_click(name){
     }
     else {
         if (total-1 >= 0 && cur_num-1 >= 0) {
+            if (type == "adult") {
+                adult--;
+                window.sessionStorage.setItem(type, adult);
+            }
             if (type == "old") {
                 old--;
                 window.sessionStorage.setItem(type, old);
@@ -217,15 +234,33 @@ function typebtn_click(name){
         }
     }
 
+    $("#numAdult").text(adult);
     $("#numOld").text(old);
     $("#numChild").text(child);
     $("#numLove").text(love);
 
     var temp = "";
-    if (old != 0) temp+= `老人票:${old}<br>`
-    if (child != 0) temp+= `孩童票:${child}<br>`
-    if (love != 0) temp+= `愛心票:${love}<br>`
+    var adultSpeech = "";
+    var oldSpeech = "";
+    var childSpeech = "";
+    var loveSpeech = "";
+    if (adult != 0) 
+        temp+= `全票:${adult}<br>`;
+        adultSpeech+= `全票 ${window.sessionStorage.getItem("adult")} 張、`;
+        window.sessionStorage.setItem("adultSpeech", adultSpeech);
+    if (old != 0) 
+        temp+= `敬老票:${old}<br>`;
+        oldSpeech+= `敬老票 ${window.sessionStorage.getItem("old")} 張、`;
+    if (child != 0) 
+        temp+= `孩童票:${child}<br>`;
+        childSpeech+= `孩童票 ${window.sessionStorage.getItem("child")} 張、`;
+    if (love != 0) 
+        temp+= `愛心票:${love}<br>`;
+        loveSpeech+= `愛心票 ${window.sessionStorage.getItem("love")} 張`;
     window.sessionStorage.setItem("type", temp);
+    window.sessionStorage.setItem("oldSpeech", oldSpeech);
+    window.sessionStorage.setItem("childSpeech", childSpeech);
+    window.sessionStorage.setItem("loveSpeech", loveSpeech);
     console.log(window.sessionStorage.getItem("type"));
 }
 

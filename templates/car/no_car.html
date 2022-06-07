@@ -5,13 +5,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>confirm_car</title>
+    <title>no_car</title>
 
     <!-- Bootstrap core CSS cdn 5.1.3 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
-
     <!-- local style -->
     <link rel="stylesheet" type="text/css" href="../../../static/css/style.css">
 </head>
@@ -25,11 +23,12 @@
         <div id="date"></div>
         <div id="time"></div>
     </div>
-
+    
     <img class="pic_in_page" src="../../../static/img/008 009 010 011 012車次.png" alt="ask_location">
     <div class="speech_bubble_ai speech_bubble_ai_page">
-        <span class="red_text"><carSpeech></carSpeech></span>，好嗎？    
-    </div>
+        這個時間沒車，<br>
+        請您再選一次
+      </div>
     
     <div class="speech_bubble_user speech_bubble_user_page">
         blablabla
@@ -39,7 +38,6 @@
         <form id="form">
             <div class="ticket_box">
                 <h3>車票</h3>
-                
                 
                 <div class="res_location">目的地</div>
                 <location></location>
@@ -59,11 +57,8 @@
         </form>
     </div>
 
-    <a href="#">
-        <input type="button" class="btn_ticket btn_ticket_left btn_yellow" value="否，繼續搜索">
-    </a>
-    <a href="/type/type">
-        <input type="button" class="btn_ticket btn_ticket_right btn_orange" value="確定">
+    <a href="/car/select_car_time">
+        <input type="button" class="btn_ticket btn_ticket_right btn_orange" value="重選時間">
     </a>
 
 <!-- Bootstrap core JS cdn 5.1.3 -->

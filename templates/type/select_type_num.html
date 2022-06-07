@@ -19,7 +19,12 @@
     <div class="standard_box">
         <form id="form">
             <h2>輸入票種張數</h2>
-
+            <div class="type">
+                <span class="ticket_type">全票</span>
+                <button type="button" name="adult_minus" class="btn_type btn_type_minus" onclick="typebtn_click(this.name)">-</button>            
+                <span class="num" id="numAdult"></span>
+                <button type="button" name="adult_add" class="btn_type btn_type_plus" onclick="typebtn_click(this.name)">+</button>                
+            </div>
             <div class="type">
                 <span class="ticket_type">敬老票</span>
                 <button type="button" name="old_minus" class="btn_type btn_type_minus" onclick="typebtn_click(this.name)">-</button>            
@@ -60,12 +65,15 @@ crossorigin="anonymous"></script>
 <!-- local js -->
 <script src="../../../static/js/app.js"></script>
 <script>
+    var adult = window.sessionStorage.getItem("adult");
     var old = window.sessionStorage.getItem("old");
     var child = window.sessionStorage.getItem("child");
     var love = window.sessionStorage.getItem("love");
+    if (adult == null) window.sessionStorage.setItem("adult", 0);
     if (old == null) window.sessionStorage.setItem("old", 0);
     if (child == null) window.sessionStorage.setItem("child", 0);
     if (love == null) window.sessionStorage.setItem("love", 0);
+    $("#numAdult").text(window.sessionStorage.getItem("adult"));
     $("#numOld").text(window.sessionStorage.getItem("old"));
     $("#numChild").text(window.sessionStorage.getItem("child"));
     $("#numLove").text(window.sessionStorage.getItem("love"));
