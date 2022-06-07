@@ -171,6 +171,12 @@ if doc("#errorDiv").attr('style') == "display: none" and errorMessage == "":
     else:
         result_doc("#pageContent > div > table > tbody > tr.trip-column")
 
+        train_ziqiang = []
+        train_juguang = []
+        train_fuxing = []
+        train_puyouma = []
+        train_tairuge = []
+
         for train in result_doc("#pageContent > div > table > tbody > tr.trip-column").items():
             temp_train_number = train.find("ul.train-number a").text()
             temp_departure_time = train.children("td").eq(1).text()
@@ -183,6 +189,9 @@ if doc("#errorDiv").attr('style') == "display: none" and errorMessage == "":
 
             result_trans.append(
                 {'車次': temp_train_number, '出發時間': temp_departure_time, '抵達時間': temp_arrival_time, '行駛時間': temp_travel_time, '全票': temp_adult_price, '孩童票': temp_child_price, '敬老票': temp_old_price})
+
+            if(result_trans.temp_train_number == "自强號"):
+                train_ziqiang.append()
 
         print(tabulate(result_trans, headers='keys', tablefmt="grid"))
 

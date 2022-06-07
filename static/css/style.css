@@ -178,7 +178,7 @@ h3 {
 location {
     position: absolute;
     top: 155px;
-    left: 200px;
+    left: 300px;
     font-weight: 700;
     font-size: 36px;
 }
@@ -194,7 +194,7 @@ location {
 num {
     position: absolute;
     top: 249px;
-    left: 200px;
+    left: 300px;
     font-weight: 700;
     font-size: 36px;
 }
@@ -210,7 +210,7 @@ num {
 car {
     position: absolute;
     top: 343px;
-    left: 200px;
+    left: 300px;
     font-weight: 700;
     font-size: 36px;
 }
@@ -226,7 +226,7 @@ car {
 type {
     position: absolute;
     top: 437px;
-    left: 200px;
+    left: 300px;
     font-weight: 700;
     font-size: 36px;
 }
@@ -274,22 +274,22 @@ type {
 
 .btn_edit_location {
     top: 155px;
-    left: 551px;
+    left: 531px;
 }
 
 .btn_edit_num {
     top: 255px;
-    left: 551px;
+    left: 531px;
 }
 
 .btn_edit_car {
     top: 355px;
-    left: 551px;
+    left: 531px;
 }
 
 .btn_edit_type {
     top: 455px;
-    left: 551px;
+    left: 531px;
 }
 
 .speech_bubble_ai_page {
@@ -326,7 +326,16 @@ type {
 }
 
 h2 {
-    margin-left: 400px;
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: 600;
+    font-size: 36px;
+}
+
+h4 {
+    margin-left: 420px;
     margin-top: 60px;
     margin-bottom: 40px;
     font-weight: 600;
@@ -384,12 +393,12 @@ h2 {
 }
 
 .btn_cancel_select {
-    margin-top: 70px;
+    margin-top: 50px;
     margin-left: 300px;
 }
 
 .btn_ok_select {
-    margin-top: 70px;
+    margin-top: 50px;
     margin-left: 570px;
 }
 
@@ -397,7 +406,7 @@ h2 {
 .btn_select_num {
     margin-left: 100px;
     margin-right: 20px;
-    margin-top: 20px;
+    margin-top: 40px;
     width: 99px;
     height: 55px;
     border-color: grey;
@@ -417,20 +426,27 @@ h2 {
 
 /* select_loc */
 #form_loc div[name="city"] {
-    height: 200px;
+    height: 500px;
     overflow-y: scroll;
+    margin-left: 250px;
+    margin-top: 180px;
 }
 #form_loc div[name="station"] {
-    height: 200px;
+    height: 500px;
     overflow-y: scroll;
+    margin-left: 150px;
+    margin-top: 180px;
 }
 .btn_loc {
-    width: 99px;
-    height: 55px;
-    border-radius: 25px;
+    width: 127px;
+    height: 41px;
+    border-radius: 16px;
     background-color: #EFF5FB;
     border-color: #E6EAEF;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
+    margin-bottom: 15px;
+    font-size: 20px;
+    font-weight: 700;
 }
 .btn_loc_enable {
     background-color: #74B8F2;

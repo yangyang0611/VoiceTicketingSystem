@@ -170,6 +170,7 @@ function locsbtn_click(name){
     locsbtn_css(index_c, index_s);
     window.sessionStorage.setItem("station", index_text);
     console.log("station: ",window.sessionStorage.getItem("station"));
+    
 }
 function locsbtn_css(index_c, index_s){
     var stat = station[city[index_c]];
@@ -292,7 +293,7 @@ $("button[name='btn_edit_loc']").click(function(){
         showCancelButton: true,
         confirmButtonText: '刪除',
         confirmButtonColor: '#FFEFD8',
-        confirmButtonTextColor: 'black',
+        confirmButtonTextColor: '#00000',
         cancelButtonText: '取消',
         cancelButtonColor: '#FFB13C'
       })
@@ -306,15 +307,19 @@ $("button[name='btn_edit_loc']").click(function(){
 });
 
 $("button[name='btn_edit_num']").click(function(){
-    swal({
+    Swal.fire({
         title: "警告",
         text: "請問是否要重新輸入張數？",
         icon: "warning",
-        buttons: true,
-        dangerMode: true,
+        showCancelButton: true,
+        confirmButtonText: '是',
+        confirmButtonColor: '#FFEFD8',
+        confirmButtonTextColor: '#00000',
+        cancelButtonText: '否',
+        cancelButtonColor: '#FFB13C'
       })
-      .then((willDelete) => {
-        if (willDelete) {
+      .then((result) => {
+        if (result.isConfirmed) {
           
         } else {
           
@@ -323,15 +328,19 @@ $("button[name='btn_edit_num']").click(function(){
 });
 
 $("button[name='btn_edit_car']").click(function(){
-    swal({
+    Swal.fire({
         title: "警告",
         text: "請問是否要重新輸入車次？",
         icon: "warning",
-        buttons: true,
-        dangerMode: true,
+        showCancelButton: true,
+        confirmButtonText: '是',
+        confirmButtonColor: '#FFEFD8',
+        confirmButtonTextColor: '#00000',
+        cancelButtonText: '否',
+        cancelButtonColor: '#FFB13C'
       })
-      .then((willDelete) => {
-        if (willDelete) {
+      .then((result) => {
+        if (result.isConfirmed) {
           
         } else {
           
@@ -340,15 +349,19 @@ $("button[name='btn_edit_car']").click(function(){
 });
 
 $("button[name='btn_edit_type']").click(function(){
-    swal({
+    Swal.fire({
         title: "警告",
         text: "請問是否要重新輸入票種？",
         icon: "warning",
-        buttons: true,
-        dangerMode: true,
+        showCancelButton: true,
+        confirmButtonText: '是',
+        confirmButtonColor: '#FFEFD8',
+        confirmButtonTextColor: '#00000',
+        cancelButtonText: '否',
+        cancelButtonColor: '#FFB13C'
       })
-      .then((willDelete) => {
-        if (willDelete) {
+      .then((result) => {
+        if (result.isConfirmed) {
           
         } else {
           
@@ -357,22 +370,22 @@ $("button[name='btn_edit_type']").click(function(){
 });
 
 $("button[name='btn_cancel_everything']").click(function(){
-    swal({
+    Swal.fire({
         title: "警告",
         text: "請問是否要取消購票？",
         icon: "warning",
-        buttons: true,
-        dangerMode: true,
+        showCancelButton: true,
+        confirmButtonText: '是',
+        confirmButtonColor: '#FFEFD8',
+        confirmButtonTextColor: '#00000',
+        cancelButtonText: '否',
+        cancelButtonColor: '#FFB13C'
       })
-      .then((willDelete) => {
-        if (willDelete) {
+      .then((result) => {
+        if (result.isConfirmed) {
           
         } else {
           
         }
       });
-});
-
-$("button[name='second']").click(function(){
-    swal("Hi");
 });
