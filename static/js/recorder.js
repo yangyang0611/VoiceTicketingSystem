@@ -8,9 +8,11 @@ $("#start").click(function () {
 
 $(document).ready(function(){
     const audio = document.getElementById("player");
-    console.log(audio.duration);
-    setTimeout(start_record, audio.duration * 1000);
-    setTimeout(getbglevel, audio.duration * 1000-500);
+    audio.onloadedmetadata = function() {
+        console.log('time:', audio.duration);
+        setTimeout(start_record, audio.duration * 1000+1000);
+        setTimeout(getbglevel, audio.duration * 1000+200);
+    };
 });
 
 function setup() {
@@ -84,10 +86,23 @@ function blobToFile(soundFile) {
     const audioBlob = soundFile.getBlob();
     const formData = new FormData();
     formData.append('audio-file', audioBlob, 'record.wav');
-    return fetch('http://localhost:5000/audioUpload', {
-        method: 'POST',
-        body: formData
-    });
+
+    $.ajax({
+        method: "POST",
+        url: "http://localhost:5000/audioUpload",
+        data: formData,
+        processData: false,
+        contentType: false,
+    })
+        .done(function (result) {
+            console.log(result);
+            if (result["status"] == "success")
+                window.location.href = result["url"];
+        })
+        .fail(function () {
+        })
+        .always(function () {
+        });
 
 }
 

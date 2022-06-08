@@ -36,7 +36,7 @@
             </div>
 
             <div class="speech_bubble_user speech_bubble_user_welcome">
-                blablabla
+                <div id="recorder" class="h-100 w-100 m-1"></div>
             </div>
                 
             <a href="/">
@@ -62,6 +62,12 @@ crossorigin="anonymous"></script>
 
 <!-- local js -->
 <script src="../../../static/js/app.js"></script>
+<script src="../../../static/js/recorder.js"></script>
+<script src="../../../static/js/p5.js"></script>
+<script src="../../../static/js/p5sound.js"></script>
+<audio id="player" autoplay preload="metadata">
+    <source src="../../../static/audio/system/002.wav" type="audio/wav">
+</audio>
 
 </body>
 

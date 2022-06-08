@@ -1,14 +1,35 @@
-from util.stt_service_client import stt
-from flask import Flask, render_template, request
+
 import os
 import json
 from datetime import datetime, timedelta
 from dateutil.parser import parse
+from util.stt_service_client import stt
 
+from flask import Flask, render_template, request, session, url_for, redirect
 from flask_cors import CORS
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
+cur_page = 0
 
+import voice_generate as voice
+def redirect_admin():
+    global cur_page
+    print(cur_page)
+    url = ""
+    if cur_page == 1: 
+        url = "/buy_ticket_confirm"
+    elif cur_page == 2: 
+        url = "/location/location"
+    elif cur_page == 3:
+        voice.g_005("樹林")
+        url = "/location/confirm_location"
+
+
+    print(url)
+    return {
+        "status": "success",
+        "url": url
+    }
 
 @app.route("/audioUpload", methods=["POST"])
 def form():
@@ -17,16 +38,21 @@ def form():
     afile.save(f"static/audio/{afile.filename}")
 
     result = stt(f"static/audio/{afile.filename}", "ishianTW")
-    return "success", 200
+    print(result)
+    return redirect_admin()
 
 
 @app.route("/")
 def index():
+    global cur_page
+    cur_page = 1
     return render_template("index.html")
 
 
 @app.route("/buy_ticket_confirm")
 def buy_ticket_confirm():
+    global cur_page
+    cur_page = 2
     return render_template("buy_ticket_confirm.html")
 
 # location
@@ -34,6 +60,8 @@ def buy_ticket_confirm():
 
 @app.route("/location/location")
 def location():
+    global cur_page
+    cur_page = 3
     return render_template("location/location.html")
 
 
@@ -53,6 +81,8 @@ def select_location_post():
 
 @app.route("/location/confirm_location")
 def confirm_location():
+    global cur_page
+    cur_page = 5
     return render_template("location/confirm_location.html")
 
 # num
