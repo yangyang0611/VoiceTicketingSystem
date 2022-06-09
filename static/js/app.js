@@ -63,7 +63,7 @@ function numbtn_css(index){
 
 // select time
 function time_init() {
-    for (var i = 0, m = min, h = hr; i < 20; i++, m+=30){
+    for (var i = 0, m = min+30, h = hr; i < 20; i++, m+=30){
         if (m >= 60) m-=60, h+=1;
         if (h >= 24) h-=24;
         var button_html = `<button name="time_${i}" type="button" class="btn btn_select_time" onClick="timebtn_click(this.name)">${h.toString().padStart(2,"0")}:${m.toString().padStart(2,"0")}</button>`
@@ -95,14 +95,12 @@ function carbtn_click(name){
     var index = name.split('_')[1];
     var index_text = $(`button[name='car_${index}']`).text();
     carbtn_css(index);
-    window.sessionStorage.setItem("car", index_text);
-    console.log("index_text: ",window.sessionStorage.getItem("car"));
 }
 function carbtn_css(index){
-    for(var i = 0; i < 5; i++) {
-        $(`button[name='car_${i}']`).removeClass("btn_select_enable");
-        if (i == index) $(`button[name='car_${i}']`).addClass("btn_select_enable");
-    }
+    if ($(`button[name='car_${index}']`).hasClass("btn_select_enable"))
+        $(`button[name='car_${index}']`).removeClass("btn_select_enable");
+    else
+        $(`button[name='car_${index}']`).addClass("btn_select_enable");
 }
 
 // ##############################
