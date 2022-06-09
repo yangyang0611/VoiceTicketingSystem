@@ -1,4 +1,5 @@
 import re
+from time import time
 
 class train(object):
     def __init__(self, category_and_number, departure_time, arrival_time,
@@ -49,15 +50,15 @@ class trainUtil(object):
         
     @staticmethod
     def print_train_list(train_list):
-            if (trainUtil.is_train_list_empty(train_list)):
-                return
-            
-            trainUtil.print_train_list_title()
+        if (trainUtil.is_train_list_empty(train_list)):
+            return
         
-            for t in train_list:
-                print('-' * 50, end='')
-                print()
-                print('| %10s | %5s | %7s | %7s | %10s | % 5d | %5d | %5d' %
-                    (t.category, t.number, t.departure_time, t.arrival_time,
-                    t.travel_time, t.adult_price, t.child_price, t.old_price))
+        trainUtil.print_train_list_title()
+    
+        for t in train_list:
+            print('-' * 50, end='')
+            print()
+            print('| %10s | %5s | %7s | %7s | %10s | % 5d | %5d | %5d' %
+                (t.category, t.number, t.departure_time, t.arrival_time,
+                t.travel_time, t.adult_price, t.child_price, t.old_price))
 

@@ -240,4 +240,7 @@ class Railway(object):
         
     def get_train_list(self):
         return self.train_list
+
+if __name__ == "__main__":
+    Railway()
     

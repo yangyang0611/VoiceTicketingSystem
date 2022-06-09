@@ -20,8 +20,9 @@ session = {
     "station": "",
     "num": 0,
     "car_type": [],
-    "hour": 0,
-    "min": 0,
+    "hour": "",
+    "min": "",
+    "search_hour_min": "",
     "car_list": [],
     "select_car": {},
     "audio_ts": ""
@@ -217,27 +218,36 @@ def select_car_time_post():
     obj = request.get_json()
     print(obj)
     session["car_type"] = obj["car_type"]
-    session["hour"] = int(obj["hour"])
-    session["min"] = int(obj["min"])
+    session["hour"] = (obj["hour"]).zfill(2)
+    session["min"] = (obj["min"]).zfill(2)
 
-    if int(session["min"]) >= 30: search_start_min = 30
-    else: search_start_min = 0
+    if int(session["min"]) >= 30: 
+        search_start_min = "30"
+    else: 
+        search_start_min = "00"
 
-    print("search:", session["hour"], search_start_min, get_city(session["station"]), session["station"])
-    print("filter:", session["hour"], session["min"], session["car_type"])
+    session["search_hour_min"] = session["hour"].zfill(2) + ":" + str(search_start_min)
 
-    # railway = Railway(input_endStation=session["station"])
-    # railway.clickAllStep()
-    # railway.filterByTrainCategory("自強號")
-    # train_list = railway.get_train_list()
+    print("search:", session["hour"], search_start_min, session["search_hour_min"], get_city(session["station"]), session["station"])
+    print("filter:", session["hour"], session["min"],  session["car_type"])
 
-    # # print all trains
-    # trainUtil.print_train_list(train_list)
-    # print('-----------------')
-    # print('first train:')
+    railway = Railway(input_endStationCity=get_city(session["station"]), input_endStation=session["station"], 
+                      input_startTime=session["search_hour_min"])
+    railway.clickAllStep()
+    print(session["car_type"])
+    # railway.filterByTrainCategory(session["car_type"])
+    train_list = railway.get_train_list()
 
-    # # print first train
-    # trainUtil.print_first_train(train_list)
+    # print all trains
+    trainUtil.print_train_list(train_list)
+    print('-----------------')
+    print('first train:')
+
+    # print first train
+    trainUtil.print_first_train(train_list)
+
+    # print("search:", session["hour"], search_start_min, get_city(session["station"]), session["station"])
+    # print("filter:", session["hour"], session["min"], session["car_type"])
 
     session["car_list"] = [
         {"hour": "15", "min": "38", "car": "自強號"},

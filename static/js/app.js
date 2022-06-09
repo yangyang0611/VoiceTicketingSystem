@@ -5,18 +5,18 @@
 // ##############################
 
 // set time
-let today, year, month, date, hr, min;
+let today, year, month, day, hr, min;
 update_time();
 setInterval(update_time, 1000*30);
 function update_time() {
     today = new Date();
     year = today.getFullYear();
     month = today.getMonth()+1;
-    date = today.getDate();
+    day = today.getDate();
     hr = today.getHours();
     min = today.getMinutes();
-    $("#date").text(`${year}/${month}/${date}`);
-    $("#time").text(`${hr} : ${min}`);
+    $("#date").text(`${year}/${month.toString().padStart(2, "0")}/${day.toString().padStart(2, "0")}`);
+    $("#time").text(`${hr.toString().padStart(2, "0")} : ${min.toString().padStart(2, "0")}`);
 }
 
 // set location, num, car, type
@@ -74,7 +74,8 @@ function time_init() {
     for (var i = 0, m = min+30, h = hr; i < 20; i++, m+=30){
         if (m >= 60) m-=60, h+=1;
         if (h >= 24) h-=24;
-        var button_html = `<button name="time_${i}" type="button" class="btn btn_select_time" onClick="timebtn_click(this.name)">${h.toString().padStart(2,"0")}:${m.toString().padStart(2,"0")}</button>`
+        var button_html = `<button name="time_${i}" type="button" class="btn btn_select_time" onClick="timebtn_click(this.name)">
+            ${h.toString().padStart(2,"0")}:${m.toString().padStart(2,"0")}</button>`
         $("#form_time").append(button_html);
     }
 }
