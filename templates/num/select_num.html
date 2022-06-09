@@ -30,9 +30,7 @@
         <a href="/num/num">
             <input type="button" class="btn_ok_cancel btn_cancel_select btn_yellow" value="取消">
         </a>
-        <a href="/num/confirm_num">
-            <input type="button" class="btn_ok_cancel btn_ok_select btn_orange" value="確認">
-        </a>
+        <button name="confirm_num" type="button" class="btn_ok_cancel btn_ok_select btn_orange">確認</button>
     </div>
 
     <!-- Bootstrap core JS cdn 5.1.3 -->
@@ -46,6 +44,28 @@ crossorigin="anonymous"></script>
 
 <!-- local js -->
 <script src="../../../static/js/app.js"></script>
+<script>
+    $("button[name='confirm_num']").click(function () {
+        $.ajax({
+            method: "POST",
+            url: "/num/select_num",
+            contentType: 'application/json',
+            data: JSON.stringify({
+                "num": window.sessionStorage.getItem("num"),
+            }),
+            dataType: "json",
+        })
+            .done(function (result) {
+                console.log(result);
+                if (result["status"] == "success")
+                    window.location.href = "/num/confirm_num";
+            })
+            .fail(function () {
+            })
+            .always(function () {
+            });
+    })
+</script>
 
 </body>
 

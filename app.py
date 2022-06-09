@@ -1,28 +1,44 @@
 
+from glob import glob
 import os
 import json
 from datetime import datetime, timedelta
 from dateutil.parser import parse
 from util.stt_service_client import stt
 
-from flask import Flask, render_template, request, session, url_for, redirect
+from flask import Flask, render_template, request
 from flask_cors import CORS
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
-cur_page = 0
+session = {
+    "cur_page": 0,
+    "station": "",
+    "num": 0,
+    "audio_ts": ""
+}
 
 import voice_generate as voice
 def redirect_admin():
-    global cur_page
-    print(cur_page)
+    global session
+    print(session)
+    cur_page = session["cur_page"]
     url = ""
     if cur_page == 1: 
         url = "/buy_ticket_confirm"
     elif cur_page == 2: 
         url = "/location/location"
     elif cur_page == 3:
-        voice.g_005("樹林")
+        session["station"] = "萬華"
+        session["audio_ts"] = voice.g_005(session["station"])
         url = "/location/confirm_location"
+    elif cur_page == 5:
+        url = "/num/num"
+    elif cur_page == 6:
+        session["num"] = 3
+        session["audio_ts"] = voice.g_007(session["num"])
+        url = "/num/confirm_num"
+    elif cur_page == 7:
+        url = "/car/car"
 
 
     print(url)
@@ -44,15 +60,15 @@ def form():
 
 @app.route("/")
 def index():
-    global cur_page
-    cur_page = 1
+    global session
+    session["cur_page"] = 1
     return render_template("index.html")
 
 
 @app.route("/buy_ticket_confirm")
 def buy_ticket_confirm():
-    global cur_page
-    cur_page = 2
+    global session
+    session["cur_page"] = 2
     return render_template("buy_ticket_confirm.html")
 
 # location
@@ -60,8 +76,8 @@ def buy_ticket_confirm():
 
 @app.route("/location/location")
 def location():
-    global cur_page
-    cur_page = 3
+    global session
+    session["cur_page"] = 3
     return render_template("location/location.html")
 
 
@@ -72,35 +88,51 @@ def select_location():
 
 @app.route("/location/select_location", methods=["POST"])
 def select_location_post():
-    """
-    """
+    global session
     obj = request.get_json()
     print(obj)
+    session["station"] = obj["station"]
+    session["audio_ts"] = voice.g_005(session["station"])
     return {"status": "success"}
 
 
 @app.route("/location/confirm_location")
 def confirm_location():
-    global cur_page
-    cur_page = 5
-    return render_template("location/confirm_location.html")
+    global session
+    session["cur_page"] = 5
+    return render_template("location/confirm_location.html", 
+        audio_url=session["audio_ts"], station=session["station"])
 
 # num
 
 
 @app.route("/num/num")
 def num():
+    global session
+    session["cur_page"] = 6
     return render_template("num/num.html")
 
 
-@app.route("/num/select_num")
+@app.route("/num/select_num", methods=["GET"])
 def select_num():
     return render_template("num/select_num.html")
+
+@app.route("/num/select_num", methods=["POST"])
+def select_num_post():
+    global session
+    obj = request.get_json()
+    print(obj)
+    session["num"] = obj["num"]
+    session["audio_ts"] = voice.g_007(session["num"])
+    return {"status": "success"}
 
 
 @app.route("/num/confirm_num")
 def confirm_num():
-    return render_template("num/confirm_num.html")
+    global session
+    session["cur_page"] = 7
+    return render_template("num/confirm_num.html",
+        audio_url=session["audio_ts"], num=session["num"])
 
 # car
 

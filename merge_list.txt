@@ -1,3 +1,3 @@
-file 'D:\git\VoiceTicketingSystem\static\audio\system\005_1.wav'
-file 'D:\git\VoiceTicketingSystem\static\audio\station\14.wav'
-file 'D:\git\VoiceTicketingSystem\static\audio\system\005_2.wav'
+file 'D:\git\VoiceTicketingSystem\static\audio\system\007_1.wav'
+file 'D:\git\VoiceTicketingSystem\static\audio\ticket\3.wav'
+file 'D:\git\VoiceTicketingSystem\static\audio\system\007_2.wav'
