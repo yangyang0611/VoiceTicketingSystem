@@ -16,11 +16,12 @@
 
 
 <body>
-    <a href="/">
-        <input type="button" class="btn_home" value="回首頁">
-    </a>
-    <div class="date" id="date"></div>
-    <div class="time" id="time"></div>
+    <button type="button" name="btn_cancel_everything" class="btn_home">取消購票</button>
+
+    <div class="date_time">
+        <div id="date"></div>
+        <div id="time"></div>
+    </div>
     
     <img class="pic_in_page" src="../../../static/img/008 009 010 011 012車次.png" alt="ask_location">
     <div class="speech_bubble_ai speech_bubble_ai_page">
@@ -39,21 +40,16 @@
                 
                 <div class="res_location">目的地</div>
                 <location></location>
-                <a href="/location/select_location">
-                    <input type="button" class="btn_edit btn_edit_location" value="編輯">
-                </a>
+                <button type="button" name="btn_edit_loc" class="btn_edit btn_edit_location">編輯</button>
+
 
                 <div class="res_num">張數</div>
                 <num></num>
-                <a href="/num/select_num">
-                    <input type="button" class="btn_edit btn_edit_num" value="編輯">
-                </a>
+                <button type="button" name="btn_edit_num" class="btn_edit btn_edit_num">編輯</button>
+
 
                 <div class="res_car red_text">車次</div>
                 <car></car>
-                <a href="/car/select_time">
-                    <input type="button" class="btn_edit btn_edit_car" value="編輯">
-                </a>
 
                 <div class="res_type">票種</div>
             </div>

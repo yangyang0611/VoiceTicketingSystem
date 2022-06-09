@@ -18,21 +18,20 @@
 <body>
     <div class="standard_box">
         <form id="form">
-            <h2>輸入張數</h2>
+            <h4>輸入張數</h4>
             <div>
-                敬老票
-                
-            <button type="button" class="btn_num btn_num1" onclick="numbtn_click(this.textContent">1</button>
-            <button type="button" class="btn_num btn_num2" onclick="numbtn_click(this.textContent">2</button>
-            <button type="button" class="btn_num btn_num3" onclick="numbtn_click(this.textContent">3</button>
-            <button type="button" class="btn_num btn_num4" onclick="numbtn_click(this.textContent">4</button>
+                <button type="button" name="num_1" class="btn btn_select_num " onclick="numbtn_click(this.name)">1</button>
+                <button type="button" name="num_2" class="btn btn_select_num " onclick="numbtn_click(this.name)">2</button>
+                <button type="button" name="num_3" class="btn btn_select_num " onclick="numbtn_click(this.name)">3</button>
+                <button type="button" name="num_4" class="btn btn_select_num " onclick="numbtn_click(this.name)">4</button>
+            </div>
         </form>
     
-        <a href="#">
-            <input type="button" class="btn_ok_cancel btn_cancel btn_yellow" value="取消">
+        <a href="/num/num">
+            <input type="button" class="btn_ok_cancel btn_cancel_select btn_yellow" value="取消">
         </a>
         <a href="/num/confirm_num">
-            <input type="button" class="btn_ok_cancel btn_ok btn_orange" value="確認">
+            <input type="button" class="btn_ok_cancel btn_ok_select btn_orange" value="確認">
         </a>
     </div>
 

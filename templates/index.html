@@ -20,9 +20,11 @@
         <input type="button" class="btn_home" value="回首頁">
     </a>
     
-    <div class="date" id="date"></div>
-    <div class="time" id="time"></div>
-
+    <div class="date_time">
+        <div id="date"></div>
+        <div id="time"></div>
+    </div>
+    
     <img src="../static/img/001 002 台鐵歡迎.png" class="pic_welcome" alt="welcome">
 
     <div class="container-fluid">
@@ -32,7 +34,7 @@
             </div>
 
             <div class="speech_bubble_user speech_bubble_user_welcome">
-                blablabla
+                <div id="recorder" class="h-100 w-100 m-1"></div>
             </div>
                 
             <a href="/">
@@ -58,6 +60,12 @@ crossorigin="anonymous"></script>
 
 <!-- local js -->
 <script src="static/js/app.js"></script>
+<script src="static/js/recorder.js"></script>
+<script src="static/js/p5.js"></script>
+<script src="static/js/p5sound.js"></script>
+<audio id="player" autoplay preload="metadata">
+    <source src="static/audio/20220529121101.wav" type="audio/wav">
+</audio>
 
 </body>
 

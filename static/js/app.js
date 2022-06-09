@@ -1,5 +1,9 @@
 // const { default: swal } = require("sweetalert");
 
+// ##############################
+//           show args
+// ##############################
+
 // set time
 let today, year, month, date, hr, min;
 update_time();
@@ -15,6 +19,47 @@ function update_time() {
     $("#time").text(`${hr} : ${min}`);
 }
 
+// set location, num, car, type
+if (window.sessionStorage.getItem("station") != null)
+    $("location").text(window.sessionStorage.getItem("station"));
+    $("locationSpeech").text(window.sessionStorage.getItem("station"));
+if (window.sessionStorage.getItem("num") != null)
+    $("num").text(window.sessionStorage.getItem("num"));
+    $("numSpeech").text(window.sessionStorage.getItem("num"));
+if (window.sessionStorage.getItem("car") != null)
+    $("car").text(`${window.sessionStorage.getItem("hour")}:${window.sessionStorage.getItem("min")} ${window.sessionStorage.getItem("car")}`);
+    $("carSpeech").text(`${window.sessionStorage.getItem("hour")}:${window.sessionStorage.getItem("min")} ${window.sessionStorage.getItem("car")}`);
+if (window.sessionStorage.getItem("type") != null)
+    $("type").html(window.sessionStorage.getItem("type"));
+    $("typeSpeech").html(window.sessionStorage.getItem("type"));
+    $("adultSpeech").html(window.sessionStorage.getItem("adultSpeech"));
+    $("oldSpeech").html(window.sessionStorage.getItem("oldSpeech"));
+    $("childSpeech").html(window.sessionStorage.getItem("childSpeech"));
+    $("loveSpeech").html(window.sessionStorage.getItem("loveSpeech"));
+
+// parse informations to webclawer.py	
+// webclawer(user_endStationCity, user_endStation, user_startTime, user_car, adult, old, child, love)
+// webclawer(window.sessionStorage.getItem("city"), window.sessionStorage.getItem("station"), window.sessionStorage.getItem("car"), window.sessionStorage.getItem("adult"), window.sessionStorage.getItem("old"), window.sessionStorage.getItem("child"), window.sessionStorage.getItem("love"))
+
+// ##############################
+//      select_num.html
+// ##############################
+function numbtn_click(name){
+    console.log("numbtn_click: ",name);
+    var index = name.split('_')[1];
+    var index_text = $(`button[name='num_${index}']`).text();
+    numbtn_css(index);
+    window.sessionStorage.setItem("num", index_text);
+    console.log("index_text: ",window.sessionStorage.getItem("num"));
+}
+
+function numbtn_css(index){
+    for(var i = 0; i < 5; i++) {
+        $(`button[name='num_${i}']`).removeClass("btn_select_enable");
+        if (i == index) $(`button[name='num_${i}']`).addClass("btn_select_enable");
+    }
+}
+
 // ##############################
 //      select_car_time.html
 // ##############################
@@ -24,7 +69,7 @@ function time_init() {
     for (var i = 0, m = min, h = hr; i < 20; i++, m+=30){
         if (m >= 60) m-=60, h+=1;
         if (h >= 24) h-=24;
-        var button_html = `<button name="time_${i}" type="button" class="btn_select_time" onClick="timebtn_click(this.name)">${h.toString().padStart(2,"0")}:${m.toString().padStart(2,"0")}</button>`
+        var button_html = `<button name="time_${i}" type="button" class="btn btn_select_time" onClick="timebtn_click(this.name)">${h.toString().padStart(2,"0")}:${m.toString().padStart(2,"0")}</button>`
         $("#form_time").append(button_html);
     }
 }
@@ -42,8 +87,8 @@ function timebtn_click(name){
 }
 function timebtn_css(index){
     for(var i = 0; i < 20; i++) {
-        $(`button[name='time_${i}']`).removeClass("btn_select_car_enable");
-        if (i == index) $(`button[name='time_${i}']`).addClass("btn_select_car_enable");
+        $(`button[name='time_${i}']`).removeClass("btn_select_enable");
+        if (i == index) $(`button[name='time_${i}']`).addClass("btn_select_enable");
     }
 }
 
@@ -58,8 +103,8 @@ function carbtn_click(name){
 }
 function carbtn_css(index){
     for(var i = 0; i < 5; i++) {
-        $(`button[name='car_${i}']`).removeClass("btn_select_car_enable");
-        if (i == index) $(`button[name='car_${i}']`).addClass("btn_select_car_enable");
+        $(`button[name='car_${i}']`).removeClass("btn_select_enable");
+        if (i == index) $(`button[name='car_${i}']`).addClass("btn_select_enable");
     }
 }
 
@@ -93,7 +138,7 @@ let station = {
 }
 function loc_init() {
     for (var i = 0; i < city.length; i++){
-        var button_html = `<div><button name="city_${i}" type="button" class="btn_loc" onClick="locbtn_click(this.name)">${city[i]}</button></div>`
+        var button_html = `<div><button name="city_${i}" type="button" class="btn btn_loc" onClick="locbtn_click(this.name)">${city[i]}</button></div>`
         $("#form_loc div[name='city']").append(button_html);
     }
 }
@@ -104,6 +149,7 @@ function locbtn_click(name){
     loc_station_generate(index);
     locsbtn_click(`stat_${index}_0`);
     locbtn_css(index);
+    window.sessionStorage.setItem("city", index_text);
     console.log("city: ",index_text);
 }
 function locbtn_css(index){
@@ -116,7 +162,7 @@ function loc_station_generate(index) {
     var stat = station[city[index]];
     $("#form_loc div[name='station']").html("");
     for (var i = 0; i < stat.length; i++){
-        var button_html = `<div><button name="stat_${index}_${i}" type="button" class="btn_loc" onClick="locsbtn_click(this.name)">${stat[i]}</button></div>`
+        var button_html = `<div><button name="stat_${index}_${i}" type="button" class="btn btn_loc" onClick="locsbtn_click(this.name)">${stat[i]}</button></div>`
         $("#form_loc div[name='station']").append(button_html);
     }
 }
@@ -128,6 +174,7 @@ function locsbtn_click(name){
     locsbtn_css(index_c, index_s);
     window.sessionStorage.setItem("station", index_text);
     console.log("station: ",window.sessionStorage.getItem("station"));
+    
 }
 function locsbtn_css(index_c, index_s){
     var stat = station[city[index_c]];
@@ -136,6 +183,94 @@ function locsbtn_css(index_c, index_s){
         if (i == index_s) $(`button[name='stat_${index_c}_${i}']`).addClass("btn_loc_enable");
     }
 }
+
+// ##############################
+//    select_type_num.html
+// ##############################
+function typebtn_click(name){
+    console.log("numbtn_click: ",name);
+    var type = name.split('_')[0];
+    var opt = name.split('_')[1];
+    var cur_num = parseInt(window.sessionStorage.getItem(type));
+    var adult = parseInt(window.sessionStorage.getItem("adult"));
+    var old = parseInt(window.sessionStorage.getItem("old"));
+    var child = parseInt(window.sessionStorage.getItem("child"));
+    var love = parseInt(window.sessionStorage.getItem("love"));
+    var total = adult + old + child + love;
+
+    if (opt == "add") {
+        if (total+1 <= 4) {
+            if (type == "adult"){
+                adult++;
+                window.sessionStorage.setItem(type, adult);
+            }
+            if (type == "old") {
+                old++;
+                window.sessionStorage.setItem(type, old);
+            }
+            else if (type == "child") {
+                child++;
+                window.sessionStorage.setItem(type, child);
+            }
+            else if (type == "love") {
+                love++;
+                window.sessionStorage.setItem(type, love);
+            }
+        }
+    }
+    else {
+        if (total-1 >= 0 && cur_num-1 >= 0) {
+            if (type == "adult") {
+                adult--;
+                window.sessionStorage.setItem(type, adult);
+            }
+            if (type == "old") {
+                old--;
+                window.sessionStorage.setItem(type, old);
+            }
+            else if (type == "child") {
+                child--;
+                window.sessionStorage.setItem(type, child);
+            }
+            else if (type == "love") {
+                love--;
+                window.sessionStorage.setItem(type, love);
+            }
+        }
+    }
+
+    $("#numAdult").text(adult);
+    $("#numOld").text(old);
+    $("#numChild").text(child);
+    $("#numLove").text(love);
+
+    var temp = "";
+    var adultSpeech = "";
+    var oldSpeech = "";
+    var childSpeech = "";
+    var loveSpeech = "";
+    if (adult != 0) 
+        temp+= `全票:${adult}<br>`;
+        adultSpeech+= `全票 ${window.sessionStorage.getItem("adult")} 張、`;
+        window.sessionStorage.setItem("adultSpeech", adultSpeech);
+    if (old != 0) 
+        temp+= `敬老票:${old}<br>`;
+        oldSpeech+= `敬老票 ${window.sessionStorage.getItem("old")} 張、`;
+    if (child != 0) 
+        temp+= `孩童票:${child}<br>`;
+        childSpeech+= `孩童票 ${window.sessionStorage.getItem("child")} 張、`;
+    if (love != 0) 
+        temp+= `愛心票:${love}<br>`;
+        loveSpeech+= `愛心票 ${window.sessionStorage.getItem("love")} 張`;
+    window.sessionStorage.setItem("type", temp);
+    window.sessionStorage.setItem("oldSpeech", oldSpeech);
+    window.sessionStorage.setItem("childSpeech", childSpeech);
+    window.sessionStorage.setItem("loveSpeech", loveSpeech);
+    console.log(window.sessionStorage.getItem("type"));
+}
+
+// pls_come_again.html
+
 
 // tool
 $.fn.serializeForm = function() {
@@ -154,6 +289,116 @@ $.fn.serializeForm = function() {
     return o;
 };
 
-$("button[name='second']").click(function(){
-    swal("Hi");
+$("button[name='btn_edit_loc']").click(function(){
+    Swal.fire({
+        title: "警告",
+        text: "請問是否要重新輸入目的地？",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: '刪除',
+        confirmButtonColor: '#FFEFD8',
+        confirmButtonTextColor: '#00000',
+        cancelButtonText: '取消',
+        cancelButtonColor: '#FFB13C'
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = "/location/select_location";
+        } else {
+          
+        }
+      });
 });
+
+$("button[name='btn_edit_num']").click(function(){
+    Swal.fire({
+        title: "警告",
+        text: "請問是否要重新輸入張數？",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: '是',
+        confirmButtonColor: '#FFEFD8',
+        confirmButtonTextColor: '#00000',
+        cancelButtonText: '否',
+        cancelButtonColor: '#FFB13C'
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = "/num/select_num";
+        } else {
+          
+        }
+      });
+});
+
+$("button[name='btn_edit_car']").click(function(){
+    Swal.fire({
+        title: "警告",
+        text: "請問是否要重新輸入車次？",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: '是',
+        confirmButtonColor: '#FFEFD8',
+        confirmButtonTextColor: '#00000',
+        cancelButtonText: '否',
+        cancelButtonColor: '#FFB13C'
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = "/car/select_car_time";
+        } else {
+          
+        }
+      });
+});
+
+$("button[name='btn_edit_type']").click(function(){
+    Swal.fire({
+        title: "警告",
+        text: "請問是否要重新輸入票種？",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: '是',
+        confirmButtonColor: '#FFEFD8',
+        confirmButtonTextColor: '#00000',
+        cancelButtonText: '否',
+        cancelButtonColor: '#FFB13C'
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = "/type/select_type_num";
+        } else {
+          
+        }
+      });
+});
+
+$("button[name='btn_cancel_everything']").click(function(){
+    Swal.fire({
+        title: "警告",
+        text: "請問是否要取消購票？",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: '是',
+        confirmButtonColor: '#FFEFD8',
+        confirmButtonTextColor: '#00000',
+        cancelButtonText: '否',
+        cancelButtonColor: '#FFB13C'
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = "/";
+            window.sessionStorage.removeItem("station")
+            window.sessionStorage.removeItem("num")
+            window.sessionStorage.removeItem("hour")
+            window.sessionStorage.removeItem("min")
+            window.sessionStorage.removeItem("type")
+        } else {
+          
+        }
+      });
+});
+
+// function webclawer():
+//     var a = "hi";
+//     return a;

@@ -1,10 +1,34 @@
+from util.stt_service_client import stt
 from flask import Flask, render_template, request
 import os
 import json
 from datetime import datetime, timedelta
 from dateutil.parser import parse
+from flask_cors import CORS
+import sys
+sys.path.append("webclawer")
+from train import train, trainUtil
+from railway import Railway
 
 app = Flask(__name__)
+CORS(app, resources={r"/*": {"origins": "*"}})
+
+railway = None
+train_list = []
+user_endStation = ""
+user_car = ""
+user_hour = ""
+user_min = ""
+
+
+@app.route("/audioUpload", methods=["POST"])
+def form():
+    print(request.files)
+    afile = request.files.get("audio-file")
+    afile.save(f"static/audio/{afile.filename}")
+
+    result = stt(f"static/audio/{afile.filename}", "ishianTW")
+    return "success", 200
 
 
 @app.route("/")
@@ -33,7 +57,11 @@ def select_location():
 def select_location_post():
     """
     """
+    global user_endStation
     obj = request.get_json()
+    user_endStation = obj["station"]
+    
+    print(user_endStation)
     print(obj)
     return {"status": "success"}
 
@@ -76,7 +104,31 @@ def select_car_time():
 def select_car_time_post():
     """
     """
+    global user_car
+    global user_hour
+    global user_min
+    global train_list
     obj = request.get_json()
+    user_car = obj["car"]
+    user_hour = obj["hour"]
+    user_min = obj["min"]
+    railway = Railway(input_endStation=user_endStation)
+    railway.clickAllStep()
+    railway.filterByTrainCategory(user_car)
+    train_list = railway.get_train_list()
+    
+    # print all trains
+    trainUtil.print_train_list(train_list)
+    print('-----------------')
+    print('first train:')
+    
+    # print first train
+    trainUtil.print_first_train(train_list)
+    
+    
+    print(user_car)
+    print(user_hour)
+    print(user_min)
     print(obj)
     return {"status": "success"}
 
@@ -89,6 +141,11 @@ def confirm_car():
 @app.route("/car/full_car")
 def full_car():
     return render_template("car/full_car.html")
+
+
+@app.route("/car/no_car")
+def no_car():
+    return render_template("car/no_car.html")
 
 # type
 
@@ -112,9 +169,21 @@ def select_type_num():
 def confirm_type():
     return render_template("type/confirm_type.html")
 
+# confirm
+
+
+@app.route("/confirm/confirm_everything")
+def confirm_everything():
+    return render_template("confirm/confirm_everything.html")
+
+
+@app.route("/confirm/modified_before_confirm")
+def modified_before_confirm():
+    return render_template("confirm/modified_before_confirm.html")
 
 # pay
 # e_pay or card_pay
+
 
 @app.route("/pay/payment_type_ask")
 def payment_type_ask():

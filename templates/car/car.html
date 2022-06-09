@@ -18,11 +18,12 @@
 
 
 <body>
-    <a href="/">
-        <input type="button" class="btn_home" value="回首頁">
-    </a>
-    <div class="date" id="date"></div>
-    <div class="time" id="time"></div>
+    <button type="button" name="btn_cancel_everything" class="btn_home">取消購票</button>
+
+    <div class="date_time">
+        <div id="date"></div>
+        <div id="time"></div>
+    </div>
     
     <img class="pic_in_page" src="../../../static/img/008 009 010 011 012車次.png" alt="ask_location">
     <div class="speech_bubble_ai speech_bubble_ai_page">
@@ -33,40 +34,33 @@
         blablabla
     </div>
 
-    <button name="second">Second Alert</button>
 
     
     <div class="container">
-            <div class="ticket_box">
-                <h3>車票</h3>
-                
-                <div class="res_location">目的地</div>
-                <location></location>
-                <a href="/location/select_location">
-                    <input type="button" class="btn_edit btn_edit_location" value="編輯">
-                </a>
+        <div class="ticket_box">
+            <h3>車票</h3>
+            
+            <div class="res_location">目的地</div>
+            <location></location>
+            <button type="button" name="btn_edit_loc" class="btn_edit btn_edit_location">編輯</button>
 
 
-                <div class="res_num">張數</div>
-                <num></num>
-                <a href="/num/select_num">
-                    <input type="button" class="btn_edit btn_edit_num" value="編輯">
-                </a>
+            <div class="res_num">張數</div>
+            <num></num>
+            <button type="button" name="btn_edit_num" class="btn_edit btn_edit_num">編輯</button>
 
-                <div class="res_car red_text">車次</div>
-                <car></car>
-                <a href="/car/select_time">
-                    <input type="button" class="btn_edit btn_edit_car" value="編輯">
-                </a>
+            <div class="res_car red_text">車次</div>
+            <car></car>
+            
 
-                <div class="res_type">票種</div>
-            </div>
+            <div class="res_type">票種</div>
+        </div>
     </div>
 
     <a href="/car/select_car_time">
         <input type="button" class="btn_ticket btn_ticket_left btn_yellow" value="指定時間/車次">
     </a>
-    <a href="/car/select_car">
+    <a href="#">
         <input type="button" class="btn_ticket btn_ticket_right btn_orange" value="搜素最近一班">
     </a>
 
