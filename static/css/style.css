@@ -342,25 +342,7 @@ h4 {
     font-size: 36px;
 }
 
-.btn_select_time {
-    margin-left: 70px;
-    margin-right: 2px;
-    margin-top: 20px;
-    width: 155px;
-    height: 47px;
-    border-color: grey;
-    border-radius: 20px;
-    background-color: #EFF5FB;
-    text-align: center;
-    color: gray;
-    font-size: 24px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-}
 
-.btn_select_time:hover {
-    background-color: #74B8F2;
-}
 /* 
 .btn_close {
     position: absolute;
@@ -393,12 +375,12 @@ h4 {
 }
 
 .btn_cancel_select {
-    margin-top: 50px;
+    margin-top: 70px;
     margin-left: 300px;
 }
 
 .btn_ok_select {
-    margin-top: 50px;
+    margin-top: 70px;
     margin-left: 570px;
 }
 
@@ -453,7 +435,7 @@ h4 {
 }
 
 
-/* select_car */
+/* select_car_time */
 .btn_select_car {
     margin-left: 50px;
     margin-right: 20px;
@@ -477,6 +459,43 @@ h4 {
 
 .btn_select_enable {
     background-color: #74B8F2;
+}
+
+.btn_select_time {
+    margin-left: 70px;
+    margin-right: 2px;
+    margin-top: 20px;
+    width: 155px;
+    height: 47px;
+    border-color: grey;
+    border-radius: 20px;
+    background-color: #EFF5FB;
+    text-align: center;
+    color: gray;
+    font-size: 24px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.btn_select_time:hover {
+    background-color: #74B8F2;
+}
+
+/* select_top_3 */
+.btn_select_top_3_car_time {
+    margin-left: 350px;
+    margin-right: 2px;
+    margin-top: 70px;
+    width: 307px;
+    height: 55px;   
+    border-color: grey;
+    border-radius: 20px;
+    background-color: #EFF5FB;
+    text-align: center;
+    color: gray;
+    font-size: 24px;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 /* select_type_num */
@@ -535,42 +554,6 @@ h4 {
     font-weight: 700;
     color: #FFB13C;
 }
-
-/* .pay_detail1 {
-    position: absolute;
-    font-size: medium;
-}
-
-.pay_detail2 {
-    position: absolute;
-    font-size: larger;
-    left: 75px;
-    top: 200px;
-}
-
-.cash_total {
-    position: absolute;
-    top: 150px; 
-    left: 146px;
-    font-weight: 700;
-    font-size: 36px;
-}
-
-.cash_paid {
-    position: absolute;
-    top: 247px;
-    left: 146px;
-    font-weight: 700;
-    font-size: 36px;
-}
-
-.cash_change {
-    position: absolute;
-    top: 350px;
-    left: 146px;
-    font-weight: 700;
-    font-size: 36px;
-} */
 
 /* finish */
 .pic_pls_come_again {

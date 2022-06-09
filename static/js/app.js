@@ -20,26 +20,23 @@ function update_time() {
 }
 
 // set location, num, car, type
-if (window.sessionStorage.getItem("station") != null)
-    $("location").text(window.sessionStorage.getItem("station"));
-    $("locationSpeech").text(window.sessionStorage.getItem("station"));
-if (window.sessionStorage.getItem("num") != null)
-    $("num").text(window.sessionStorage.getItem("num"));
-    $("numSpeech").text(window.sessionStorage.getItem("num"));
-if (window.sessionStorage.getItem("car") != null)
-    $("car").text(`${window.sessionStorage.getItem("hour")}:${window.sessionStorage.getItem("min")} ${window.sessionStorage.getItem("car")}`);
-    $("carSpeech").text(`${window.sessionStorage.getItem("hour")}:${window.sessionStorage.getItem("min")} ${window.sessionStorage.getItem("car")}`);
-if (window.sessionStorage.getItem("type") != null)
-    $("type").html(window.sessionStorage.getItem("type"));
-    $("typeSpeech").html(window.sessionStorage.getItem("type"));
-    $("adultSpeech").html(window.sessionStorage.getItem("adultSpeech"));
-    $("oldSpeech").html(window.sessionStorage.getItem("oldSpeech"));
-    $("childSpeech").html(window.sessionStorage.getItem("childSpeech"));
-    $("loveSpeech").html(window.sessionStorage.getItem("loveSpeech"));
-
-// parse informations to webclawer.py	
-// webclawer(user_endStationCity, user_endStation, user_startTime, user_car, adult, old, child, love)
-// webclawer(window.sessionStorage.getItem("city"), window.sessionStorage.getItem("station"), window.sessionStorage.getItem("car"), window.sessionStorage.getItem("adult"), window.sessionStorage.getItem("old"), window.sessionStorage.getItem("child"), window.sessionStorage.getItem("love"))
+if (window.sessionStorage.getItem("station") != null) {
+        $("location").text(window.sessionStorage.getItem("station"));
+        $("locationSpeech").text(window.sessionStorage.getItem("station"));
+}
+if (window.sessionStorage.getItem("num") != null) {
+        $("num").text(window.sessionStorage.getItem("num"));
+        $("numSpeech").text(window.sessionStorage.getItem("num"));
+}
+if (window.sessionStorage.getItem("car") != null) {
+        $("car").text(`${window.sessionStorage.getItem("hour")}:${window.sessionStorage.getItem("min")} ${window.sessionStorage.getItem("car")}`);
+        $("carSpeech").text(`${window.sessionStorage.getItem("hour")}:${window.sessionStorage.getItem("min")} ${window.sessionStorage.getItem("car")}`);
+    }
+if (window.sessionStorage.getItem("type") != null) {
+        $("type").html(window.sessionStorage.getItem("type"));
+        $("typeSpeech").text(window.sessionStorage.getItem("typeSpeech"));
+        console.log(window.sessionStorage.getItem("typeSpeech"));
+    }
 
 // ##############################
 //      select_num.html
@@ -66,7 +63,7 @@ function numbtn_css(index){
 
 // select time
 function time_init() {
-    for (var i = 0, m = min, h = hr; i < 20; i++, m+=30){
+    for (var i = 0, m = min+30, h = hr; i < 20; i++, m+=30){
         if (m >= 60) m-=60, h+=1;
         if (h >= 24) h-=24;
         var button_html = `<button name="time_${i}" type="button" class="btn btn_select_time" onClick="timebtn_click(this.name)">${h.toString().padStart(2,"0")}:${m.toString().padStart(2,"0")}</button>`
@@ -98,16 +95,13 @@ function carbtn_click(name){
     var index = name.split('_')[1];
     var index_text = $(`button[name='car_${index}']`).text();
     carbtn_css(index);
-    window.sessionStorage.setItem("car", index_text);
-    console.log("index_text: ",window.sessionStorage.getItem("car"));
 }
 function carbtn_css(index){
-    for(var i = 0; i < 5; i++) {
-        $(`button[name='car_${i}']`).removeClass("btn_select_enable");
-        if (i == index) $(`button[name='car_${i}']`).addClass("btn_select_enable");
-    }
+    if ($(`button[name='car_${index}']`).hasClass("btn_select_enable"))
+        $(`button[name='car_${index}']`).removeClass("btn_select_enable");
+    else
+        $(`button[name='car_${index}']`).addClass("btn_select_enable");
 }
-
 // ##############################
 //      select_location.html
 // ##############################
@@ -149,7 +143,6 @@ function locbtn_click(name){
     loc_station_generate(index);
     locsbtn_click(`stat_${index}_0`);
     locbtn_css(index);
-    window.sessionStorage.setItem("city", index_text);
     console.log("city: ",index_text);
 }
 function locbtn_css(index){
@@ -199,7 +192,7 @@ function typebtn_click(name){
     var total = adult + old + child + love;
 
     if (opt == "add") {
-        if (total+1 <= 4) {
+        if (total+1 <= window.sessionStorage.getItem("num")) {
             if (type == "adult"){
                 adult++;
                 window.sessionStorage.setItem(type, adult);
@@ -245,28 +238,31 @@ function typebtn_click(name){
     $("#numLove").text(love);
 
     var temp = "";
-    var adultSpeech = "";
-    var oldSpeech = "";
-    var childSpeech = "";
-    var loveSpeech = "";
-    if (adult != 0) 
-        temp+= `全票:${adult}<br>`;
-        adultSpeech+= `全票 ${window.sessionStorage.getItem("adult")} 張、`;
-        window.sessionStorage.setItem("adultSpeech", adultSpeech);
-    if (old != 0) 
-        temp+= `敬老票:${old}<br>`;
-        oldSpeech+= `敬老票 ${window.sessionStorage.getItem("old")} 張、`;
-    if (child != 0) 
-        temp+= `孩童票:${child}<br>`;
-        childSpeech+= `孩童票 ${window.sessionStorage.getItem("child")} 張、`;
-    if (love != 0) 
-        temp+= `愛心票:${love}<br>`;
-        loveSpeech+= `愛心票 ${window.sessionStorage.getItem("love")} 張`;
+    var tempSpeech = "";
+    // var adultSpeech = "";
+    // var oldSpeech = "";
+    // var childSpeech = "";
+    // var loveSpeech = "";
+    if (adult != 0) {
+        temp+= `全票 ${adult} 張<br>`;
+        tempSpeech+= `全票 ${window.sessionStorage.getItem("adult")} 張、`;
+    }
+    if (old != 0) { 
+        temp+= `敬老票 ${old} 張<br>`;
+        tempSpeech+= `敬老票 ${window.sessionStorage.getItem("old")} 張、`;
+    }
+    if (child != 0) {
+        temp+= `孩童票 ${child} 張<br>`;
+        tempSpeech+= `孩童票 ${window.sessionStorage.getItem("child")} 張、`;
+    }
+    if (love != 0) {
+        temp+= `愛心票 ${love} 張<br>`;
+        tempSpeech+= `愛心票 ${window.sessionStorage.getItem("love")} 張`;
+    }
     window.sessionStorage.setItem("type", temp);
-    window.sessionStorage.setItem("oldSpeech", oldSpeech);
-    window.sessionStorage.setItem("childSpeech", childSpeech);
-    window.sessionStorage.setItem("loveSpeech", loveSpeech);
+    window.sessionStorage.setItem("typeSpeech", tempSpeech);
     console.log(window.sessionStorage.getItem("type"));
+    console.log(window.sessionStorage.getItem("typeSpeech"));
 }
 
 // pls_come_again.html
@@ -305,7 +301,7 @@ $("button[name='btn_edit_loc']").click(function(){
         if (result.isConfirmed) {
             window.location.href = "/location/select_location";
         } else {
-          
+
         }
       });
 });
@@ -326,7 +322,7 @@ $("button[name='btn_edit_num']").click(function(){
         if (result.isConfirmed) {
             window.location.href = "/num/select_num";
         } else {
-          
+
         }
       });
 });
@@ -347,7 +343,7 @@ $("button[name='btn_edit_car']").click(function(){
         if (result.isConfirmed) {
             window.location.href = "/car/select_car_time";
         } else {
-          
+
         }
       });
 });
@@ -368,7 +364,7 @@ $("button[name='btn_edit_type']").click(function(){
         if (result.isConfirmed) {
             window.location.href = "/type/select_type_num";
         } else {
-          
+
         }
       });
 });
@@ -394,11 +390,7 @@ $("button[name='btn_cancel_everything']").click(function(){
             window.sessionStorage.removeItem("min")
             window.sessionStorage.removeItem("type")
         } else {
-          
+
         }
       });
 });
-
-// function webclawer():
-//     var a = "hi";
-//     return a;
