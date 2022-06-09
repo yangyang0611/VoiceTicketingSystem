@@ -1,3 +1,0 @@
-file 'C:\Users\user\Downloads\Year4\ticket_latest\VoiceTicketingSystem\static\audio\system\005_1.wav'
-file 'C:\Users\user\Downloads\Year4\ticket_latest\VoiceTicketingSystem\static\audio\station\11.wav'
-file 'C:\Users\user\Downloads\Year4\ticket_latest\VoiceTicketingSystem\static\audio\system\005_2.wav'

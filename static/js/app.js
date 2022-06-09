@@ -20,23 +20,23 @@ function update_time() {
 }
 
 // set location, num, car, type
-if (window.sessionStorage.getItem("station") != null)
-    $("location").text(window.sessionStorage.getItem("station"));
-    $("locationSpeech").text(window.sessionStorage.getItem("station"));
-if (window.sessionStorage.getItem("num") != null)
-    $("num").text(window.sessionStorage.getItem("num"));
-    $("numSpeech").text(window.sessionStorage.getItem("num"));
-if (window.sessionStorage.getItem("car") != null)
-    $("car").text(`${window.sessionStorage.getItem("hour")}:${window.sessionStorage.getItem("min")} ${window.sessionStorage.getItem("car")}`);
-    $("carSpeech").text(`${window.sessionStorage.getItem("hour")}:${window.sessionStorage.getItem("min")} ${window.sessionStorage.getItem("car")}`);
-if (window.sessionStorage.getItem("type") != null)
-    $("type").html(window.sessionStorage.getItem("type"));
-    $("typeSpeech").html(window.sessionStorage.getItem("type"));
-    $("adultSpeech").html(window.sessionStorage.getItem("adultSpeech"));
-    $("oldSpeech").html(window.sessionStorage.getItem("oldSpeech"));
-    $("childSpeech").html(window.sessionStorage.getItem("childSpeech"));
-    $("loveSpeech").html(window.sessionStorage.getItem("loveSpeech"));
-
+if (window.sessionStorage.getItem("station") != null) {
+        $("location").text(window.sessionStorage.getItem("station"));
+        $("locationSpeech").text(window.sessionStorage.getItem("station"));
+}
+if (window.sessionStorage.getItem("num") != null) {
+        $("num").text(window.sessionStorage.getItem("num"));
+        $("numSpeech").text(window.sessionStorage.getItem("num"));
+}
+if (window.sessionStorage.getItem("car") != null) {
+        $("car").text(`${window.sessionStorage.getItem("hour")}:${window.sessionStorage.getItem("min")} ${window.sessionStorage.getItem("car")}`);
+        $("carSpeech").text(`${window.sessionStorage.getItem("hour")}:${window.sessionStorage.getItem("min")} ${window.sessionStorage.getItem("car")}`);
+    }
+if (window.sessionStorage.getItem("type") != null) {
+        $("type").html(window.sessionStorage.getItem("type"));
+        $("typeSpeech").text(window.sessionStorage.getItem("typeSpeech"));
+        console.log(window.sessionStorage.getItem("typeSpeech"));
+    }
 
 // ##############################
 //      select_num.html
@@ -102,7 +102,6 @@ function carbtn_css(index){
     else
         $(`button[name='car_${index}']`).addClass("btn_select_enable");
 }
-
 // ##############################
 //      select_location.html
 // ##############################
@@ -239,28 +238,31 @@ function typebtn_click(name){
     $("#numLove").text(love);
 
     var temp = "";
-    var adultSpeech = "";
-    var oldSpeech = "";
-    var childSpeech = "";
-    var loveSpeech = "";
-    if (adult != 0) 
-        temp+= `全票:${adult}<br>`;
-        adultSpeech+= `全票 ${window.sessionStorage.getItem("adult")} 張、`;
-        window.sessionStorage.setItem("adultSpeech", adultSpeech);
-    if (old != 0) 
-        temp+= `敬老票:${old}<br>`;
-        oldSpeech+= `敬老票 ${window.sessionStorage.getItem("old")} 張、`;
-    if (child != 0) 
-        temp+= `孩童票:${child}<br>`;
-        childSpeech+= `孩童票 ${window.sessionStorage.getItem("child")} 張、`;
-    if (love != 0) 
-        temp+= `愛心票:${love}<br>`;
-        loveSpeech+= `愛心票 ${window.sessionStorage.getItem("love")} 張`;
+    var tempSpeech = "";
+    // var adultSpeech = "";
+    // var oldSpeech = "";
+    // var childSpeech = "";
+    // var loveSpeech = "";
+    if (adult != 0) {
+        temp+= `全票 ${adult} 張<br>`;
+        tempSpeech+= `全票 ${window.sessionStorage.getItem("adult")} 張、`;
+    }
+    if (old != 0) { 
+        temp+= `敬老票 ${old} 張<br>`;
+        tempSpeech+= `敬老票 ${window.sessionStorage.getItem("old")} 張、`;
+    }
+    if (child != 0) {
+        temp+= `孩童票 ${child} 張<br>`;
+        tempSpeech+= `孩童票 ${window.sessionStorage.getItem("child")} 張、`;
+    }
+    if (love != 0) {
+        temp+= `愛心票 ${love} 張<br>`;
+        tempSpeech+= `愛心票 ${window.sessionStorage.getItem("love")} 張`;
+    }
     window.sessionStorage.setItem("type", temp);
-    window.sessionStorage.setItem("oldSpeech", oldSpeech);
-    window.sessionStorage.setItem("childSpeech", childSpeech);
-    window.sessionStorage.setItem("loveSpeech", loveSpeech);
+    window.sessionStorage.setItem("typeSpeech", tempSpeech);
     console.log(window.sessionStorage.getItem("type"));
+    console.log(window.sessionStorage.getItem("typeSpeech"));
 }
 
 // pls_come_again.html

@@ -1,0 +1,4 @@
+merge_list.txt
+**/_pycache__
+static/audio/record.wav
+static/audio/system/2022*.wav
