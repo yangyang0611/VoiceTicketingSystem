@@ -239,9 +239,9 @@ def select_car_time_post():
     return {"status": "success"}
 
 
-@app.route("/car/confirm_car")
-def confirm_car():
-    return render_template("car/confirm_car.html")
+@app.route("/car/recent_car")
+def recent_car():
+    return render_template("car/recent_car.html")
 
 
 @app.route("/car/full_car")
@@ -252,6 +252,21 @@ def full_car():
 @app.route("/car/no_car")
 def no_car():
     return render_template("car/no_car.html")
+
+
+@app.route("/car/select_top_3_car_time")
+def select_top_3_car_time():
+    return render_template("car/select_top_3_car_time.html")
+
+
+@app.route("/car/top_3_car")
+def top_3_car():
+    return render_template("car/top_3_car.html")
+
+
+@app.route("/car/confirm_car")
+def confirm_car():
+    return render_template("car/confirm_car.html")
 
 # type
 
