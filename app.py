@@ -23,6 +23,7 @@ session = {
     "hour": 0,
     "min": 0,
     "car_list": [],
+    "select_car": {},
     "audio_ts": ""
 }
 
@@ -88,10 +89,18 @@ def redirect_admin():
         session["car_list"] = [
             {"hour": "22", "min": "00", "car": "莒光號"},
             {"hour": "16", "min": "40", "car": "區間車"},
-            {"hour": "12", "min": "33", "car": "莒光號"},
+            {"hour": "12", "min": "33", "car": "自強號"},
         ]
         session["audio_ts"] = voice.g_009(session["car_list"])
+        url = "/car/recent_car"
+    elif cur_page == 9:
+        url = "/car/top_3_car"
+    elif cur_page == 11:
+        session["select_car"] = {"hour": "12", "min": "33", "car": "自強號"}
+        session["audio_ts"] = voice.g_012(session["select_car"], session["num"])
         url = "/car/confirm_car"
+    elif cur_page == 12:
+        url = "/type/type"
 
 
     print(url)
@@ -241,7 +250,10 @@ def select_car_time_post():
 
 @app.route("/car/recent_car")
 def recent_car():
-    return render_template("car/recent_car.html")
+    global session
+    session["cur_page"] = 9
+    return render_template("car/recent_car.html", 
+        audio_url=session["audio_ts"], car_list=json.dumps(session["car_list"]))
 
 
 @app.route("/car/full_car")
@@ -254,19 +266,33 @@ def no_car():
     return render_template("car/no_car.html")
 
 
-@app.route("/car/select_top_3_car_time")
+@app.route("/car/top_3_car")
+def top_3_car():
+    global session
+    session["cur_page"] = 11
+    session["audio_ts"] = voice.g_011(session["car_list"])
+    return render_template("car/top_3_car.html", audio_url=session["audio_ts"])
+
+@app.route("/car/select_top_3_car_time", methods=["GET"])
 def select_top_3_car_time():
     return render_template("car/select_top_3_car_time.html")
 
-
-@app.route("/car/top_3_car")
-def top_3_car():
-    return render_template("car/top_3_car.html")
+@app.route("/car/select_top_3_car_time", methods=["POST"])
+def select_top_3_car_time_post():
+    global session
+    obj = request.get_json()
+    print(obj)
+    session["select_car"] = obj
+    session["audio_ts"] = voice.g_012(session["select_car"], session["num"])
+    return {"status": "success"}
 
 
 @app.route("/car/confirm_car")
 def confirm_car():
-    return render_template("car/confirm_car.html")
+    global session
+    session["cur_page"] = 12
+    return render_template("car/confirm_car.html", 
+        audio_url=session["audio_ts"], select_car=json.dumps(session["select_car"]))
 
 # type
 

@@ -31,7 +31,7 @@
     </div>
     
     <div class="speech_bubble_user speech_bubble_user_page">
-        blablabla
+        <div id="recorder" class="h-100 w-100 m-1"></div>
     </div>
 
     <div class="container">
@@ -58,7 +58,7 @@
         </form>
     </div>
 
-    <a href="#">
+    <a href="/car/top_3_car">
         <input type="button" class="btn_ticket btn_ticket_left btn_yellow" value="否，繼續搜索">
     </a>
     <a href="/type/type">
@@ -78,6 +78,27 @@ crossorigin="anonymous"></script>
 
 <!-- local js -->
 <script src="../../../static/js/app.js"></script>
+<script src="../../../static/js/recorder.js"></script>
+<script src="../../../static/js/p5.js"></script>
+<script src="../../../static/js/p5sound.js"></script>
+<audio id="player" autoplay preload="metadata">
+    <source src="" type="audio/wav">
+</audio>
+<script>
+    var ts = '{{ audio_url }}';
+    console.log(ts);
+    $("#player").attr("src", `../../../static/audio/system/${ts}.wav`);
+
+    window.sessionStorage.setItem("select_car", {{ select_car | tojson }});
+    var select_car = JSON.parse(window.sessionStorage.getItem("select_car"));
+    console.log(select_car);
+    
+    var temp=`${select_car['hour']}:${select_car['min']} ${select_car['car']}`
+    console.log(temp);
+
+    $("car").text(temp);
+    $("carSpeech").text(temp);
+</script>
 
 </body>
 

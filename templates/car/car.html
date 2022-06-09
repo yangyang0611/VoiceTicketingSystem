@@ -59,9 +59,7 @@
     <a href="/car/select_car_time">
         <input type="button" class="btn_ticket btn_ticket_left btn_yellow" value="指定時間/車次">
     </a>
-    <a href="/car/recent_car">
-        <input type="button" class="btn_ticket btn_ticket_right btn_orange" value="搜素最近一班">
-    </a>
+    <button name="recent_car" type="button" class="btn_ticket btn_ticket_right btn_orange">搜素最近一班</button>
 
 <!-- Bootstrap core JS cdn 5.1.3 -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
@@ -82,6 +80,42 @@ crossorigin="anonymous"></script>
 <audio id="player" autoplay preload="metadata">
     <source src="../../../static/audio/system/008.wav" type="audio/wav">
 </audio>
+<script>
+    $("button[name='recent_car']").click(function () {
+        var temp = new Array("區間車", "莒光號", "自強號", "普悠瑪", "太魯閣");
+        window.sessionStorage.setItem("car_type", temp);
+        console.log(window.sessionStorage.getItem("car_type"));
+
+        var today = new Date();
+        var h = today.getHours();
+        var m = today.getMinutes()+30;
+        if (m >= 60) m-=60, h+=1;
+        if (h >= 24) h-=24;
+        window.sessionStorage.setItem("hour", h);
+        window.sessionStorage.setItem("min", m);
+
+        $.ajax({
+            method: "POST",
+            url: "/car/select_car_time",
+            contentType: 'application/json',
+            data: JSON.stringify({
+                "hour": window.sessionStorage.getItem("hour"),
+                "min": window.sessionStorage.getItem("min"),
+                "car_type": window.sessionStorage.getItem("car_type")
+            }),
+            dataType: "json",
+        })
+            .done(function (result) {
+                console.log(result);
+                if (result["status"] == "success")
+                    window.location.href = "/car/recent_car";
+            })
+            .fail(function () {
+            })
+            .always(function () {
+            });
+    })
+</script>
 
 
 </body>

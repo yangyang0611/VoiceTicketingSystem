@@ -114,3 +114,108 @@ def g_009(car_list):
     system_path_out = os.path.join(syetem_dir, f"{ts}.wav")
     subprocess.run([ffmpeg_path, "-y", "-f", "concat", "-safe", "0", "-i", "merge_list.txt", "-c:v", "copy", system_path_out])
     return ts
+
+def g_011(car_list):
+    now = datetime.now()
+    ts = now.strftime("%Y%m%d%H%M%S%f")
+
+    with open("merge_list.txt", "w") as f:
+        for i, temp in enumerate(car_list):
+            hour = temp["hour"]
+            min = temp["min"]
+            car = temp["car"]
+
+            system_path = os.path.join(syetem_dir, f"011_{i+1}.wav")
+            f.write(f"file '{system_path}'\n")
+
+            f.write(f"file '{empty_path}'\n")
+
+            hour_num_path = os.path.join(number_dir, f"{hour}.wav")
+            hour_path = os.path.join(number_dir, "hour.wav")
+            f.write(f"file '{hour_num_path}'\n")
+            f.write(f"file '{hour_path}'\n")
+
+            if (min == "00"):
+                min_path = os.path.join(number_dir, "oclock.wav")
+                f.write(f"file '{min_path}'\n")
+            else:
+                min_num_path = os.path.join(number_dir, f"{min}.wav")
+                min_path = os.path.join(number_dir, "minute.wav")
+                f.write(f"file '{min_num_path}'\n")
+                f.write(f"file '{min_path}'\n")
+
+            f.write(f"file '{empty_path}'\n")
+
+            if car == "區間車": 
+                car_path = os.path.join(car_dir, "car1.wav")
+            elif car == "莒光號": 
+                car_path = os.path.join(car_dir, "car2.wav")
+            elif car == "自強號": 
+                car_path = os.path.join(car_dir, "car3.wav")
+            elif car == "普悠號": 
+                car_path = os.path.join(car_dir, "car4.wav")
+            elif car == "太魯閣": 
+                car_path = os.path.join(car_dir, "car5.wav")
+            f.write(f"file '{car_path}'\n")
+
+        f.write(f"file '{empty_path}'\n")
+        system_path = os.path.join(syetem_dir, f"011_{4}.wav")
+        f.write(f"file '{system_path}'\n")
+
+    system_path_out = os.path.join(syetem_dir, f"{ts}.wav")
+    subprocess.run([ffmpeg_path, "-y", "-f", "concat", "-safe", "0", "-i", "merge_list.txt", "-c:v", "copy", system_path_out])
+    return ts
+
+def g_012(select_car, num):
+    now = datetime.now()
+    ts = now.strftime("%Y%m%d%H%M%S%f")
+    hour = select_car["hour"]
+    min = select_car["min"]
+    car = select_car["car"]
+
+    with open("merge_list.txt", "w") as f:
+        system_path_1 = os.path.join(syetem_dir, f"012_1.wav")
+        f.write(f"file '{system_path_1}'\n")
+
+        hour_num_path = os.path.join(number_dir, f"{hour}.wav")
+        hour_path = os.path.join(number_dir, "hour.wav")
+        f.write(f"file '{hour_num_path}'\n")
+        f.write(f"file '{hour_path}'\n")
+
+        if (min == "00"):
+            min_path = os.path.join(number_dir, "oclock.wav")
+            f.write(f"file '{min_path}'\n")
+        else:
+            min_num_path = os.path.join(number_dir, f"{min}.wav")
+            min_path = os.path.join(number_dir, "minute.wav")
+            f.write(f"file '{min_num_path}'\n")
+            f.write(f"file '{min_path}'\n")
+
+        f.write(f"file '{empty_path}'\n")
+
+        if car == "區間車": 
+            car_path = os.path.join(car_dir, "car1.wav")
+        elif car == "莒光號": 
+            car_path = os.path.join(car_dir, "car2.wav")
+        elif car == "自強號": 
+            car_path = os.path.join(car_dir, "car3.wav")
+        elif car == "普悠號": 
+            car_path = os.path.join(car_dir, "car4.wav")
+        elif car == "太魯閣": 
+            car_path = os.path.join(car_dir, "car5.wav")
+        f.write(f"file '{car_path}'\n")
+
+        f.write(f"file '{empty_path}'\n")
+
+        system_path_2 = os.path.join(syetem_dir, f"012_2.wav")
+        f.write(f"file '{system_path_2}'\n")
+
+        ticket_path = os.path.join(ticket_dir, f"{num}.wav")
+        f.write(f"file '{ticket_path}'\n")
+
+        system_path_3 = os.path.join(syetem_dir, f"012_3.wav")
+        f.write(f"file '{system_path_3}'\n")
+
+    system_path_out = os.path.join(syetem_dir, f"{ts}.wav")
+    subprocess.run([ffmpeg_path, "-y", "-f", "concat", "-safe", "0", "-i", "merge_list.txt", "-c:v", "copy", system_path_out])
+    return ts

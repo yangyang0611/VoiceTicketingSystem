@@ -28,9 +28,17 @@ if (window.sessionStorage.getItem("num") != null) {
         $("num").text(window.sessionStorage.getItem("num"));
         $("numSpeech").text(window.sessionStorage.getItem("num"));
 }
-if (window.sessionStorage.getItem("car") != null) {
-        $("car").text(`${window.sessionStorage.getItem("hour")}:${window.sessionStorage.getItem("min")} ${window.sessionStorage.getItem("car")}`);
-        $("carSpeech").text(`${window.sessionStorage.getItem("hour")}:${window.sessionStorage.getItem("min")} ${window.sessionStorage.getItem("car")}`);
+if (window.sessionStorage.getItem("car_list") != null) {
+        var temp=`${car_list[0]['hour']}:${car_list[0]['min']} ${car_list[0]['car']}`
+        console.log(temp);
+        $("car").text(temp);
+        $("carSpeech").text(temp);
+    }
+if (window.sessionStorage.getItem("select_car") != null) {
+        var temp=`${select_car['hour']}:${select_car['min']} ${select_car['car']}`
+        console.log(temp);
+        $("car").text(temp);
+        $("carSpeech").text(temp);
     }
 if (window.sessionStorage.getItem("type") != null) {
         $("type").html(window.sessionStorage.getItem("type"));
@@ -71,9 +79,9 @@ function time_init() {
     }
 }
 function timebtn_click(name){
-    console.log("timebtn_click: ",index_text);
     var index = name.split('_')[1];
     var index_text = $(`button[name='time_${index}']`).text();
+    console.log("timebtn_click: ",index_text);
     timebtn_css(index);
     var h = index_text.split(':')[0];
     var m = index_text.split(':')[1];
@@ -263,6 +271,27 @@ function typebtn_click(name){
     window.sessionStorage.setItem("typeSpeech", tempSpeech);
     console.log(window.sessionStorage.getItem("type"));
     console.log(window.sessionStorage.getItem("typeSpeech"));
+}
+
+// ##############################
+//     select_top3_car.html
+// ##############################
+function top3_click(name){
+    console.log("top3_click: ",name);
+    var index = name.split('_')[1];
+    var index_text = $(`button[name='top_${index}']`).text();
+    top3_css(index);
+
+    var car_list = JSON.parse(window.sessionStorage.getItem("car_list"));
+    console.log(car_list);
+    window.sessionStorage.setItem("select_car", JSON.stringify(car_list[index]));
+    console.log("select_car: ", window.sessionStorage.getItem("select_car"));
+}
+function top3_css(index){
+    for(var i = 0; i < 3; i++) {
+        $(`button[name='top_${i}']`).removeClass("btn_select_enable");
+        if (i == index) $(`button[name='top_${i}']`).addClass("btn_select_enable");
+    }
 }
 
 // pls_come_again.html

@@ -458,7 +458,7 @@ h4 {
 }
 
 .btn_select_enable {
-    background-color: #74B8F2;
+    background-color: #74B8F2 !important;
 }
 
 .btn_select_time {

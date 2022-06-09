@@ -27,14 +27,11 @@
 
     <img class="pic_in_page" src="../../../static/img/008 009 010 011 012車次.png" alt="ask_location">
     <div class="speech_bubble_ai speech_bubble_ai_page">
-        第一班：<timeSpeech></timeSpeech>、<br>
-        第二班：<timeSpeech></timeSpeech>、<br>
-        第三班：<timeSpeech></timeSpeech>、<br>
-        請問您要坐那一班？   
+        <carSpeech></carSpeech>
     </div>
     
     <div class="speech_bubble_user speech_bubble_user_page">
-        blablabla
+        <div id="recorder" class="h-100 w-100 m-1"></div>
     </div>
 
     <div class="container">
@@ -54,14 +51,14 @@
 
 
                 <div class="res_car red_text">車次</div>
-                <car></car>
+                <!-- <car></car> -->
 
                 <div class="res_type">票種</div>
             </div>
         </form>
     </div>
 
-    <a href="#">
+    <a href="/car/car">
         <input type="button" class="btn_ticket btn_ticket_left btn_yellow" value="皆不要">
     </a>
     <a href="/car/select_top_3_car_time">
@@ -81,6 +78,30 @@ crossorigin="anonymous"></script>
 
 <!-- local js -->
 <script src="../../../static/js/app.js"></script>
+<script src="../../../static/js/recorder.js"></script>
+<script src="../../../static/js/p5.js"></script>
+<script src="../../../static/js/p5sound.js"></script>
+<audio id="player" autoplay preload="metadata">
+    <source src="" type="audio/wav">
+</audio>
+<script>
+    var ts = '{{ audio_url }}';
+    console.log(ts);
+    $("#player").attr("src", `../../../static/audio/system/${ts}.wav`);
+
+    var car_list = JSON.parse(window.sessionStorage.getItem("car_list"));
+    console.log(car_list);
+    
+    var temp = `
+    第一班：${car_list[0]['hour']}:${car_list[0]['min']} ${car_list[0]['car']}、<br>
+    第二班：${car_list[1]['hour']}:${car_list[1]['min']} ${car_list[1]['car']}、<br>
+    第三班：${car_list[2]['hour']}:${car_list[2]['min']} ${car_list[2]['car']}、<br>
+    請問您要坐那一班？
+    `;
+    console.log(temp);
+
+    $("carSpeech").html(temp);
+</script>
 
 </body>
 
