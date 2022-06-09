@@ -29,12 +29,14 @@ if (window.sessionStorage.getItem("num") != null) {
         $("numSpeech").text(window.sessionStorage.getItem("num"));
 }
 if (window.sessionStorage.getItem("car_list") != null) {
+        var car_list = JSON.parse(window.sessionStorage.getItem("car_list"));
         var temp=`${car_list[0]['hour']}:${car_list[0]['min']} ${car_list[0]['car']}`
         console.log(temp);
         $("car").text(temp);
         $("carSpeech").text(temp);
     }
 if (window.sessionStorage.getItem("select_car") != null) {
+        var select_car = JSON.parse(window.sessionStorage.getItem("select_car"));
         var temp=`${select_car['hour']}:${select_car['min']} ${select_car['car']}`
         console.log(temp);
         $("car").text(temp);
@@ -248,23 +250,28 @@ function typebtn_click(name){
 
     var temp = "";
     var tempSpeech = "";
-    // var adultSpeech = "";
-    // var oldSpeech = "";
-    // var childSpeech = "";
-    // var loveSpeech = "";
+    var s_flag = true;
     if (adult != 0) {
+        if (s_flag) s_flag = false;
+        else tempSpeech+='、';
         temp+= `全票 ${adult} 張<br>`;
-        tempSpeech+= `全票 ${window.sessionStorage.getItem("adult")} 張、`;
+        tempSpeech+= `全票 ${window.sessionStorage.getItem("adult")} 張`;
     }
     if (old != 0) { 
+        if (s_flag) s_flag = false;
+        else tempSpeech+='、';
         temp+= `敬老票 ${old} 張<br>`;
-        tempSpeech+= `敬老票 ${window.sessionStorage.getItem("old")} 張、`;
+        tempSpeech+= `敬老票 ${window.sessionStorage.getItem("old")} 張`;
     }
     if (child != 0) {
+        if (s_flag) s_flag = false;
+        else tempSpeech+='、';
         temp+= `孩童票 ${child} 張<br>`;
-        tempSpeech+= `孩童票 ${window.sessionStorage.getItem("child")} 張、`;
+        tempSpeech+= `孩童票 ${window.sessionStorage.getItem("child")} 張`;
     }
     if (love != 0) {
+        if (s_flag) s_flag = false;
+        else tempSpeech+='、';
         temp+= `愛心票 ${love} 張<br>`;
         tempSpeech+= `愛心票 ${window.sessionStorage.getItem("love")} 張`;
     }

@@ -64,7 +64,18 @@ crossorigin="anonymous"></script>
 
 <!-- local js -->
 <script src="../../../static/js/app.js"></script>
+<audio id="player" autoplay preload="metadata">
+    <source src="" type="audio/wav">
+</audio>
+<script>
+    var ts = '{{ audio_url }}';
+    console.log(ts);
+    $("#player").attr("src", `../../../static/audio/system/${ts}.wav`);
 
+    $("totalMoney").text(window.sessionStorage.getItem("total"));
+    $("paidMoney").text(window.sessionStorage.getItem("paid"));
+    $("changeMoney").text(window.sessionStorage.getItem("change"));
+</script>
 </body>
 
 </html>

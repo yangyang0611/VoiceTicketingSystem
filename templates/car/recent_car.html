@@ -61,9 +61,7 @@
     <a href="/car/top_3_car">
         <input type="button" class="btn_ticket btn_ticket_left btn_yellow" value="否，繼續搜索">
     </a>
-    <a href="/type/type">
-        <input type="button" class="btn_ticket btn_ticket_right btn_orange" value="選擇">
-    </a>
+    <button name="confirm_car" type="button" class="btn_ticket btn_ticket_right btn_orange">選擇</button>
 
 <!-- Bootstrap core JS cdn 5.1.3 -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
@@ -98,6 +96,27 @@ crossorigin="anonymous"></script>
 
     $("car").text(temp);
     $("carSpeech").text(temp);
+
+    $("button[name='confirm_car']").click(function () {
+            $.ajax({
+                method: "POST",
+                url: "/car/select_top_3_car_time",
+                contentType: 'application/json',
+                data: JSON.stringify(
+                    car_list[0]
+                ),
+                dataType: "json",
+            })
+                .done(function (result) {
+                    console.log(result);
+                    if (result["status"] == "success")
+                        window.location.href = "/car/confirm_car";
+                })
+                .fail(function () {
+                })
+                .always(function () {
+                });
+        })
 </script>
 
 </body>

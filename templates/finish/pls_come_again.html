@@ -38,9 +38,17 @@ crossorigin="anonymous"></script>
 <!-- jQuery cdn 3.6.0 -->
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-dateFormat/1.0/jquery.dateFormat.min.js"></script>
-
+<audio id="player" autoplay preload="metadata">
+    <source src="../../../static/audio/system/027.wav" type="audio/wav">
+</audio>
 <script>
-    setTimeout(go, 3*1000);
+    $(document).ready(function(){
+        const audio = document.getElementById("player");
+        audio.onloadedmetadata = function() {
+            console.log('time:', audio.duration);
+            setTimeout(go, audio.duration * 1000+1000);
+        };
+    });
     function go() {
         window.location.href = "/";
         window.sessionStorage.removeItem("station");

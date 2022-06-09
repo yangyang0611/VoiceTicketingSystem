@@ -61,6 +61,26 @@ crossorigin="anonymous"></script>
 
 <!-- local js -->
 <script src="../../../static/js/app.js"></script>
+<script>
+    window.sessionStorage.setItem("paid", 3000);
+    window.sessionStorage.setItem("change", 0);
+    var change = parseInt(window.sessionStorage.getItem("paid"))-parseInt(window.sessionStorage.getItem("total"));
+    window.sessionStorage.setItem("change", change);
+
+    $("totalMoney").text(window.sessionStorage.getItem("total"));
+    $("paidMoney").text(window.sessionStorage.getItem("paid"));
+    $("changeMoney").text(window.sessionStorage.getItem("change"));
+
+    $.ajax({
+            method: "POST",
+            url: "/pay/cash/cash_pay",
+            contentType: 'application/json',
+            data: JSON.stringify({
+                "change": window.sessionStorage.getItem("change"),
+            }),
+            dataType: "json",
+        })
+</script>
 
 </body>
 

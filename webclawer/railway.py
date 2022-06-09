@@ -7,6 +7,8 @@ from train import train
 
 from torch import rand_like
 import os
+from functools import cmp_to_key
+import re
 
 # ==================================================================================================================== #
 # 出發站一系列動作
@@ -234,13 +236,32 @@ class Railway(object):
     def filterByTrainCategory(self, category):
         return_list = []
         for t in self.train_list:
-            if (t.category == category):
-                return_list.append(t)
+             for c in category:
+                if (c == t.category):
+                    return_list.append(t)
+                    break
         self.train_list = return_list
+    
+    def get_first_three(self):
+        first_three = self.train_list[0:3]
+        return sorted(first_three, key=cmp_to_key(mulTime))
         
+    def sort_train_list(self):
+        print('sort_train_list')
+        self.train_list = sorted(self.train_list, key=cmp_to_key(mulTime))
+    
     def get_train_list(self):
         return self.train_list
-
-if __name__ == "__main__":
-    Railway()
     
+def mulTime(t1, t2):
+    t1_time = re.split(':', t1.arrival_time)
+    t1_sec = int(t1_time[0])*60 + int(t1_time[1])
+    t2_time = re.split(':', t2.arrival_time)
+    t2_sec = int(t2_time[0])*60 + int(t2_time[1])
+    diff = t1_sec - t2_sec
+    if (diff == 0):
+        return 0
+    elif (diff > 0):
+        return 1
+    else:
+        return -1

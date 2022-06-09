@@ -31,7 +31,7 @@
     </div>
     
     <div class="speech_bubble_user speech_bubble_user_page">
-        blablabla
+        <div id="recorder" class="h-100 w-100 m-1"></div>
     </div>
 
     <div class="container">
@@ -81,6 +81,59 @@ crossorigin="anonymous"></script>
 
 <!-- local js -->
 <script src="../../../static/js/app.js"></script>
+<script src="../../../static/js/recorder.js"></script>
+<script src="../../../static/js/p5.js"></script>
+<script src="../../../static/js/p5sound.js"></script>
+<audio id="player" autoplay preload="metadata">
+    <source src="" type="audio/wav">
+</audio>
+<script>
+    var ts = '{{ audio_url }}';
+    console.log(ts);
+    $("#player").attr("src", `../../../static/audio/system/${ts}.wav`);
+    var temp = JSON.parse({{ tickets | tojson }});
+    console.log(temp);
+    var adult = temp["adult"];
+    window.sessionStorage.setItem("adult", adult);
+    var old = temp["old"];
+    window.sessionStorage.setItem("old", old);
+    var child = temp["child"];
+    window.sessionStorage.setItem("child", child);
+    var love = temp["love"];
+    window.sessionStorage.setItem("love", love);
+
+    var temp = "";
+    var tempSpeech = "";
+    var s_flag = true;
+    if (adult != 0) {
+        if (s_flag) s_flag = false;
+        else tempSpeech+='、';
+        temp+= `全票 ${adult} 張<br>`;
+        tempSpeech+= `全票 ${window.sessionStorage.getItem("adult")} 張`;
+    }
+    if (old != 0) { 
+        if (s_flag) s_flag = false;
+        else tempSpeech+='、';
+        temp+= `敬老票 ${old} 張<br>`;
+        tempSpeech+= `敬老票 ${window.sessionStorage.getItem("old")} 張`;
+    }
+    if (child != 0) {
+        if (s_flag) s_flag = false;
+        else tempSpeech+='、';
+        temp+= `孩童票 ${child} 張<br>`;
+        tempSpeech+= `孩童票 ${window.sessionStorage.getItem("child")} 張`;
+    }
+    if (love != 0) {
+        if (s_flag) s_flag = false;
+        else tempSpeech+='、';
+        temp+= `愛心票 ${love} 張<br>`;
+        tempSpeech+= `愛心票 ${window.sessionStorage.getItem("love")} 張`;
+    }
+    window.sessionStorage.setItem("type", temp);
+    window.sessionStorage.setItem("typeSpeech", tempSpeech);
+    $("type").html(window.sessionStorage.getItem("type"));
+    $("typeSpeech").text(window.sessionStorage.getItem("typeSpeech"));
+</script>
 
 </body>
 

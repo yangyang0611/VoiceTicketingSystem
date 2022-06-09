@@ -1,6 +1,7 @@
 
 
 import os
+import re
 import json
 from datetime import datetime, timedelta
 from dateutil.parser import parse
@@ -25,6 +26,7 @@ session = {
     "search_hour_min": "",
     "car_list": [],
     "select_car": {},
+    "tickets": {},
     "audio_ts": ""
 }
 
@@ -79,29 +81,60 @@ def redirect_admin():
     elif cur_page == 7:
         url = "/car/car"
     elif cur_page == 8:
-        session["car_type"] = ["自強號","區間車"]
-        session["hour"] = 4
-        session["min"] = 10
-        if int(session["min"]) >= 30: search_start_min = 30
-        else: search_start_min = 0
-        print("search:", session["hour"], search_start_min, get_city(session["station"]), session["station"])
-        print("filter:", session["hour"], session["min"], session["car_type"])
+        session["car_type"] = ["自強","區間"]
+        session["hour"] = str(13).zfill(2)
+        session["min"] = str(6).zfill(2)
 
-        session["car_list"] = [
-            {"hour": "22", "min": "00", "car": "莒光號"},
-            {"hour": "16", "min": "40", "car": "區間車"},
-            {"hour": "12", "min": "33", "car": "自強號"},
-        ]
+        if int(session["min"]) >= 30: 
+            search_start_min = "30"
+        else: 
+            search_start_min = "00"
+
+        session["search_hour_min"] = session["hour"].zfill(2) + ":" + str(search_start_min)
+
+        print("search:", session["hour"], search_start_min, session["search_hour_min"], get_city(session["station"]), session["station"])
+        print("filter:", session["hour"], session["min"],  session["car_type"])
+
+        railway = Railway(input_endStationCity=get_city(session["station"]), input_endStation=session["station"], 
+                        input_startTime=session["search_hour_min"])
+        railway.clickAllStep()
+        print(session["car_type"])
+
+        # 挑選前3班車
+        railway.filterByTrainCategory(session["car_type"])
+        first_three = railway.get_first_three()
+        session["car_list"] = first_three
+        # train_list = railway.get_train_list()
+        session["car_list"] = trainUtil.print_train_list(first_three)
+        print(session["car_list"])
+
         session["audio_ts"] = voice.g_009(session["car_list"])
         url = "/car/recent_car"
     elif cur_page == 9:
         url = "/car/top_3_car"
     elif cur_page == 11:
-        session["select_car"] = {"hour": "12", "min": "33", "car": "自強號"}
+        session["select_car"] = session["car_list"][0]
         session["audio_ts"] = voice.g_012(session["select_car"], session["num"])
         url = "/car/confirm_car"
     elif cur_page == 12:
         url = "/type/type"
+    elif cur_page == 13:
+        url = "/type/type_num"
+    elif cur_page == 14:
+        session["tickets"] = {
+            "adult": 1,
+            "old": 1,
+            "child": 1,
+            "love": 1,
+        }
+        session["audio_ts"] = voice.g_015(session["tickets"])
+        url = "/type/confirm_type"
+    elif cur_page == 15:
+        url = "/confirm/confirm_everything"
+    elif cur_page == 16:
+        url = "/pay/payment_type_ask"
+    elif cur_page == 18:
+        url = "/pay/cash/cash_total"
 
 
     print(url)
@@ -235,25 +268,31 @@ def select_car_time_post():
                       input_startTime=session["search_hour_min"])
     railway.clickAllStep()
     print(session["car_type"])
-    # railway.filterByTrainCategory(session["car_type"])
-    train_list = railway.get_train_list()
+    car_type_str = session["car_type"]
+    car_type_list = re.split(',', car_type_str)
 
-    # print all trains
-    trainUtil.print_train_list(train_list)
-    print('-----------------')
-    print('first train:')
+    # 挑選前3班車
+    railway.filterByTrainCategory(car_type_list)
+    first_three = railway.get_first_three()
+    session["car_list"] = first_three
+    # train_list = railway.get_train_list()
+    session["car_list"] = trainUtil.print_train_list(first_three)
+    print(session["car_list"])
 
-    # print first train
-    trainUtil.print_first_train(train_list)
+    # todo: if no train
+
+    # 挑選第一班
+    # first = first_three[0]
+    # trainUtil.print_train_list(first)
 
     # print("search:", session["hour"], search_start_min, get_city(session["station"]), session["station"])
     # print("filter:", session["hour"], session["min"], session["car_type"])
 
-    session["car_list"] = [
-        {"hour": "15", "min": "38", "car": "自強號"},
-        {"hour": "16", "min": "40", "car": "區間車"},
-        {"hour": "22", "min": "00", "car": "莒光號"},
-    ]
+    # session["car_list"] = [
+    #     {"hour": "15", "min": "38", "car": "自強", "total": "456"},
+    #     {"hour": "16", "min": "40", "car": "區間", "total": "666"},
+    #     {"hour": "22", "min": "00", "car": "莒光", "total": "852"},
+    # ]
     session["audio_ts"] = voice.g_009(session["car_list"])
     return {"status": "success"}
 
@@ -309,29 +348,53 @@ def confirm_car():
 
 @app.route("/type/type")
 def type():
+    global session
+    session["cur_page"] = 13
     return render_template("type/type.html")
 
 
 @app.route("/type/type_num")
 def type_num():
+    global session
+    session["cur_page"] = 14
     return render_template("type/type_num.html")
 
 
-@app.route("/type/select_type_num")
+@app.route("/type/select_type_num", methods=["GET"])
 def select_type_num():
     return render_template("type/select_type_num.html")
+
+@app.route("/type/select_type_num", methods=["POST"])
+def select_type_num_post():
+    global session
+    obj = request.get_json()
+    print(obj)
+    session["tickets"] = {
+        "adult": int(obj["adult"]),
+        "old": int(obj["old"]),
+        "child": int(obj["child"]),
+        "love": int(obj["love"]),
+    }
+    session["audio_ts"] = voice.g_015(session["tickets"])
+    return {"status": "success"}
 
 
 @app.route("/type/confirm_type")
 def confirm_type():
-    return render_template("type/confirm_type.html")
+    global session
+    session["cur_page"] = 15
+    return render_template("type/confirm_type.html",
+        audio_url=session["audio_ts"], tickets=json.dumps(session["tickets"]))
 
 # confirm
 
 
 @app.route("/confirm/confirm_everything")
 def confirm_everything():
-    return render_template("confirm/confirm_everything.html")
+    global session
+    session["cur_page"] = 16
+    session["audio_ts"] = voice.g_016(session["station"], session["select_car"], session["tickets"])
+    return render_template("confirm/confirm_everything.html", audio_url=session["audio_ts"])
 
 
 @app.route("/confirm/modified_before_confirm")
@@ -344,6 +407,8 @@ def modified_before_confirm():
 
 @app.route("/pay/payment_type_ask")
 def payment_type_ask():
+    global session
+    session["cur_page"] = 18
     return render_template("pay/payment_type_ask.html")
 
 # cash
@@ -351,17 +416,36 @@ def payment_type_ask():
 
 @app.route("/pay/cash/cash_total")
 def cash_total():
-    return render_template("pay/cash/cash_total.html")
+    global session
+    session["cur_page"] = 19
+    adult = int(session["tickets"]["adult"])
+    half = int(session["num"]) - adult
+    session["total"] = int(int(session["select_car"]["total"]) * (adult + half*0.5))
+    print(session["total"])
+    session["audio_ts"] = voice.g_019(session["total"])
+    return render_template("pay/cash/cash_total.html",
+        audio_url=session["audio_ts"], total=session["total"])
 
 
-@app.route("/pay/cash/cash_pay")
+@app.route("/pay/cash/cash_pay", methods=["GET"])
 def cash_pay():
     return render_template("pay/cash/cash_pay.html")
 
 
+@app.route("/pay/cash/cash_pay", methods=["POST"])
+def cash_pay_post():
+    global session
+    obj = request.get_json()
+    print(obj)
+    session["change"] = int(obj["change"])
+    return {"status": "success"}
+
+
 @app.route("/pay/cash/cash_change")
 def cash_change():
-    return render_template("pay/cash/cash_change.html")
+    global session
+    session["audio_ts"] = voice.g_020(session["change"])
+    return render_template("pay/cash/cash_change.html", audio_url=session["audio_ts"])
 
 # e_pay
 

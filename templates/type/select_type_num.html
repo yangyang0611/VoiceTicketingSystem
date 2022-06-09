@@ -48,9 +48,8 @@
         <a href="/type/type">
             <input type="button" class="btn_ok_cancel btn_cancel_select btn_yellow" value="取消">
         </a>
-        <a href="/type/confirm_type">
-            <input type="button" class="btn_ok_cancel btn_ok_select btn_orange" value="確認">
-        </a>
+        <button name="confirm_type" type="button" class="btn_ok_cancel btn_ok_select btn_orange">確認</button>
+
     </div>
 
     <!-- Bootstrap core JS cdn 5.1.3 -->
@@ -77,7 +76,30 @@ crossorigin="anonymous"></script>
     $("#numOld").text(window.sessionStorage.getItem("old"));
     $("#numChild").text(window.sessionStorage.getItem("child"));
     $("#numLove").text(window.sessionStorage.getItem("love"));
-    // ajax
+
+    $("button[name='confirm_type']").click(function () {
+            $.ajax({
+                method: "POST",
+                url: "/type/select_type_num",
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    "adult": window.sessionStorage.getItem("adult"),
+                    "old": window.sessionStorage.getItem("old"),
+                    "child": window.sessionStorage.getItem("child"),
+                    "love": window.sessionStorage.getItem("love"),
+                }),
+                dataType: "json",
+            })
+                .done(function (result) {
+                    console.log(result);
+                    if (result["status"] == "success")
+                        window.location.href = "/type/confirm_type";
+                })
+                .fail(function () {
+                })
+                .always(function () {
+                });
+        })
 </script>
 
 </body>

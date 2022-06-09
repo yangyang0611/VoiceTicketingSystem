@@ -25,6 +25,14 @@ class train(object):
         delim = ' '
         return int(re.split(delim, money)[1])
     
+    def print_train(self):
+        print('| %10s | %5s | %7s | %7s | %10s | % 5s | %5s | %5s' %
+                ('車種', '車次', '出發時間', '抵達時間', '行駛時間', '全票', '孩童票', '敬老票'))
+        print('-' * 50, end='')
+        print('| %10s | %5s | %7s | %7s | %10s | % 5d | %5d | %5d' %
+                    (self.category, self.number, self.departure_time, self.arrival_time,
+                    self.travel_time, self.adult_price, self.child_price, self.old_price))
+    
 class trainUtil(object):
     @staticmethod
     def is_train_list_empty(train_list):
@@ -54,11 +62,21 @@ class trainUtil(object):
             return
         
         trainUtil.print_train_list_title()
-    
+        temp = list()
         for t in train_list:
             print('-' * 50, end='')
             print()
             print('| %10s | %5s | %7s | %7s | %10s | % 5d | %5d | %5d' %
                 (t.category, t.number, t.departure_time, t.arrival_time,
                 t.travel_time, t.adult_price, t.child_price, t.old_price))
+            temp.append({
+                "car": t.category,
+                "hour": int(t.departure_time.split(":")[0]), 
+                "min": int(t.departure_time.split(":")[1]),
+                "total": t.adult_price
+            })
+
+        return temp
+
+        
 
