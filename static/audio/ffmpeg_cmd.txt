@@ -1,0 +1,13 @@
+
+# 去前後空白
+ffmpeg -i "001.wav" -af silenceremove=start_periods=1:start_threshold=-40dB:detection=peak,areverse,silenceremove=start_periods=1:start_threshold=-40dB:detection=peak,areverse "001.out.wav"
+
+# 合併聲音
+ffmpeg -f concat -safe 0 -i fileList.txt -c:v copy "001002.wav"
+
+fileList.txt
+	file '001.wav'
+	file '002.wav'
+	
+
+
