@@ -195,7 +195,7 @@ function typebtn_click(name){
     var total = adult + old + child + love;
 
     if (opt == "add") {
-        if (total+1 <= 4) {
+        if (total+1 <= window.sessionStorage.getItem("num")) {
             if (type == "adult"){
                 adult++;
                 window.sessionStorage.setItem(type, adult);
@@ -299,9 +299,9 @@ $("button[name='btn_edit_loc']").click(function(){
       })
       .then((result) => {
         if (result.isConfirmed) {
-          
+            window.location.href = "/location/select_location";
         } else {
-          
+
         }
       });
 });
@@ -320,9 +320,9 @@ $("button[name='btn_edit_num']").click(function(){
       })
       .then((result) => {
         if (result.isConfirmed) {
-          
+            window.location.href = "/num/select_num";
         } else {
-          
+
         }
       });
 });
@@ -341,9 +341,9 @@ $("button[name='btn_edit_car']").click(function(){
       })
       .then((result) => {
         if (result.isConfirmed) {
-          
+            window.location.href = "/car/select_car_time";
         } else {
-          
+
         }
       });
 });
@@ -362,9 +362,9 @@ $("button[name='btn_edit_type']").click(function(){
       })
       .then((result) => {
         if (result.isConfirmed) {
-          
+            window.location.href = "/type/select_type_num";
         } else {
-          
+
         }
       });
 });
@@ -383,9 +383,14 @@ $("button[name='btn_cancel_everything']").click(function(){
       })
       .then((result) => {
         if (result.isConfirmed) {
-          
+            window.location.href = "/";
+            window.sessionStorage.removeItem("station")
+            window.sessionStorage.removeItem("num")
+            window.sessionStorage.removeItem("hour")
+            window.sessionStorage.removeItem("min")
+            window.sessionStorage.removeItem("type")
         } else {
-          
+
         }
       });
 });

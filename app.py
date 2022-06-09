@@ -1,10 +1,15 @@
 
-from glob import glob
+
 import os
 import json
 from datetime import datetime, timedelta
 from dateutil.parser import parse
 from util.stt_service_client import stt
+
+import sys
+sys.path.append("webclawer")
+from train import train, trainUtil
+from railway import Railway
 
 from flask import Flask, render_template, request
 from flask_cors import CORS
@@ -149,8 +154,20 @@ def select_car_time():
 
 @app.route("/car/select_car_time", methods=["POST"])
 def select_car_time_post():
-    """
-    """
+    global session
+    railway = Railway(input_endStation=session["station"])
+    railway.clickAllStep()
+    railway.filterByTrainCategory("自強號")
+    train_list = railway.get_train_list()
+
+    # print all trains
+    trainUtil.print_train_list(train_list)
+    print('-----------------')
+    print('first train:')
+
+    # print first train
+    trainUtil.print_first_train(train_list)
+
     obj = request.get_json()
     print(obj)
     return {"status": "success"}
