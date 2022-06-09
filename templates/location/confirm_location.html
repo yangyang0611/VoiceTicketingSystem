@@ -19,7 +19,6 @@
 
 <body>
     <button type="button" name="btn_cancel_everything" class="btn_home">取消購票</button>
-
     <div class="date_time">
         <div id="date"></div>
         <div id="time"></div>
@@ -31,7 +30,7 @@
     </div>
 
     <div class="speech_bubble_user speech_bubble_user_page">
-        blablabla
+        <div id="recorder" class="h-100 w-100 m-1"></div>
     </div>
 
     <div class="container">
@@ -69,6 +68,22 @@ crossorigin="anonymous"></script>
 
 <!-- local js -->
 <script src="../../../static/js/app.js"></script>
+<script src="../../../static/js/recorder.js"></script>
+<script src="../../../static/js/p5.js"></script>
+<script src="../../../static/js/p5sound.js"></script>
+<audio id="player" autoplay preload="metadata">
+    <source src="" type="audio/wav">
+</audio>
+<script>
+    var ts = '{{ audio_url }}';
+    console.log(ts);
+    $("#player").attr("src", `../../../static/audio/system/${ts}.wav`);
+    window.sessionStorage.setItem("station", '{{ station }}');
+    console.log(window.sessionStorage.getItem("station"));
+    if (window.sessionStorage.getItem("station") != null)
+        $("location").text(window.sessionStorage.getItem("station"));
+        $("locationSpeech").text(window.sessionStorage.getItem("station"));
+</script>
 
 </body>
 

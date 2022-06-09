@@ -50,8 +50,16 @@
     <script>
         time_init();
         timebtn_click("time_0");
-        carbtn_click("car_0")
+        carbtn_click("car_0");
         $("button[name='confirm_car']").click(function () {
+            var temp = new Array();
+            for(var i = 0; i < 5; i++) {
+                if ($(`button[name='car_${i}']`).hasClass("btn_select_enable"))
+                    temp.push($(`button[name='car_${i}']`).text());
+            }
+            window.sessionStorage.setItem("car_type", temp);
+            console.log(window.sessionStorage.getItem("car_type"));
+
             $.ajax({
                 method: "POST",
                 url: "/car/select_car_time",
@@ -59,7 +67,7 @@
                 data: JSON.stringify({
                     "hour": window.sessionStorage.getItem("hour"),
                     "min": window.sessionStorage.getItem("min"),
-                    "car": window.sessionStorage.getItem("car")
+                    "car_type": window.sessionStorage.getItem("car_type")
                 }),
                 dataType: "json",
             })
