@@ -17,7 +17,7 @@ dir = os.path.dirname(os.path.realpath(__file__))
 class Railway(object):
     def __init__(self, input_startStationCity='臺南市', input_startStation='臺南',
                  input_endStationCity='屏東縣', input_endStation='屏東',
-                 input_date='2022/06/10', input_startTime='10:00', input_endTime='22:00'):
+                 input_date='2022/06/09', input_startTime='10:00', input_endTime='23:30'):
         self.count = 0
         self.stationCount = 0
         self.count2 = 0

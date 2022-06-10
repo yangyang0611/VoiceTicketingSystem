@@ -67,14 +67,17 @@
                 data: JSON.stringify({
                     "hour": window.sessionStorage.getItem("hour"),
                     "min": window.sessionStorage.getItem("min"),
-                    "car_type": window.sessionStorage.getItem("car_type")
+                    "car_type": window.sessionStorage.getItem("car_type"),
+                    "date": window.sessionStorage.getItem("date")
                 }),
                 dataType: "json",
             })
                 .done(function (result) {
                     console.log(result);
-                    if (result["status"] == "success")
-                        window.location.href = "/car/recent_car";
+                    if (result["status"] == "success"){
+                        console.log("select_car_time is clicked, searching car");
+                        window.location.href = "/car/search_car";
+                    }
                 })
                 .fail(function () {
                 })

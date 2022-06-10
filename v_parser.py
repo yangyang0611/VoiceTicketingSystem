@@ -194,7 +194,7 @@ def redirect_admin(session, result):
         print("search:", session["hour"], search_start_min, session["search_hour_min"], get_city(session["station"]), session["station"])
         print("filter:", session["hour"], session["min"],  session["car_type"])
 
-        railway = Railway(input_endStationCity=get_city(session["station"]), input_endStation=session["station"], 
+        railway = Railway(input_endStationCity=get_city(session["station"]), input_date = session["date"], input_endStation=session["station"], 
                         input_startTime=session["search_hour_min"])
         railway.clickAllStep()
         print(session["car_type"])

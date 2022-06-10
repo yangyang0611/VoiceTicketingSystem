@@ -26,6 +26,7 @@ session = {
     "car_type": [],
     "hour": "",
     "min": "",
+    "date": "",
     "search_hour_min": "",
     "car_list": [],
     "select_car": {},
@@ -145,6 +146,7 @@ def select_car_time_post():
     session["car_type"] = obj["car_type"]
     session["hour"] = (obj["hour"]).zfill(2)
     session["min"] = (obj["min"]).zfill(2)
+    session["date"] = obj["date"]
 
     if int(session["min"]) >= 30: 
         search_start_min = "30"
@@ -157,7 +159,7 @@ def select_car_time_post():
     print("filter:", session["hour"], session["min"],  session["car_type"])
 
     railway = Railway(input_endStationCity=p.get_city(session["station"]), input_endStation=session["station"], 
-                      input_startTime=session["search_hour_min"])
+                      input_startTime=session["search_hour_min"], input_date=session["date"])
     railway.clickAllStep()
     print(session["car_type"])
     car_type_str = session["car_type"]
@@ -171,6 +173,8 @@ def select_car_time_post():
     session["car_list"] = trainUtil.print_train_list(first_three)
     print(session["car_list"])
 
+    
+        
     # todo: if no train
 
     # 挑選第一班
@@ -234,6 +238,10 @@ def confirm_car():
     session["cur_page"] = 12
     return render_template("car/confirm_car.html", 
         audio_url=session["audio_ts"], select_car=json.dumps(session["select_car"]))
+    
+@app.route("/car/search_car")
+def search_car():
+    return render_template("car/search_car.html")
 
 # type
 

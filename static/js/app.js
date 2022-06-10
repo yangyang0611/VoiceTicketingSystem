@@ -5,7 +5,7 @@
 // ##############################
 
 // set time
-let today, year, month, day, hr, min;
+let today, year, month, day, hr, min, date;
 update_time();
 setInterval(update_time, 1000*30);
 function update_time() {
@@ -15,7 +15,9 @@ function update_time() {
     day = today.getDate();
     hr = today.getHours();
     min = today.getMinutes();
-    $("#date").text(`${year}/${month.toString().padStart(2, "0")}/${day.toString().padStart(2, "0")}`);
+
+    window.sessionStorage.setItem("date", `${year}/${month.toString().padStart(2, "0")}/${day.toString().padStart(2, "0")}`);
+    $("#date").text(window.sessionStorage.getItem("date"));
     $("#time").text(`${hr.toString().padStart(2, "0")} : ${min.toString().padStart(2, "0")}`);
 }
 
@@ -30,14 +32,14 @@ if (window.sessionStorage.getItem("num") != null) {
 }
 if (window.sessionStorage.getItem("car_list") != null) {
         var car_list = JSON.parse(window.sessionStorage.getItem("car_list"));
-        var temp=`${car_list[0]['hour']}:${car_list[0]['min']} ${car_list[0]['car']}`
+        var temp=`${car_list[0]['hour']}:${car_list[0]['min']} ${car_list[0]['car']}`;
         console.log(temp);
         $("car").text(temp);
         $("carSpeech").text(temp);
     }
 if (window.sessionStorage.getItem("select_car") != null) {
         var select_car = JSON.parse(window.sessionStorage.getItem("select_car"));
-        var temp=`${select_car['hour']}:${select_car['min']} ${select_car['car']}`
+        var temp=`${select_car['hour']}:${select_car['min']} ${select_car['car']}`;
         console.log(temp);
         $("car").text(temp);
         $("carSpeech").text(temp);
@@ -425,6 +427,7 @@ $("button[name='btn_cancel_everything']").click(function(){
             window.sessionStorage.removeItem("num")
             window.sessionStorage.removeItem("hour")
             window.sessionStorage.removeItem("min")
+            window.sessionStorage.removeItem("car")
             window.sessionStorage.removeItem("type")
         } else {
 
