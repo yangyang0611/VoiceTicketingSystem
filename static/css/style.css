@@ -1,3 +1,9 @@
+.set_background_color{
+    background: -webkit-linear-gradient(top, #f5f5f5 80%, white 40%);
+    height:1000px;
+    
+   }
+
 #container {
     position: static;
     width: 900px;

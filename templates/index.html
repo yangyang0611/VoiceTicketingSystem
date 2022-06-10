@@ -16,33 +16,33 @@
 
 
 <body>
+    <div class="set_background_color">
+        <div class="date_time">
+            <div id="date"></div>
+            <div id="time"></div>
+        </div>
+        
+        <img src="../static/img/001 002 台鐵歡迎.png" class="pic_welcome" alt="welcome">
 
-    
-    <div class="date_time">
-        <div id="date"></div>
-        <div id="time"></div>
-    </div>
-    
-    <img src="../static/img/001 002 台鐵歡迎.png" class="pic_welcome" alt="welcome">
+        <div class="container-fluid">
+            <form id="form">
+                <div class="speech_bubble_ai speech_bubble_ai_welcome">
+                    請問需要購票嗎？
+                </div>
 
-    <div class="container-fluid">
-        <form id="form">
-            <div class="speech_bubble_ai speech_bubble_ai_welcome">
-                請問需要購票嗎？
-            </div>
-
-            <div class="speech_bubble_user speech_bubble_user_welcome">
-                <div id="recorder" class="h-100 w-100 m-1"></div>
-            </div>
-                
-            <a href="/">
-                <input type="button" class="btn_reply btn_reply_left" value="否">
-            </a>
-            <a href="/buy_ticket_confirm">
-                <input type="button" class="btn_reply btn_reply_right" value="是">
-            </a>
-        </form>
-    </div>
+                <div class="speech_bubble_user speech_bubble_user_welcome">
+                    <div id="recorder" class="h-100 w-100 m-1"></div>
+                </div>
+                    
+                <a href="/">
+                    <input type="button" class="btn_reply btn_reply_left" value="否">
+                </a>
+                <a href="/buy_ticket_confirm">
+                    <input type="button" class="btn_reply btn_reply_right" value="是">
+                </a>
+            </form>
+        </div>
+    </div>    
 
     
     

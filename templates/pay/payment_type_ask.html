@@ -18,34 +18,35 @@
 
 
 <body>
-    <button type="button" name="btn_cancel_everything" class="btn_home">取消購票</button>
+    <div class="set_background_color">
+        <button type="button" name="btn_cancel_everything" class="btn_home">取消購票</button>
 
-    <div class="date_time">
-        <div id="date"></div>
-        <div id="time"></div>
+        <div class="date_time">
+            <div id="date"></div>
+            <div id="time"></div>
+        </div>
+
+        <img src="../static/img/017 是否用現金頁.png" class="pic_welcome" alt="payment_type">
+
+        <div class="container-fluid">
+            <form id="form">
+                <div class="speech_bubble_ai speech_bubble_ai_welcome">
+                    請問是否使用現金付款？
+                </div>
+
+                <div class="speech_bubble_user speech_bubble_user_welcome">
+                    <div id="recorder" class="h-100 w-100 m-1"></div>
+                </div>
+                    
+                <a href="/pay/payment_type_e">
+                    <input type="button" class="btn_reply btn_reply_left btn_yellow" value="否，使用其他付款方式">
+                </a>
+                <a href="/pay/cash/cash_total">
+                    <input type="button" class="btn_reply btn_reply_right btn_orange" value="是">
+                </a>
+            </form>
+        </div>
     </div>
-
-    <img src="../static/img/017 是否用現金頁.png" class="pic_welcome" alt="payment_type">
-
-    <div class="container-fluid">
-        <form id="form">
-            <div class="speech_bubble_ai speech_bubble_ai_welcome">
-                請問是否使用現金付款？
-            </div>
-
-            <div class="speech_bubble_user speech_bubble_user_welcome">
-                <div id="recorder" class="h-100 w-100 m-1"></div>
-            </div>
-                
-            <a href="/pay/payment_type_e">
-                <input type="button" class="btn_reply btn_reply_left btn_yellow" value="否，使用其他付款方式">
-            </a>
-            <a href="/pay/cash/cash_total">
-                <input type="button" class="btn_reply btn_reply_right btn_orange" value="是">
-            </a>
-        </form>
-    </div>
-
     
     
 

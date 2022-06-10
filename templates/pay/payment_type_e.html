@@ -18,32 +18,35 @@
 
 
 <body>
-    <button type="button" name="btn_cancel_everything" class="btn_home">取消購票</button>
+    <div class="set_background_color">
 
-    <div class="date_time">
-        <div id="date"></div>
-        <div id="time"></div>
-    </div>
+        <button type="button" name="btn_cancel_everything" class="btn_home">取消購票</button>
 
-    <img src="../../../static/img/021 刷卡跟感應支付頁.png" class="pic_welcome" alt="payment_type">
+        <div class="date_time">
+            <div id="date"></div>
+            <div id="time"></div>
+        </div>
 
-    <div class="container-fluid">
-        <form id="form">
-            <div class="speech_bubble_ai speech_bubble_ai_welcome">
-                請問使用什麽電子支付？
-            </div>
+        <img src="../../../static/img/021 刷卡跟感應支付頁.png" class="pic_welcome" alt="payment_type">
 
-            <div class="speech_bubble_user speech_bubble_user_welcome">
-                blablabla
-            </div>
-                
-            <a href="/pay/e/e_pay">
-                <input type="button" class="btn_reply btn_reply_left btn_yellow" value="使用電子支付">
-            </a>
-            <a href="/pay/card/card_pay">
-                <input type="button" class="btn_reply btn_reply_right btn_orange" value="使用信用卡">
-            </a>
-        </form>
+        <div class="container-fluid">
+            <form id="form">
+                <div class="speech_bubble_ai speech_bubble_ai_welcome">
+                    請問使用什麽電子支付？
+                </div>
+
+                <div class="speech_bubble_user speech_bubble_user_welcome">
+                    blablabla
+                </div>
+                    
+                <a href="/pay/e/e_pay">
+                    <input type="button" class="btn_reply btn_reply_left btn_yellow" value="使用電子支付">
+                </a>
+                <a href="/pay/card/card_pay">
+                    <input type="button" class="btn_reply btn_reply_right btn_orange" value="使用信用卡">
+                </a>
+            </form>
+        </div>
     </div>
 
     
