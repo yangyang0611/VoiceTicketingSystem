@@ -1,5 +1,6 @@
 import voice_generate as voice
 import sys, os, csv, re
+from datetime import datetime
 sys.path.append("webclawer")
 from train import train, trainUtil
 from railway import Railway
@@ -111,6 +112,7 @@ def parse_v(result):
                 if not all_r["time"]:
                     all_r["time"] = r["time"]
 
+        # todo : mulit car type
         matches = []
         for car in all_car:
             if car in v:
@@ -131,11 +133,15 @@ def redirect_admin(session, result):
     cur_page = session["cur_page"]
     url = ""
     if cur_page == 1: 
-        if v_result["positive"]: url = "/buy_ticket_confirm"
-        else: url = "/"
+        # if v_result["positive"]: url = "/buy_ticket_confirm"
+        # else: url = "/"
+        if v_result["negative"]: url = "/"
+        else: url = "/buy_ticket_confirm"
     elif cur_page == 2: 
-        if v_result["positive"]: url = "/location/location"
-        else: url = "/"
+        # if v_result["positive"]: url = "/location/location"
+        # else: url = "/"
+        if v_result["negative"]: url = "/"
+        else: url = "/location/location"
     elif cur_page == 3:
         if v_result["station"] != "":
             session["station"] = v_result["station"]
@@ -143,17 +149,40 @@ def redirect_admin(session, result):
             url = "/location/confirm_location"
         else: url = "/location/location"
     elif cur_page == 5:
-        url = "/num/num"
+        # if v_result["positive"]: url = "/num/num"
+        # else: url = "/location/location"
+        if v_result["negative"]: url = "/location/location"
+        else: url = "/num/num"
     elif cur_page == 6:
-        session["num"] = 3
-        session["audio_ts"] = voice.g_007(session["num"])
-        url = "/num/confirm_num"
+        if v_result["num"] != -1:
+            session["num"] = v_result["num"]
+            session["audio_ts"] = voice.g_007(session["num"])
+            url = "/num/confirm_num"
+        else: url = "/num/num"
     elif cur_page == 7:
-        url = "/car/car"
+        # if v_result["positive"]: url = "/car/car"
+        # else: url = "/num/num"
+        if v_result["negative"]: url = "/num/num"
+        else: url = "/car/car"
     elif cur_page == 8:
-        session["car_type"] = ["自強","區間"]
-        session["hour"] = str(13).zfill(2)
-        session["min"] = str(6).zfill(2)
+        if v_result["car"] != "": session["car_type"] =  [v_result["car"]]
+        else: session["car_type"] = ["自強","區間","莒光","普悠瑪","太魯閣"]
+        
+        if v_result["time"]:
+            print(v_result["time"])
+            session["hour"] = str(v_result["time"]["hour"]).zfill(2)
+            session["min"] = str(v_result["time"]["min"]).zfill(2)
+        else:
+            now = datetime.now()
+            hour = now.hour
+            min = now.minute+30
+            if min >= 60: 
+                min -= 60
+                hour += 1
+            if hour >= 24: 
+                hour -= 24
+            session["hour"] = str(hour).zfill(2)
+            session["min"] = str(min).zfill(2)
 
         if int(session["min"]) >= 30: 
             search_start_min = "30"
@@ -181,15 +210,38 @@ def redirect_admin(session, result):
         session["audio_ts"] = voice.g_009(session["car_list"])
         url = "/car/recent_car"
     elif cur_page == 9:
-        url = "/car/top_3_car"
+        # if v_result["negative"]: url = "/car/top_3_car"
+        # else: 
+        #     session["select_car"] = session["car_list"][0]
+        #     url = "/num/num"
+        if v_result["positive"]:
+            session["select_car"] = session["car_list"][0]
+            url = "/num/num"
+        else: 
+            url = "/car/top_3_car"
     elif cur_page == 11:
-        session["select_car"] = session["car_list"][0]
-        session["audio_ts"] = voice.g_012(session["select_car"], session["num"])
-        url = "/car/confirm_car"
+        if v_result["num"] != -1:
+            if v_result["num"] == 1:
+                session["select_car"] = session["car_list"][0]
+            elif v_result["num"] == 2:
+                session["select_car"] = session["car_list"][1]
+            elif v_result["num"] == 3:
+                session["select_car"] = session["car_list"][2]
+            session["audio_ts"] = voice.g_012(session["select_car"], session["num"])
+            url = "/car/confirm_car"
+        else:
+            url = "/car/top_3_car"
     elif cur_page == 12:
-        url = "/type/type"
+        # if v_result["positive"]: url = "/type/type"
+        # else: url = "/car/top_3_car"
+        if v_result["negative"]: url = "/car/top_3_car"
+        else: url = "/type/type"
     elif cur_page == 13:
-        url = "/type/type_num"
+        # if v_result["positive"]: url = "/type/type_num"
+        # else: url = "/type/confirm_type"
+        if v_result["negative"]: url = "/type/confirm_type"
+        else: url = "/type/type_num"
+    # todo
     elif cur_page == 14:
         session["tickets"] = {
             "adult": 1,
