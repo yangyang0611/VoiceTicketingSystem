@@ -10,8 +10,7 @@ $(document).ready(function(){
     const audio = document.getElementById("player");
     audio.onloadedmetadata = function() {
         console.log('time:', audio.duration);
-        setTimeout(start_record, audio.duration * 1000+1000);
-        setTimeout(getbglevel, audio.duration * 1000+200);
+        setTimeout(start_record, audio.duration * 1000);
     };
 });
 
@@ -24,13 +23,15 @@ function setup() {
 
     // create a sound recorder
     recorder = new p5.SoundRecorder();
-    recorder.setInput(mic);
+    
     // create a buffer save the recording
     soundFile = new p5.SoundFile();
 
     // create a frequency spectrum
     fft = new p5.FFT();
-    fft.setInput(mic);
+
+    // set bg level
+    setTimeout(getbglevel, 1000);
 }
 
 function getbglevel() {
@@ -57,6 +58,11 @@ function stop_record() {
     if (state == 1) {
         if (!start_stopf && mic.getLevel() > bglevel*2) {
             console.log("START");
+            // set sound recorder
+            recorder.setInput(mic);
+            // set frequency spectrum
+            fft.setInput(mic);
+            // set buffer save the recording
             recorder.record(soundFile);
             start_stopf = true;
         }
@@ -93,6 +99,16 @@ function blobToFile(soundFile) {
         data: formData,
         processData: false,
         contentType: false,
+        beforeSend: function () {
+            Swal.fire({
+                title: '辨識中...',
+                allowEscapeKey: false,
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading()
+                }
+            });
+        }
     })
         .done(function (result) {
             console.log(result);

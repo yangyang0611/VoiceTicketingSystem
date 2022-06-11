@@ -4,6 +4,7 @@ from datetime import datetime
 sys.path.append("webclawer")
 from train import train, trainUtil
 from railway import Railway
+check_search_train_bool = False
 
 def get_city(station):
     station_r = {
@@ -113,6 +114,7 @@ def parse_v(result):
                     all_r["time"] = r["time"]
 
         # todo : mulit car type
+        
         matches = []
         for car in all_car:
             if car in v:
@@ -128,6 +130,7 @@ def parse_v(result):
 
 
 def redirect_admin(session, result):
+    global check_search_train_bool
     v_result = parse_v(result)
     print(session)
     cur_page = session["cur_page"]
@@ -165,15 +168,16 @@ def redirect_admin(session, result):
         if v_result["negative"]: url = "/num/num"
         else: url = "/car/car"
     elif cur_page == 8:
+        check_search_train_bool = True
         if v_result["car"] != "": session["car_type"] =  [v_result["car"]]
         else: session["car_type"] = ["自強","區間","莒光","普悠瑪","太魯閣"]
         
+        now = datetime.now()
         if v_result["time"]:
             print(v_result["time"])
             session["hour"] = str(v_result["time"]["hour"]).zfill(2)
             session["min"] = str(v_result["time"]["min"]).zfill(2)
         else:
-            now = datetime.now()
             hour = now.hour
             min = now.minute+30
             if min >= 60: 
@@ -183,6 +187,7 @@ def redirect_admin(session, result):
                 hour -= 24
             session["hour"] = str(hour).zfill(2)
             session["min"] = str(min).zfill(2)
+        session["date"] = now.strftime("%Y/%m/%d")
 
         if int(session["min"]) >= 30: 
             search_start_min = "30"
@@ -207,8 +212,11 @@ def redirect_admin(session, result):
         session["car_list"] = trainUtil.print_train_list(first_three)
         print(session["car_list"])
 
+        # todo : no car
+
         session["audio_ts"] = voice.g_009(session["car_list"])
         url = "/car/recent_car"
+        check_search_train_bool = False
     elif cur_page == 9:
         # if v_result["negative"]: url = "/car/top_3_car"
         # else: 
@@ -256,7 +264,9 @@ def redirect_admin(session, result):
     elif cur_page == 16:
         url = "/pay/payment_type_ask"
     elif cur_page == 18:
-        url = "/pay/cash/cash_total"
+        url = "/pay/payment_type_e"
+    elif cur_page == 21:
+        url = "/pay/card/card_pay"
 
 
     print(url)

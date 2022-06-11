@@ -236,7 +236,7 @@ class Railway(object):
     def filterByTrainCategory(self, category):
         return_list = []
         for t in self.train_list:
-             for c in category:
+            for c in category:
                 if (c == t.category):
                     return_list.append(t)
                     break

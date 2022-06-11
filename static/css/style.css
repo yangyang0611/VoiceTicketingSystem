@@ -1,8 +1,7 @@
 .set_background_color{
-    background: -webkit-linear-gradient(top, #f5f5f5 80%, white 40%);
+    background: -webkit-linear-gradient(top, #EFF5FB 80%, white 40%);
     height:1000px;
-    
-   }
+}
 
 #container {
     position: static;
@@ -10,6 +9,11 @@
     height: auto;
     margin: 2px 2px 2px 2px;
     border: 1px solid #C0C0C0;
+}
+
+.swal2-popup {
+    font-size: 32px !important;
+    padding: 1.25em 0em !important;
 }
 
 /* 貫穿所有頁面的屬性 */

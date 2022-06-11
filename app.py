@@ -143,7 +143,7 @@ def select_car_time_post():
     global session
     obj = request.get_json()
     print(obj)
-    session["car_type"] = obj["car_type"]
+    session["car_type"] = str(obj["car_type"]).split(',')
     session["hour"] = (obj["hour"]).zfill(2)
     session["min"] = (obj["min"]).zfill(2)
     session["date"] = obj["date"]
@@ -162,20 +162,16 @@ def select_car_time_post():
                       input_startTime=session["search_hour_min"], input_date=session["date"])
     railway.clickAllStep()
     print(session["car_type"])
-    car_type_str = session["car_type"]
-    car_type_list = re.split(',', car_type_str)
 
     # 挑選前3班車
-    railway.filterByTrainCategory(car_type_list)
+    railway.filterByTrainCategory(session["car_type"])
     first_three = railway.get_first_three()
     session["car_list"] = first_three
     # train_list = railway.get_train_list()
     session["car_list"] = trainUtil.print_train_list(first_three)
     print(session["car_list"])
 
-    
-        
-    # todo: if no train
+    # todo : no car
 
     # 挑選第一班
     # first = first_three[0]
@@ -210,6 +206,11 @@ def full_car():
 def no_car():
     return render_template("car/no_car.html")
 
+
+@app.route("/car/check_search_train")
+def check_search_train():
+    return str(p.check_search_train_bool), 200
+    
 
 @app.route("/car/top_3_car")
 def top_3_car():
@@ -317,7 +318,6 @@ def payment_type_ask():
 @app.route("/pay/cash/cash_total")
 def cash_total():
     global session
-    session["cur_page"] = 19
     adult = int(session["tickets"]["adult"])
     half = int(session["num"]) - adult
     session["total"] = int(int(session["select_car"]["total"]) * (adult + half*0.5))
@@ -352,6 +352,8 @@ def cash_change():
 
 @app.route("/pay/payment_type_e")
 def payment_type_e():
+    global session
+    session["cur_page"] = 21
     return render_template("pay/payment_type_e.html")
 
 # card
@@ -359,7 +361,14 @@ def payment_type_e():
 
 @app.route("/pay/card/card_pay")
 def card_pay():
-    return render_template("pay/card/card_pay.html")
+    global session
+    adult = int(session["tickets"]["adult"])
+    half = int(session["num"]) - adult
+    session["total"] = int(int(session["select_car"]["total"]) * (adult + half*0.5))
+    print(session["total"])
+    session["audio_ts"] = voice.g_022(session["total"])
+    return render_template("pay/card/card_pay.html",
+        audio_url=session["audio_ts"], total=session["total"])
 
 
 @app.route("/pay/card/card_pay_done")
@@ -371,7 +380,14 @@ def card_pay_done():
 
 @app.route("/pay/e/e_pay")
 def e_pay():
-    return render_template("pay/e/e_pay.html")
+    global session
+    adult = int(session["tickets"]["adult"])
+    half = int(session["num"]) - adult
+    session["total"] = int(int(session["select_car"]["total"]) * (adult + half*0.5))
+    print(session["total"])
+    session["audio_ts"] = voice.g_024(session["total"])
+    return render_template("pay/e/e_pay.html",
+        audio_url=session["audio_ts"], total=session["total"])
 
 
 @app.route("/pay/e/e_pay_done")

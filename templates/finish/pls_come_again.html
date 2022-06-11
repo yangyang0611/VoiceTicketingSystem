@@ -50,12 +50,8 @@ crossorigin="anonymous"></script>
         };
     });
     function go() {
+        window.sessionStorage.clear();
         window.location.href = "/";
-        window.sessionStorage.removeItem("station");
-        window.sessionStorage.removeItem("num");
-        window.sessionStorage.removeItem("hour");
-        window.sessionStorage.removeItem("min");
-        window.sessionStorage.removeItem("type");
     };
 </script>
 

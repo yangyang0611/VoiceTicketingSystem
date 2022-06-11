@@ -4,7 +4,7 @@ import subprocess
 from datetime import datetime
 
 ffmpeg_path = "C:/ffmpeg/bin/ffmpeg.exe"
-ffmpeg_path = "C:/Users/user/ffmpeg-5.0.1-full_build/bin/ffmpeg.exe"
+# ffmpeg_path = "C:/Users/user/ffmpeg-5.0.1-full_build/bin/ffmpeg.exe"
 
 subprocess.run([ffmpeg_path])
 root_path = os.path.dirname(os.path.abspath(__file__))
@@ -420,6 +420,84 @@ def g_020(num):
         f.write(f"file '{num_path}'\n")
         num_path = os.path.join(number_dir, "dollar.wav")
         f.write(f"file '{num_path}'\n")
+
+    system_path_out = os.path.join(syetem_dir, f"{ts}.wav")
+    subprocess.run([ffmpeg_path, "-y", "-f", "concat", "-safe", "0", "-i", "merge_list.txt", "-c:v", "copy", system_path_out])
+    return ts
+
+def g_022(num):
+    now = datetime.now()
+    ts = now.strftime("%Y%m%d%H%M%S%f")
+    thousand = int(num // 1000)
+    num %= 1000
+    hundred = int(num // 100)
+    num %= 100
+    num = int(num)
+
+    with open("merge_list.txt", "w") as f:
+        system_path = os.path.join(syetem_dir, "022_1.wav")
+        f.write(f"file '{system_path}'\n")
+
+        if (thousand):
+            num_path = os.path.join(number_dir, f"{thousand}.wav")
+            f.write(f"file '{num_path}'\n")
+            num_path = os.path.join(number_dir, "thousand.wav")
+            f.write(f"file '{num_path}'\n")
+
+        if (hundred):
+            num_path = os.path.join(number_dir, f"{hundred}.wav")
+            f.write(f"file '{num_path}'\n")
+            num_path = os.path.join(number_dir, "hundred.wav")
+            f.write(f"file '{num_path}'\n")
+
+        num_path = os.path.join(number_dir, f"{num}.wav")
+        f.write(f"file '{num_path}'\n")
+        num_path = os.path.join(number_dir, "dollar.wav")
+        f.write(f"file '{num_path}'\n")
+
+        f.write(f"file '{empty_path}'\n")
+
+        system_path = os.path.join(syetem_dir, "022_2.wav")
+        f.write(f"file '{system_path}'\n")
+
+    system_path_out = os.path.join(syetem_dir, f"{ts}.wav")
+    subprocess.run([ffmpeg_path, "-y", "-f", "concat", "-safe", "0", "-i", "merge_list.txt", "-c:v", "copy", system_path_out])
+    return ts
+
+def g_024(num):
+    now = datetime.now()
+    ts = now.strftime("%Y%m%d%H%M%S%f")
+    thousand = int(num // 1000)
+    num %= 1000
+    hundred = int(num // 100)
+    num %= 100
+    num = int(num)
+
+    with open("merge_list.txt", "w") as f:
+        system_path = os.path.join(syetem_dir, "024_1.wav")
+        f.write(f"file '{system_path}'\n")
+
+        if (thousand):
+            num_path = os.path.join(number_dir, f"{thousand}.wav")
+            f.write(f"file '{num_path}'\n")
+            num_path = os.path.join(number_dir, "thousand.wav")
+            f.write(f"file '{num_path}'\n")
+
+        if (hundred):
+            num_path = os.path.join(number_dir, f"{hundred}.wav")
+            f.write(f"file '{num_path}'\n")
+            num_path = os.path.join(number_dir, "hundred.wav")
+            f.write(f"file '{num_path}'\n")
+
+        num_path = os.path.join(number_dir, f"{num}.wav")
+        f.write(f"file '{num_path}'\n")
+        num_path = os.path.join(number_dir, "dollar.wav")
+        f.write(f"file '{num_path}'\n")
+
+        f.write(f"file '{empty_path}'\n")
+
+        system_path = os.path.join(syetem_dir, "024_2.wav")
+        f.write(f"file '{system_path}'\n")
 
     system_path_out = os.path.join(syetem_dir, f"{ts}.wav")
     subprocess.run([ffmpeg_path, "-y", "-f", "concat", "-safe", "0", "-i", "merge_list.txt", "-c:v", "copy", system_path_out])

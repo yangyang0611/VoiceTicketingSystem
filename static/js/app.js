@@ -1,4 +1,3 @@
-// const { default: swal } = require("sweetalert");
 
 // ##############################
 //           show args
@@ -422,13 +421,8 @@ $("button[name='btn_cancel_everything']").click(function(){
       })
       .then((result) => {
         if (result.isConfirmed) {
+            window.sessionStorage.clear();
             window.location.href = "/";
-            window.sessionStorage.removeItem("station")
-            window.sessionStorage.removeItem("num")
-            window.sessionStorage.removeItem("hour")
-            window.sessionStorage.removeItem("min")
-            window.sessionStorage.removeItem("car")
-            window.sessionStorage.removeItem("type")
         } else {
 
         }
