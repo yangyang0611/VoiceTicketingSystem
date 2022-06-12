@@ -1,6 +1,7 @@
 from selenium import webdriver
 from pyquery import PyQuery as pq
 from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.options import Options
 import time
 from tabulate import tabulate
 from train import train
@@ -23,9 +24,15 @@ class Railway(object):
         self.count2 = 0
         print(os.path.join(dir, "chromedriver.exe"))
         self.driver = webdriver.Chrome(os.path.join(dir, "chromedriver.exe"))
+
+        self.chrome_options = Options()
+        self.chrome_options.add_argument("--headless")
+        self.chrome_options.add_argument("--disable-gpu")
+        
+        self.driver = webdriver.Chrome(os.path.join(dir, "chromedriver.exe"), chrome_options=self.chrome_options)
+
         self.url = "https://tip.railway.gov.tw/tra-tip-web/tip/tip001/tip112/gobytime"
-        self.driver.get(
-            "https://tip.railway.gov.tw/tra-tip-web/tip/tip001/tip112/gobytime")
+        self.driver.get(self.url)
 
         self.html = self.driver.find_element_by_css_selector(
             "*").get_attribute("outerHTML")

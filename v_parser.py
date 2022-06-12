@@ -1,3 +1,4 @@
+from asyncio.windows_events import NULL
 import voice_generate as voice
 import sys, os, csv, re
 from datetime import datetime
@@ -46,9 +47,17 @@ with open(csv_path, newline='\n', encoding='utf-8-sig') as csvfile:
         all_number[i[1]] = i[7]
 print(all_number)
 
+number_14 = {
+    "一": 1,
+    "二": 2,
+    "兩": 2,
+    "三": 3,
+    "四": 4,
+}
+
 all_car = ["自強", "區間", "莒光", "普悠瑪", "太魯閣"]
-negative = ["無", "毋", "莫", "袂", "免", "有問題"]
-positive = ["好", "是", "欲", "愛", "著", "有", "嘿", "會", "無問題"]
+negative = ["bo", "m", "mai", "be", "bian"]
+positive = ["ho", "si", "beh", "ai", "tioh", "u", "heh", "e"]
 
 def parse_v(result):
     print(result[:3])
@@ -58,40 +67,48 @@ def parse_v(result):
         "station": "",
         "num": -1,
         "time": {},
-        "car": ""
+        "car": [],
+        "pay": ""
     }
     for v in result[:3]:
         r = {
             "negative": False,
             "positive": False,
             "station": "",
+            "num": -1,
             "time": {},
-            "car": ""
+            "car": [],
+            "pay": ""
         }
-        if any(x in v for x in negative):
+
+        pinyin_list = re.findall(r'([a-z]+)\*', v)
+        if len(set(pinyin_list) & set(negative)) != 0:
             r["negative"] = True
             all_r["negative"] = True
-        elif any(x in v for x in positive):
+        elif len(set(pinyin_list) & set(positive)) != 0:
             r["positive"] = True
             all_r["positive"] = True
 
+        # 第一個偵測到的車站
         matches = []
         for station in all_station:
             if station in v:
                 matches.append(station)
         if len(matches) > 0: 
             r["station"] = matches[-1]
-            if all_r["station"] == "": all_r["station"] = matches[-1]
+            if all_r["station"] == "": all_r["station"] = r["station"]
 
+        # 第一個偵測到的數字
         matches = []
-        for num_str, num in all_number.items():
+        for num_str, num in number_14.items():
             if num_str in v:
                 matches.append(int(num))
         if len(matches) > 0: 
             r["num"] = matches[-1]
-            if all_r["num"] == -1: all_r["num"] = matches[-1]
+            if all_r["num"] == -1: all_r["num"] = r["num"]
         
-        matchObj = re.search( r'([一二三四五六七八九十]+).*點([一,二,三,四,五,六,七,八,九,十,整]+)', v)
+        # 第一個偵測到的時間
+        matchObj = re.search( r'([一二三四五六七八九十]+).*點([半]?)', v)
         if matchObj:
             hour = -1
             min = -1
@@ -99,11 +116,13 @@ def parse_v(result):
             if matchObj.group(1) in all_number:
                 matches.append(all_number[matchObj.group(1)])
             if len(matches) > 0: hour = matches[-1]
+
             matches = []
-            if matchObj.group(2) in all_number:
-                matches.append(all_number[matchObj.group(2)])
+            if matchObj.group(2) == "":
+                matches.append(0)
+            else:
+                matches.append(30)
             if len(matches) > 0: min = matches[-1]
-            elif matchObj.group(2) == "整": min = 0
 
             if hour != -1 and min != -1:
                 r["time"] = {
@@ -113,15 +132,23 @@ def parse_v(result):
                 if not all_r["time"]:
                     all_r["time"] = r["time"]
 
-        # todo : mulit car type
-        
+        # 聽到的所有車種
         matches = []
         for car in all_car:
             if car in v:
                 matches.append(car)
         if len(matches) > 0: 
-            r["car"] = matches[-1]
-            if all_r["car"] == "": all_r["car"] = matches[-1]
+            r["car"] = matches
+            all_r["car"] = list(set(all_r["car"]).union(set(r["car"])))
+
+        # E 金融
+        matches = []
+        for pay in ["信用卡", "行動支付"]:
+            if pay in v:
+                matches.append(pay)
+        if len(matches) > 0: 
+            r["pay"] = matches[-1]
+            if all_r["pay"] == -1: all_r["pay"] = r["pay"]
 
         print(r)
 
@@ -143,7 +170,7 @@ def redirect_admin(session, result):
     elif cur_page == 2: 
         # if v_result["positive"]: url = "/location/location"
         # else: url = "/"
-        if v_result["negative"]: url = "/"
+        if v_result["negative"]: url = "/buy_ticket_confirm"
         else: url = "/location/location"
     elif cur_page == 3:
         if v_result["station"] != "":
@@ -169,7 +196,7 @@ def redirect_admin(session, result):
         else: url = "/car/car"
     elif cur_page == 8:
         check_search_train_bool = True
-        if v_result["car"] != "": session["car_type"] =  [v_result["car"]]
+        if len(v_result["car"]) != 0: session["car_type"] =  v_result["car"]
         else: session["car_type"] = ["自強","區間","莒光","普悠瑪","太魯閣"]
         
         now = datetime.now()
@@ -221,17 +248,17 @@ def redirect_admin(session, result):
             
         check_search_train_bool = False
     elif cur_page == 9:
-        # if v_result["negative"]: url = "/car/top_3_car"
-        # else: 
-        #     session["select_car"] = session["car_list"][0]
-        #     url = "/num/num"
-        if v_result["positive"]:
+        if v_result["negative"]: url = "/car/top_3_car"
+        else: 
             session["select_car"] = session["car_list"][0]
             url = "/num/num"
-        else: 
-            url = "/car/top_3_car"
+        # if v_result["positive"]:
+        #     session["select_car"] = session["car_list"][0]
+        #     url = "/num/num"
+        # else: 
+        #     url = "/car/top_3_car"
     elif cur_page == 11:
-        if v_result["num"] != -1:
+        if v_result["num"] == 1 or v_result["num"] == 2 or v_result["num"] == 3:
             if v_result["num"] == 1:
                 session["select_car"] = session["car_list"][0]
             elif v_result["num"] == 2:
@@ -252,24 +279,29 @@ def redirect_admin(session, result):
         # else: url = "/type/confirm_type"
         if v_result["negative"]: url = "/type/confirm_type"
         else: url = "/type/type_num"
-    # todo
     elif cur_page == 14:
+        # 一定買老人票
         session["tickets"] = {
-            "adult": 1,
-            "old": 1,
-            "child": 1,
-            "love": 1,
+            "adult": 0,
+            "old": session["num"],
+            "child": 0,
+            "love": 0,
         }
         session["audio_ts"] = voice.g_015(session["tickets"])
         url = "/type/confirm_type"
     elif cur_page == 15:
-        url = "/confirm/confirm_everything"
+        if v_result["negative"]: url = "/type/type"
+        else: url = "/confirm/confirm_everything"
     elif cur_page == 16:
+        # 一定沒問題
         url = "/pay/payment_type_ask"
     elif cur_page == 18:
-        url = "/pay/payment_type_e"
+        if v_result["negative"]: url = "/pay/payment_type_e"
+        else: url = "/pay/cash/cash_total"
     elif cur_page == 21:
-        url = "/pay/card/card_pay"
+        if v_result["pay"] == "信用卡": url = "/pay/card/card_pay"
+        elif v_result["pay"] == "行動支付": url = "/pay/e/e_pay"
+        else: url = "/pay/payment_type_e"
 
 
     print(url)
@@ -279,4 +311,4 @@ def redirect_admin(session, result):
     }
 
 if __name__ == "__main__":
-    parse_v(["ori:1.愛桃園二十點三十分區間 tho* hng*", " 2.無園一自強十一點整 ngoo* hng*"])
+    parse_v(["ori:1.臺北二十點區間 ho* hng*", " 2.臺中自強十一點 m* hng*"])
