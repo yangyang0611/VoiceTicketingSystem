@@ -172,6 +172,14 @@ def select_car_time_post():
     print(session["car_list"])
 
     # todo : no car
+    
+    if(session["car_list"] == None):
+        print("no car ohno")
+        print(session["car_list"])
+        return {"status": "no car"}
+    else:
+        session["audio_ts"] = voice.g_009(session["car_list"])
+        return {"status": "success"} # no car
 
     # 挑選第一班
     # first = first_three[0]
@@ -185,8 +193,7 @@ def select_car_time_post():
     #     {"hour": "16", "min": "40", "car": "區間", "total": "666"},
     #     {"hour": "22", "min": "00", "car": "莒光", "total": "852"},
     # ]
-    session["audio_ts"] = voice.g_009(session["car_list"])
-    return {"status": "success"}
+    
 
 
 @app.route("/car/recent_car")

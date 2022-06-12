@@ -30,8 +30,8 @@
     background: #004DA5;
     color: white;
 	border-radius: .4em;
-    width: 500px;
-    font-size: 32px;
+    width: 700px;
+    font-size: 45px;
     padding-top: 10px;
     padding-bottom: 10px;
     text-align: center;
@@ -60,7 +60,7 @@
 	border-radius: .4em;
     height: 100px;
     width: 400px;
-    font-size: 32px;
+    font-size: 45px;
     padding-top: 10px;
     padding-bottom: 10px;
     text-align: center;
@@ -86,7 +86,7 @@
     width: 531px;
     height: 79px;
     border-radius: 52px;
-    font-size: 32px;
+    font-size: 45px;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
     border-color: #E6EAEF;
     font-size: 32px;
@@ -158,7 +158,7 @@
 .ticket_box {
     position: relative;
     width: 688px;
-    height: 701px;
+    height: 740px;
     left: 751px;
     top: 104px;
     border-radius: 37px;
@@ -168,8 +168,9 @@
 h3 {
     position: absolute;
     font-weight: 700;
-    font-size: 36px;
-    left: 290px;
+    font-size: 45px;
+    text-align: center;
+    left: 240px;
     top: 40px;
 }
 
@@ -182,15 +183,15 @@ h3 {
     top: 155px;
     left: 55px;
     font-weight: 700;
-    font-size: 36px;
+    font-size: 45px;
 }
 
 location {
     position: absolute;
     top: 155px;
-    left: 300px;
+    left: 250px;
     font-weight: 700;
-    font-size: 36px;
+    font-size: 45px;
 }
 
 .res_num {
@@ -198,15 +199,15 @@ location {
     top: 249px;
     left: 73px;
     font-weight: 700;
-    font-size: 36px;
+    font-size: 45px;
 }
 
 num {
     position: absolute;
     top: 249px;
-    left: 300px;
+    left: 250px;
     font-weight: 700;
-    font-size: 36px;
+    font-size: 45px;
 }
 
 .res_car {
@@ -214,15 +215,15 @@ num {
     top: 343px;
     left: 73px;
     font-weight: 700;
-    font-size: 36px;
+    font-size: 45px;
 }
 
 car {
     position: absolute;
     top: 343px;
-    left: 300px;
+    left: 250px;
     font-weight: 700;
-    font-size: 36px;
+    font-size: 45px;
 }
 
 .res_type {
@@ -230,15 +231,15 @@ car {
     top: 437px;
     left: 73px;
     font-weight: 700;
-    font-size: 36px;
+    font-size: 45px;
 }
 
 type {
     position: absolute;
     top: 437px;
-    left: 300px;
+    left: 250px;
     font-weight: 700;
-    font-size: 36px;
+    font-size: 45px;
 }
 
 .btn_yellow {
@@ -273,17 +274,17 @@ type {
 .btn_edit {
     position: absolute;
     font-weight: 700;
-    font-size: 20px;
+    font-size: 30px;
     border-radius: 43.5px;
     width: 120px;
-    height: 47px;
+    height: 50px;
     background: #E6EAEF;
     border-color: #E6EAEF;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
 }
 
 .btn_edit_location {
-    top: 155px;
+    top: 165px;
     left: 531px;
 }
 
@@ -308,8 +309,8 @@ type {
 }
 
 .speech_bubble_user_page {
-    top: 400px;
-    left: 600px;
+    top: 600px;
+    left: 680px;
 }
 
 /* select_xxx */
@@ -318,7 +319,7 @@ type {
     top: 50%;
     left: 50%;
     width: 1000px;
-    height: 824px;
+    height: 860px;
     transform: translate(-50%, -50%);
     border-radius: 20px;
     background-color: bisque;
@@ -328,8 +329,8 @@ type {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 740px;
-    height: 354px;
+    width: 1000px;
+    height: 450px;
     transform: translate(-50%, -50%);
     border-radius: 20px;
     background-color: bisque;
@@ -341,7 +342,7 @@ h2 {
     left: 50%;
     transform: translate(-50%, -50%);
     font-weight: 600;
-    font-size: 36px;
+    font-size: 45px;
 }
 
 h4 {
@@ -349,7 +350,15 @@ h4 {
     margin-top: 60px;
     margin-bottom: 40px;
     font-weight: 600;
-    font-size: 36px;
+    font-size: 45px;
+}
+
+h5 {
+    margin-left: 380px;
+    margin-top: 60px;
+    margin-bottom: 40px;
+    font-weight: 600;
+    font-size: 45px;
 }
 
 
@@ -366,12 +375,12 @@ h4 {
 .btn_ok_cancel {
     position: absolute;
     width: 120px;
-    height: 42px;
+    height: 50px;
     border-radius: 20px;
     border-color: #E6EAEF;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
     font-weight: 700;
-    font-size: 24px;
+    font-size: 30px;
 }
 
 .btn_cancel {
@@ -430,14 +439,15 @@ h4 {
     margin-top: 180px;
 }
 .btn_loc {
-    width: 127px;
-    height: 41px;
+    width: 150px;
+    height: 60px;
+    padding-bottom: 20px;
     border-radius: 16px;
     background-color: #EFF5FB;
     border-color: #E6EAEF;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
     margin-bottom: 15px;
-    font-size: 20px;
+    font-size: 30px;
     font-weight: 700;
 }
 .btn_loc_enable {
@@ -544,23 +554,32 @@ h4 {
 }
 
 /* pay */
+.btn_mistery {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    height: 200px;
+    width: 200px;
+    opacity: 0;
+}
+
 .pic_pay {
     position: absolute;
     top: 200px;
-    left: 400px;
+    left: 300px;
 }
 
 .speech_bubble_pay {
     position: absolute;
     top: 350px;
-    left: 1200px;
+    left: 1100px;
 }
 
 .pay_detail {
     position: absolute;
     top: 650px;
-    left: 1250px;
-    font-size: 36px;
+    left: 1160px;
+    font-size: 50px;
     font-weight: 700;
     color: #FFB13C;
 }
@@ -581,7 +600,7 @@ h4 {
 .finish_detail {
     position: absolute;
     top: 750px;
-    left: 680px;
-    font-size: 48px;
+    left: 700px;
+    font-size: 50px;
     font-weight: 700;
 }

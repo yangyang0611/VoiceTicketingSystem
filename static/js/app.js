@@ -338,6 +338,7 @@ $("button[name='btn_edit_loc']").click(function(){
       .then((result) => {
         if (result.isConfirmed) {
             window.location.href = "/location/select_location";
+            window.sessionStorage.clear();
         } else {
 
         }
@@ -359,6 +360,7 @@ $("button[name='btn_edit_num']").click(function(){
       .then((result) => {
         if (result.isConfirmed) {
             window.location.href = "/num/select_num";
+            window.sessionStorage.removeItem("car");
         } else {
 
         }
@@ -380,6 +382,7 @@ $("button[name='btn_edit_car']").click(function(){
       .then((result) => {
         if (result.isConfirmed) {
             window.location.href = "/car/select_car_time";
+            window.sessionStorage.removeItem("type");
         } else {
 
         }

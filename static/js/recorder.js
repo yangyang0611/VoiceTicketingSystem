@@ -101,7 +101,7 @@ function blobToFile(soundFile) {
         contentType: false,
         beforeSend: function () {
             Swal.fire({
-                title: '辨識中...',
+                title: '輸入中...',
                 allowEscapeKey: false,
                 allowOutsideClick: false,
                 didOpen: () => {

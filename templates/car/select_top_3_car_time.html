@@ -53,9 +53,9 @@ crossorigin="anonymous"></script>
     var car_list = JSON.parse(window.sessionStorage.getItem("car_list"));
     console.log(car_list);
 
-    $("top1Car").text(`${car_list[0]['hour']}:${car_list[0]['min']} ${car_list[0]['car']}`);
-    $("top2Car").text(`${car_list[1]['hour']}:${car_list[1]['min']} ${car_list[1]['car']}`);
-    $("top3Car").text(`${car_list[2]['hour']}:${car_list[2]['min']} ${car_list[2]['car']}`);
+    $("top1Car").text(`${car_list[0]['hour'].toString().padStart(2, "0")}:${car_list[0]['min'].toString().padStart(2, "0")} ${car_list[0]['car']}`);
+    $("top2Car").text(`${car_list[1]['hour'].toString().padStart(2, "0")}:${car_list[1]['min'].toString().padStart(2, "0")} ${car_list[1]['car']}`);
+    $("top3Car").text(`${car_list[2]['hour'].toString().padStart(2, "0")}:${car_list[2]['min'].toString().padStart(2, "0")} ${car_list[2]['car']}`);
 </script>
 <script>
     $("button[name='confirm_car']").click(function () {

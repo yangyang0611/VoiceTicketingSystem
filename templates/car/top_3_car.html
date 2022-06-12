@@ -37,7 +37,7 @@
     <div class="container">
         <form id="form">
             <div class="ticket_box">
-                <h3>車票</h3>
+                <h3>臺灣鐵路局</h3>
                 
                 
                 <div class="res_location">目的地</div>
@@ -92,9 +92,9 @@ crossorigin="anonymous"></script>
     console.log(car_list);
     
     var temp = `
-    第一班：${car_list[0]['hour']}:${car_list[0]['min']} ${car_list[0]['car']}、<br>
-    第二班：${car_list[1]['hour']}:${car_list[1]['min']} ${car_list[1]['car']}、<br>
-    第三班：${car_list[2]['hour']}:${car_list[2]['min']} ${car_list[2]['car']}、<br>
+    第一班：${car_list[0]['hour'].toString().padStart(2, "0")}:${car_list[0]['min'].toString().padStart(2, "0")} ${car_list[0]['car']}、<br>
+    第二班：${car_list[1]['hour'].toString().padStart(2, "0")}:${car_list[1]['min'].toString().padStart(2, "0")} ${car_list[1]['car']}、<br>
+    第三班：${car_list[2]['hour'].toString().padStart(2, "0")}:${car_list[2]['min'].toString().padStart(2, "0")} ${car_list[2]['car']}、<br>
     請問您要坐那一班？
     `;
     console.log(temp);

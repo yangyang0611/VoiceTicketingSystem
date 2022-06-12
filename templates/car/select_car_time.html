@@ -90,6 +90,11 @@
                     if (result["status"] == "success"){
                         console.log("select_car_time is clicked, searching car");
                         window.location.href = "/car/recent_car";
+                        // no car
+                    }
+                    if (result["status"] == "no car") {
+                        console.log("return 'no car' to html")
+                        window.location.href = "/car/no_car"
                     }
                 })
                 .fail(function () {

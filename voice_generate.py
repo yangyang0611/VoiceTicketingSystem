@@ -3,8 +3,8 @@ import glob
 import subprocess
 from datetime import datetime
 
-ffmpeg_path = "C:/ffmpeg/bin/ffmpeg.exe"
-# ffmpeg_path = "C:/Users/user/ffmpeg-5.0.1-full_build/bin/ffmpeg.exe"
+# ffmpeg_path = "C:/ffmpeg/bin/ffmpeg.exe"
+ffmpeg_path = "C:/Users/user/ffmpeg-5.0.1-full_build/bin/ffmpeg.exe"
 
 subprocess.run([ffmpeg_path])
 root_path = os.path.dirname(os.path.abspath(__file__))
@@ -100,7 +100,7 @@ def g_009(car_list):
             car_path = os.path.join(car_dir, "car2.wav")
         elif car == "自強": 
             car_path = os.path.join(car_dir, "car3.wav")
-        elif car == "普悠號": 
+        elif car == "普悠瑪": 
             car_path = os.path.join(car_dir, "car4.wav")
         elif car == "太魯閣": 
             car_path = os.path.join(car_dir, "car5.wav")
@@ -152,7 +152,7 @@ def g_011(car_list):
                 car_path = os.path.join(car_dir, "car2.wav")
             elif car == "自強": 
                 car_path = os.path.join(car_dir, "car3.wav")
-            elif car == "普悠號": 
+            elif car == "普悠瑪": 
                 car_path = os.path.join(car_dir, "car4.wav")
             elif car == "太魯閣": 
                 car_path = os.path.join(car_dir, "car5.wav")
@@ -199,7 +199,7 @@ def g_012(select_car, num):
             car_path = os.path.join(car_dir, "car2.wav")
         elif car == "自強": 
             car_path = os.path.join(car_dir, "car3.wav")
-        elif car == "普悠號": 
+        elif car == "普悠瑪": 
             car_path = os.path.join(car_dir, "car4.wav")
         elif car == "太魯閣": 
             car_path = os.path.join(car_dir, "car5.wav")
@@ -307,7 +307,7 @@ def g_016(station, select_car, tickets):
             car_path = os.path.join(car_dir, "car2.wav")
         elif car == "自強": 
             car_path = os.path.join(car_dir, "car3.wav")
-        elif car == "普悠號": 
+        elif car == "普悠瑪": 
             car_path = os.path.join(car_dir, "car4.wav")
         elif car == "太魯閣": 
             car_path = os.path.join(car_dir, "car5.wav")

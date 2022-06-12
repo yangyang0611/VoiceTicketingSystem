@@ -212,10 +212,13 @@ def redirect_admin(session, result):
         session["car_list"] = trainUtil.print_train_list(first_three)
         print(session["car_list"])
 
-        # todo : no car
-
-        session["audio_ts"] = voice.g_009(session["car_list"])
-        url = "/car/recent_car"
+        # no car
+        if(session["car_list"] == None):
+            url = "/car/no_car"
+        else:
+            session["audio_ts"] = voice.g_009(session["car_list"])
+            url = "/car/recent_car" 
+            
         check_search_train_bool = False
     elif cur_page == 9:
         # if v_result["negative"]: url = "/car/top_3_car"

@@ -26,7 +26,7 @@
     
     <img class="pic_in_page" src="../../../static/img/008 009 010 011 012車次.png" alt="ask_location">
     <div class="speech_bubble_ai speech_bubble_ai_page">
-        幾點的火車？
+        請問您要坐幾點的火車？
     </div>
     
     <div class="speech_bubble_user speech_bubble_user_page">
@@ -37,7 +37,7 @@
     
     <div class="container">
         <div class="ticket_box">
-            <h3>車票</h3>
+            <h3>臺灣鐵路局</h3>
             
             <div class="res_location">目的地</div>
             <location></location>
@@ -106,7 +106,7 @@ crossorigin="anonymous"></script>
             dataType: "json",
             beforeSend: function () {
                 Swal.fire({
-                    title: '搜尋車班中...',
+                    title: '搜尋車次中...',
                     allowEscapeKey: false,
                     allowOutsideClick: false,
                     didOpen: () => {
@@ -119,6 +119,8 @@ crossorigin="anonymous"></script>
                 console.log(result);
                 if (result["status"] == "success")
                     window.location.href = "/car/recent_car";
+                if (result["status"] == "no car")
+                    window.location.href = "/car/no_car";
             })
             .fail(function () {
             })
@@ -139,7 +141,7 @@ crossorigin="anonymous"></script>
                     if (result == "True") {
                         firstheckSearchTrain = false;
                         Swal.fire({
-                            title: '搜尋車班中...',
+                            title: '搜尋車次中...',
                             allowEscapeKey: false,
                             allowOutsideClick: false,
                             didOpen: () => {
