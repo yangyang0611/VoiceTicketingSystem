@@ -69,7 +69,7 @@ function stop_record() {
 
         if (start_stopf && mic.getLevel() < bglevel*2) stop_count += 1;
 
-        if (stop_count > 100) {
+        if (stop_count > 50) {
             state = 2;
             console.log("STOP");
             recorder.stop();

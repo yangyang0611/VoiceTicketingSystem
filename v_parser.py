@@ -64,13 +64,14 @@ def parse_v(result):
     all_r = {
         "negative": False,
         "positive": False,
+        "yn_measure": 0,
         "station": "",
         "num": -1,
         "time": {},
         "car": [],
         "pay": ""
     }
-    for v in result[:3]:
+    for v in result[:5]:
         r = {
             "negative": False,
             "positive": False,
@@ -85,9 +86,11 @@ def parse_v(result):
         if len(set(pinyin_list) & set(negative)) != 0:
             r["negative"] = True
             all_r["negative"] = True
+            all_r["yn_measure"] -= 1
         elif len(set(pinyin_list) & set(positive)) != 0:
             r["positive"] = True
             all_r["positive"] = True
+            all_r["yn_measure"] += 1
 
         # 第一個偵測到的車站
         matches = []
@@ -148,7 +151,7 @@ def parse_v(result):
                 matches.append(pay)
         if len(matches) > 0: 
             r["pay"] = matches[-1]
-            if all_r["pay"] == -1: all_r["pay"] = r["pay"]
+            if all_r["pay"] == "": all_r["pay"] = r["pay"]
 
         print(r)
 
@@ -163,38 +166,41 @@ def redirect_admin(session, result):
     cur_page = session["cur_page"]
     url = ""
     if cur_page == 1: 
-        # if v_result["positive"]: url = "/buy_ticket_confirm"
-        # else: url = "/"
-        if v_result["negative"]: url = "/"
+        # "/"
+        # if v_result["yn_measure"] < 0: url = "/"
+        if not v_result["positive"]: url = "/"
         else: url = "/buy_ticket_confirm"
     elif cur_page == 2: 
-        # if v_result["positive"]: url = "/location/location"
-        # else: url = "/"
-        if v_result["negative"]: url = "/buy_ticket_confirm"
+        # "/buy_ticket_confirm"
+        # if v_result["yn_measure"] < 0: url = "/buy_ticket_confirm"
+        if not v_result["positive"]: url = "/buy_ticket_confirm"
         else: url = "/location/location"
     elif cur_page == 3:
-        if v_result["station"] != "":
+        # "/location/location"
+        if v_result["station"] == "": url = "/location/location"
+        else:
             session["station"] = v_result["station"]
             session["audio_ts"] = voice.g_005(session["station"])
             url = "/location/confirm_location"
-        else: url = "/location/location"
     elif cur_page == 5:
-        # if v_result["positive"]: url = "/num/num"
-        # else: url = "/location/location"
-        if v_result["negative"]: url = "/location/location"
+        # "/location/confirm_location"
+        # if v_result["yn_measure"] < 0: url = "/location/location"
+        if not v_result["positive"]: url = "/location/location"
         else: url = "/num/num"
     elif cur_page == 6:
-        if v_result["num"] != -1:
+        # "/num/num"
+        if v_result["num"] == -1: url = "/num/num"
+        else:
             session["num"] = v_result["num"]
             session["audio_ts"] = voice.g_007(session["num"])
-            url = "/num/confirm_num"
-        else: url = "/num/num"
+            url = "/num/confirm_num" 
     elif cur_page == 7:
-        # if v_result["positive"]: url = "/car/car"
-        # else: url = "/num/num"
-        if v_result["negative"]: url = "/num/num"
+        # "/num/confirm_num"
+        # if v_result["yn_measure"] < 0: url = "/num/num"
+        if not v_result["positive"]: url = "/num/num"
         else: url = "/car/car"
     elif cur_page == 8:
+        # "/car/car"
         check_search_train_bool = True
         if len(v_result["car"]) != 0: session["car_type"] =  v_result["car"]
         else: session["car_type"] = ["自強","區間","莒光","普悠瑪","太魯閣"]
@@ -248,17 +254,17 @@ def redirect_admin(session, result):
             
         check_search_train_bool = False
     elif cur_page == 9:
-        if v_result["negative"]: url = "/car/top_3_car"
+        # "/car/recent_car"
+        if not v_result["positive"]: url = "/car/top_3_car"
         else: 
             session["select_car"] = session["car_list"][0]
-            url = "/num/num"
-        # if v_result["positive"]:
-        #     session["select_car"] = session["car_list"][0]
-        #     url = "/num/num"
-        # else: 
-        #     url = "/car/top_3_car"
+            session["audio_ts"] = voice.g_012(session["select_car"], session["num"])
+            url = "/car/confirm_car"
     elif cur_page == 11:
-        if v_result["num"] == 1 or v_result["num"] == 2 or v_result["num"] == 3:
+        # "/car/top_3_car"
+        if v_result["num"] < 1 or v_result["num"] > 3:
+            url = "/car/top_3_car"
+        else:
             if v_result["num"] == 1:
                 session["select_car"] = session["car_list"][0]
             elif v_result["num"] == 2:
@@ -267,19 +273,23 @@ def redirect_admin(session, result):
                 session["select_car"] = session["car_list"][2]
             session["audio_ts"] = voice.g_012(session["select_car"], session["num"])
             url = "/car/confirm_car"
-        else:
-            url = "/car/top_3_car"
     elif cur_page == 12:
-        # if v_result["positive"]: url = "/type/type"
-        # else: url = "/car/top_3_car"
-        if v_result["negative"]: url = "/car/top_3_car"
+        # "/car/confirm_car"
+        if not v_result["positive"]: url = "/car/top_3_car"
         else: url = "/type/type"
     elif cur_page == 13:
-        # if v_result["positive"]: url = "/type/type_num"
-        # else: url = "/type/confirm_type"
-        if v_result["negative"]: url = "/type/confirm_type"
+        # "/type/type"
+        if not v_result["positive"]: 
+            session["tickets"] = {
+                "adult": session["num"],
+                "old": 0,
+                "child": 0,
+                "love": 0,
+            }
+            url = "/type/confirm_type"
         else: url = "/type/type_num"
     elif cur_page == 14:
+        # "/type/type_num"
         # 一定買老人票
         session["tickets"] = {
             "adult": 0,
@@ -290,15 +300,19 @@ def redirect_admin(session, result):
         session["audio_ts"] = voice.g_015(session["tickets"])
         url = "/type/confirm_type"
     elif cur_page == 15:
-        if v_result["negative"]: url = "/type/type"
+        # "/type/confirm_type"
+        if not v_result["positive"]: url = "/type/type"
         else: url = "/confirm/confirm_everything"
     elif cur_page == 16:
+        # "/confirm/confirm_everything"
         # 一定沒問題
         url = "/pay/payment_type_ask"
     elif cur_page == 18:
-        if v_result["negative"]: url = "/pay/payment_type_e"
+        # "/pay/payment_type_ask"
+        if not v_result["positive"]: url = "/pay/payment_type_e"
         else: url = "/pay/cash/cash_total"
     elif cur_page == 21:
+        # "/pay/payment_type_e"
         if v_result["pay"] == "信用卡": url = "/pay/card/card_pay"
         elif v_result["pay"] == "行動支付": url = "/pay/e/e_pay"
         else: url = "/pay/payment_type_e"
