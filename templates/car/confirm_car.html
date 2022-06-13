@@ -93,7 +93,7 @@ crossorigin="anonymous"></script>
     var select_car = JSON.parse(window.sessionStorage.getItem("select_car"));
     console.log(select_car);
     
-    var temp=`${select_car['hour']}:${select_car['min']} ${select_car['car']}`
+    var temp=`${select_car['hour'].toString().padStart(2,"0")}:${select_car['min'].toString().padStart(2,"0")} ${select_car['car']}`
     console.log(temp);
 
     $("car").text(temp);

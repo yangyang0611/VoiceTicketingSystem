@@ -31,14 +31,14 @@ if (window.sessionStorage.getItem("num") != null) {
 }
 if (window.sessionStorage.getItem("car_list") != null) {
         var car_list = JSON.parse(window.sessionStorage.getItem("car_list"));
-        var temp=`${car_list[0]['hour']}:${car_list[0]['min']} ${car_list[0]['car']}`;
+        var temp=`${car_list[0]['hour'].toString().padStart(2,"0")}:${car_list[0]['min'].toString().padStart(2,"0")} ${car_list[0]['car']}`;
         console.log(temp);
         $("car").text(temp);
         $("carSpeech").text(temp);
     }
 if (window.sessionStorage.getItem("select_car") != null) {
         var select_car = JSON.parse(window.sessionStorage.getItem("select_car"));
-        var temp=`${select_car['hour']}:${select_car['min']} ${select_car['car']}`;
+        var temp=`${select_car['hour'].toString().padStart(2,"0")}:${select_car['min'].toString().padStart(2,"0")} ${select_car['car']}`;
         console.log(temp);
         $("car").text(temp);
         $("carSpeech").text(temp);

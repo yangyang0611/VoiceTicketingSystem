@@ -208,6 +208,8 @@ def redirect_admin(session, result):
         now = datetime.now()
         if v_result["time"]:
             print(v_result["time"])
+            if (now.hour > int(v_result["time"]["hour"])):
+                v_result["time"]["hour"] = str(int(v_result["time"]["hour"]) + 12)
             session["hour"] = str(v_result["time"]["hour"]).zfill(2)
             session["min"] = str(v_result["time"]["min"]).zfill(2)
         else:
