@@ -2,19 +2,19 @@
 An automatic subway ticketing machine that can be controlled by voice.
 
 ## Table of Content
-- [Intallation](#Installation)
-- [Motivation](#Motivation)
-- [Architecture](#Architecture)
+- [Installation](#installation)
+- [Motivation](#motivation)
+- [Architecture](#architecture)
   - [自動偵測技術](#自動偵測技術)
   - [獨立空間](#獨立空間)
   - [主視覺配色](#主視覺配色)
-- [Feature](#Feature)
-- [Prototype](#Prototype)
-- [Web Design](#Web Design)
-- [語音介面設計（Voice User Interfaces, VUI）](#語音介面設計（Voice User Interfaces, VUI）)
+- [Feature](#feature)
+- [Prototype](#prototype)
+- [Web Design](#web-design)
+- [語音介面設計（Voice User Interfaces, VUI）](#語音介面設計-voice-user-interfaces-vui)
 - [硬體裝置](#硬體裝置)
 - [放置地點](#放置地點)
-- [Future Work](#Future Work)
+- [Future Work](#future-work)
 - [操作範例](#操作範例)
 
 ## Installation
@@ -50,9 +50,19 @@ python app.py
 
 
 ## Feature
-此售票機包含的功能如下圖所示。其中，車次可以依照時間及車種進行搜尋。
-
 ![](https://i.imgur.com/Tm5NR2B.png)
+
+此售票機包含的功能如圖所示。其中，車次可以依照時間及車種進行搜尋。搜索方式是使用selenium爬蟲程式對[台灣鐵路時刻表](https://tip.railway.gov.tw/tra-tip-web/tip/tip001/tip112/gobytime)進行爬蟲。
+
+![image](https://user-images.githubusercontent.com/46195804/173881352-8bfc9da1-25e1-4919-a7e8-38d08d09b258.png)
+
+- **搜索最近一班**
+爬蟲程式會根據使用者給定的時間，推薦最近的一班車次。
+
+- **搜索指定時間/車次**
+爬蟲程式會依據使用者給定的車次/時間，推薦最符合條件的`前3班`車次，并且依照`最快抵達時間`進行排序。
+
+考慮到使用族群包含年長者，因此設定此機器不售賣`發車前30分鐘`的車票。假設使用者連續詢問3次都找尋不到喜歡的車次，則啓動連綫櫃檯服務人員進行遠程協助；倘若使用者在購票過程中也會連續3輪都無法進行下一步（卡在原地3次），則也會觸發遠端真人服務連綫。
 
 ## Prototype
 這是網頁的界面呈現樣式。
@@ -64,7 +74,7 @@ python app.py
 
 ![](https://i.imgur.com/IqMVPJR.png)
 
-## 語音介面設計（Voice User Interfaces, VUI）
+## 語音介面設計 (Voice User Interfaces, VUI)
 語音的用詞與畫面顯示的文字是區隔開來的。這是因爲我們的目標臺語使用族群會習慣看中文文字，但搭配臺語語音。
 
 ![](https://i.imgur.com/PKf1ZIx.png)
@@ -93,5 +103,8 @@ python app.py
 3. 多國語言對話
 4. Hardkey大顆按鈕，確定為藍色，否定為紅色
 5. 硬體裝置限制
+6. 透過地點找尋離地點最近的火車站
+7. 附上抵達時間，頁面可分開顯示（點選一個發車、顯示一個抵達）
+8. 車次推薦規則需要參考臺鐵内部SOP流程(重要)
 
 ## 操作範例
