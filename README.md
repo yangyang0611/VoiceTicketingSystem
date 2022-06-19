@@ -108,3 +108,4 @@ python app.py
 8. 車次推薦規則需要參考臺鐵内部SOP流程(重要)
 
 ## 操作範例
+[臺鐵語音火車售票機demo影片](https://youtu.be/b_ZXO2HMm64)
