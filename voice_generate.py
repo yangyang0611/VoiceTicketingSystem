@@ -3,8 +3,8 @@ import glob
 import subprocess
 from datetime import datetime
 
-ffmpeg_path = "C:/ffmpeg/bin/ffmpeg.exe"
-# ffmpeg_path = "C:/Users/user/ffmpeg-5.0.1-full_build/bin/ffmpeg.exe"
+#ffmpeg_path = "C:/ffmpeg/bin/ffmpeg.exe"
+ffmpeg_path = "C:/Users/user/ffmpeg-5.0.1-full_build/bin/ffmpeg.exe"
 
 subprocess.run([ffmpeg_path])
 root_path = os.path.dirname(os.path.abspath(__file__))
