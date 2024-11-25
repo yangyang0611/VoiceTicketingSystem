@@ -1,5 +1,5 @@
 # Taiwanese Voice Ticketing System
-An automatic subway ticketing machine that can be controlled by voice.
+An automatic subway ticketing machine that can be controlled by voice. 
 
 ## Table of Content
 - [Installation](#installation)
